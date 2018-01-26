@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="Hibernate">
+<dataSource name="defaultPersistenceUnit/Hibernate">
   <database-model serializer="dbm" rdbms="MYSQL" format-version="4.7">
     <root id="1">
       <DefaultCasing>mixed/mixed</DefaultCasing>
     </root>
     <schema id="2" parent="1" name="Bilet">
+      <Current>1</Current>
       <Visible>1</Visible>
       <Collation>latin1_swedish_ci</Collation>
     </schema>
     <schema id="3" parent="1" name="J2EELab">
-      <Current>1</Current>
       <Collation>utf8_general_ci</Collation>
     </schema>
     <schema id="4" parent="1" name="MovieReview">
@@ -991,11 +991,10 @@
       <ColNames>email</ColNames>
       <UnderlyingIndexName>Member_email_uindex</UnderlyingIndexName>
     </key>
-    <column id="246" parent="232" name="sid">
+    <column id="246" parent="232" name="vid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="247" parent="232" name="name">
@@ -1011,17 +1010,18 @@
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="249" parent="232" name="vid">
+    <column id="249" parent="232" name="sid">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="250" parent="232" name="Seat_sid_uindex">
       <ColNames>sid</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="251" parent="232" name="FK274225DD370367">
+    <index id="251" parent="232" name="Seat_Venue_vid_fk">
       <ColNames>vid</ColNames>
     </index>
     <key id="252" parent="232" name="PRIMARY">
@@ -1033,59 +1033,41 @@
       <ColNames>sid</ColNames>
       <UnderlyingIndexName>Seat_sid_uindex</UnderlyingIndexName>
     </key>
-    <foreign-key id="254" parent="232" name="FK274225DD370367">
-      <ColNames>vid</ColNames>
-      <RefSchemaName>Bilet</RefSchemaName>
-      <RefTableName>Venue</RefTableName>
-      <RefColNames>vid</RefColNames>
-    </foreign-key>
-    <foreign-key id="255" parent="232" name="Seat_Venue_vid_fk">
+    <foreign-key id="254" parent="232" name="Seat_Venue_vid_fk">
       <ColNames>vid</ColNames>
       <RefSchemaName>bilet</RefSchemaName>
       <RefTableName>Venue</RefTableName>
       <RefColNames>vid</RefColNames>
     </foreign-key>
-    <column id="256" parent="233" name="vid">
+    <column id="255" parent="233" name="vid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="257" parent="233" name="address">
+    <column id="256" parent="233" name="address">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="258" parent="233" name="isPassed">
+    <column id="257" parent="233" name="isPassed">
       <Position>3</Position>
       <DataType>tinyint(1)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="233" name="name">
-      <Position>4</Position>
-      <DataType>varchar(255)|0</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="260" parent="233" name="password">
-      <Position>5</Position>
-      <DataType>varchar(255)|0</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="261" parent="233" name="Venue_vid_uindex">
+    <index id="258" parent="233" name="Venue_vid_uindex">
       <ColNames>vid</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="262" parent="233" name="PRIMARY">
+    <key id="259" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>vid</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="263" parent="233" name="Venue_vid_uindex">
+    <key id="260" parent="233" name="Venue_vid_uindex">
       <ColNames>vid</ColNames>
       <UnderlyingIndexName>Venue_vid_uindex</UnderlyingIndexName>
     </key>

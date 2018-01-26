@@ -35,9 +35,7 @@
             <label for="bankAccount">银行账户</label>
             <input type="text" class="form-control" id="bankAccount" name="bankAccount" placeholder="请输入银行账户"/>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-sm btn-success">注册</button>
-        </div>
+        <button type="submit" class="btn btn-sm btn-success">注册</button>
     </form:form>
 </div>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->

@@ -13,10 +13,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>SpringMVC 用户详情</title>
+    <title>Bilet 用户详情</title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <![endif]-->
 </head>
 <body>
 <div class="container">
@@ -28,15 +27,15 @@
             <td>${user.mid}</td>
         </tr>
         <tr>
-            <th>Email</th>
+            <th>邮箱</th>
             <td>${user.email}</td>
         </tr>
         <tr>
-            <th>BankAccount</th>
+            <th>银行账户</th>
             <td>${user.bankAccount}</td>
         </tr>
         <tr>
-            <th>Password</th>
+            <th>密码</th>
             <td>${user.password}</td>
         </tr>
     </table>

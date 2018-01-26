@@ -21,9 +21,9 @@
 </head>
 <body>
 <div class="container">
-    <h1>SpringMVC 更新用户信息</h1>
+    <h1>Bilet 更新用户信息</h1>
     <hr/>
-    <form:form action="/admin/members/updateP" method="post" commandName="memberP" role="form">
+    <form:form action="/admin/members/updateP" method="post" role="form">
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email:" value="${user.email}"/>
