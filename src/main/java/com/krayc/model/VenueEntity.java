@@ -1,10 +1,13 @@
 package com.krayc.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "Venue", schema = "Bilet", catalog = "")
+@Table(name = "Venue", schema = "Bilet")
 public class VenueEntity {
     private int vid;
     private String address;
@@ -12,6 +15,7 @@ public class VenueEntity {
     private String name;
     private String password;
     private Collection<SeatEntity> seatsByVid;
+    private Collection<EventEntity> eventsByVid;
 
     @Id
     @Column(name = "vid")
@@ -90,11 +94,22 @@ public class VenueEntity {
     }
 
     @OneToMany(mappedBy = "venueId", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     public Collection<SeatEntity> getSeatsByVid() {
         return seatsByVid;
     }
 
     public void setSeatsByVid(Collection<SeatEntity> seatsByVid) {
         this.seatsByVid = seatsByVid;
+    }
+
+    @OneToMany(mappedBy = "venueId", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    public Collection<EventEntity> getEventsByVid() {
+        return eventsByVid;
+    }
+
+    public void setEventsByVid(Collection<EventEntity> eventsByVid) {
+        this.eventsByVid = eventsByVid;
     }
 }

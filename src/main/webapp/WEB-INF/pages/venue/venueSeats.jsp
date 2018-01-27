@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bilet 座位详情</title>
+    <title>Bilet 座位管理</title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
@@ -26,7 +26,8 @@
     <hr/>
     <c:if test="${empty seats}">
         <div class="alert alert-warning" role="alert">
-            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>没有座位，请<a href="/venue/${venue.vid}/seats/add" type="button" class="btn btn-primary btn-sm">添加</a>
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>没有座位，请<a
+                href="/venue/${venue.vid}/seats/add" type="button" class="btn btn-primary btn-sm">添加</a>
         </div>
     </c:if>
     <c:if test="${!empty seats}">
@@ -43,8 +44,10 @@
                     <td>${seat.name}</td>
                     <td>${seat.number}</td>
                     <td>
-                        <a href="/venue/${venue.vid}/seats/update/${seat.sid}" type="button" class="btn btn-sm btn-warning">修改</a>
-                        <a href="/venue/${venue.vid}/seats/delete/${seat.sid}" type="button" class="btn btn-sm btn-danger">删除</a>
+                        <a href="/venue/${venue.vid}/seats/update/${seat.sid}" type="button"
+                           class="btn btn-sm btn-warning">修改</a>
+                        <a href="/venue/${venue.vid}/seats/delete/${seat.sid}" type="button"
+                           class="btn btn-sm btn-danger">删除</a>
                     </td>
                 </tr>
             </c:forEach>

@@ -3,7 +3,7 @@ package com.krayc.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Member", schema = "Bilet", catalog = "")
+@Table(name = "Member", schema = "Bilet")
 public class MemberEntity {
     private int mid;
     private String email;

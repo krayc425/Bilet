@@ -17,7 +17,6 @@
     <title>Bilet 更新座位</title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <![endif]-->
 </head>
 <body>
 <div class="container">

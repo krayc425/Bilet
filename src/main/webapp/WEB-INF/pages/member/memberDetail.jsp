@@ -21,6 +21,9 @@
 <div class="container">
     <h1>Bilet 用户详情</h1>
     <hr/>
+    <a href="/member/update/${user.mid}" type="button" class="btn btn-warning btn-sm">修改信息</a>
+    <a href="/member/terminate/${user.mid}" type="button" class="btn btn-danger btn-sm">取消资格</a>
+    <hr/>
     <table class="table table-bordered table-striped">
         <tr>
             <th>ID</th>

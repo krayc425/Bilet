@@ -35,7 +35,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="/member/login">会员登录</a></li>
                     <li><a href="/venue/login">场馆登录</a></li>
-                    <li><a href="#">管理员登录</a></li>
+                    <li><a href="/admin/login">管理员登录</a></li>
                 </ul>
             </div>
             <div class="btn-group">

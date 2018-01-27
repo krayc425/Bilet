@@ -1,10 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: Kray
-  Date: 2018/1/25
-  Time: 15:08
+  Date: 2018/1/26
+  Time: 20:01
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -13,35 +14,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bilet 用户详情</title>
+    <title>Bilet 管理员首页</title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
-    <h1>Bilet 用户详情</h1>
+    <h1>Bilet 管理员首页</h1>
     <hr/>
-    <a href="/member/update/${user.mid}" type="button" class="btn btn-warning btn-sm">修改信息</a>
-    <a href="/member/terminate/${user.mid}" type="button" class="btn btn-danger btn-sm">取消资格</a>
+    <h2>欢迎您！${admin.username}</h2>
     <hr/>
-    <table class="table table-bordered table-striped">
-        <tr>
-            <th>ID</th>
-            <td>${user.mid}</td>
-        </tr>
-        <tr>
-            <th>邮箱</th>
-            <td>${user.email}</td>
-        </tr>
-        <tr>
-            <th>银行账户</th>
-            <td>${user.bankAccount}</td>
-        </tr>
-        <tr>
-            <th>密码</th>
-            <td>${user.password}</td>
-        </tr>
-    </table>
+    <a href="/admin/venues" type="button" class="btn btn-default btn-sm">审核场地信息</a>
 </div>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="/assets/jquery-3.3.1.min.js"></script>

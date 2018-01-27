@@ -21,32 +21,35 @@
 <div class="container">
     <h1>Bilet 场馆详情</h1>
     <hr/>
+    <a href="/venue/${venue.vid}/events" type="button" class="btn btn-default btn-sm">管理活动</a>
+    <a href="/venue/update/${venue.vid}" type="button" class="btn btn-warning btn-sm">修改场馆信息</a>
+    <hr/>
     <table class="table table-bordered table-striped">
         <tr>
             <th>识别码</th>
-            <td>${user.vid}</td>
+            <td>${venue.vid}</td>
         </tr>
         <tr>
             <th>名称</th>
-            <td>${user.name}</td>
+            <td>${venue.name}</td>
         </tr>
         <tr>
             <th>地址</th>
-            <td>${user.address}</td>
+            <td>${venue.address}</td>
         </tr>
         <tr>
             <th>密码</th>
-            <td>${user.password}</td>
+            <td>${venue.password}</td>
         </tr>
         <tr>
             <th>是否通过</th>
-            <td>${user.isPassed}</td>
+            <td>${venue.isPassed}</td>
         </tr>
         <tr>
             <th>座位</th>
             <td>
-                <p>${user.seatsByVid.size()} 个</p>
-                <a class="btn btn-default" href="/venue/${user.vid}/seats" role="button">查看详情</a>
+                <p>${venue.seatsByVid.size()} 个</p>
+                <a class="btn btn-default" href="/venue/${venue.vid}/seats" role="button">查看详情</a>
             </td>
         </tr>
     </table>

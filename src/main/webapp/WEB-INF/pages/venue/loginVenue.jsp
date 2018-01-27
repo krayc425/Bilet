@@ -24,8 +24,8 @@
     <hr/>
     <form:form action="/venue/loginPost" method="post" role="form">
         <div class="form-group">
-            <label for="email">7 位识别码</label>
-            <input type="text" class="form-control" id="email" name="email" placeholder="请输入识别码"/>
+            <label for="vid">7 位识别码</label>
+            <input type="text" class="form-control" id="vid" name="vid" placeholder="请输入识别码"/>
         </div>
         <div class="form-group">
             <label for="password">密码</label>

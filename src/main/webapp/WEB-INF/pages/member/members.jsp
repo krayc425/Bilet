@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Bilet -用户管理</h1>
+    <h1>Bilet 用户管理</h1>
     <hr/>
     <h3>所有用户 <a href="/admin/members/add" type="button" class="btn btn-primary btn-sm">添加</a></h3>
     <!-- 如果用户列表为空 -->
