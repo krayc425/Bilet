@@ -24,7 +24,7 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/venue/${venue.vid}/events">返回</a>
+            <a class="navbar-brand" href="/venue/${vid}/events">返回</a>
         </div>
     </div>
 </nav>
@@ -32,7 +32,7 @@
 <div class="container">
     <h1>Bilet 添加活动</h1>
     <hr/>
-    <form:form action="/venue/${venue.vid}/events/addPost" method="post" role="form">
+    <form:form action="/venue/${vid}/events/addPost" method="post" role="form">
         <div class="form-group">
             <label for="name">名字</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="请输入活动名字"/>

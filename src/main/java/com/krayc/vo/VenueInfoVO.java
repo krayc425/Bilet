@@ -1,0 +1,70 @@
+package com.krayc.vo;
+
+import com.krayc.model.VenueEntity;
+
+public class VenueInfoVO {
+
+    private String vid;
+    private String address;
+    private String isPassed;
+    private String name;
+    private int seatsNumber;
+    private int eventsNumber;
+
+    public VenueInfoVO(VenueEntity venueEntity) {
+        this.vid = String.format("%07d", venueEntity.getVid());
+        this.address = venueEntity.getAddress();
+        this.isPassed = venueEntity.getIsPassed() == Byte.valueOf("1") ? "审核通过" : "尚未通过";
+        this.name = venueEntity.getName();
+        this.seatsNumber = venueEntity.getSeatsByVid().size();
+        this.eventsNumber = venueEntity.getEventsByVid().size();
+    }
+
+    public String getVid() {
+        return vid;
+    }
+
+    public void setVid(String vid) {
+        this.vid = vid;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getIsPassed() {
+        return isPassed;
+    }
+
+    public void setIsPassed(String isPassed) {
+        this.isPassed = isPassed;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSeatsNumber() {
+        return seatsNumber;
+    }
+
+    public void setSeatsNumber(int seatsNumber) {
+        this.seatsNumber = seatsNumber;
+    }
+
+    public int getEventsNumber() {
+        return eventsNumber;
+    }
+
+    public void setEventsNumber(int eventsNumber) {
+        this.eventsNumber = eventsNumber;
+    }
+}

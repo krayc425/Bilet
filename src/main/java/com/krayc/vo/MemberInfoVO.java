@@ -6,16 +6,26 @@ public class MemberInfoVO {
     private String email;
     private String bankAccount;
     private String level;
+    private int point;
     private String isTerminated;
     private String isEmailPassed;
 
-    public MemberInfoVO(int mid, String email, String bankAccount, String level, String isTerminated, String isEmailPassed) {
+    public MemberInfoVO(int mid, String email, String bankAccount, String level, int point, String isTerminated, String isEmailPassed) {
         this.mid = mid;
         this.email = email;
         this.bankAccount = bankAccount;
         this.level = level;
+        this.point = point;
         this.isTerminated = isTerminated;
         this.isEmailPassed = isEmailPassed;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 
     public int getMid() {

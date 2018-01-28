@@ -24,7 +24,7 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/venue/show/${venue.vid}">返回</a>
+            <a class="navbar-brand" href="/venue/show/${vid}">返回</a>
         </div>
     </div>
 </nav>
@@ -32,12 +32,12 @@
 <div class="container">
     <h1>Bilet 活动管理</h1>
     <hr/>
-    <a href="/venue/${venue.vid}/events/add" type="button" class="btn btn-primary btn-sm">添加</a>
+    <a href="/venue/${vid}/events/add" type="button" class="btn btn-primary btn-sm">添加</a>
     <hr/>
     <c:if test="${empty events}">
         <div class="alert alert-warning" role="alert">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>没有活动，请<a
-                href="/venue/${venue.vid}/events/add" type="button" class="btn btn-primary btn-sm">添加</a>
+                href="/venue/${vid}/events/add" type="button" class="btn btn-primary btn-sm">添加</a>
         </div>
     </c:if>
     <c:if test="${!empty events}">
@@ -54,12 +54,11 @@
                 <tr>
                     <td>${event.eid}</td>
                     <td>${event.name}</td>
-                    <%--<td>${eventTypes.get(event.type - 1).name}</td>--%>
-                    <td>${event.eventTypeEntity.name}</td>
+                    <td>${event.eventType}</td>
                     <td>${event.time}</td>
                     <td>${event.description}</td>
                     <td>
-                        <a class="btn btn-default" href="/venue/${venue.vid}/events/${event.eid}/seats" role="button">座位管理</a>
+                        <a class="btn btn-default" href="/venue/${vid}/events/${event.eid}/seats" role="button">座位管理</a>
                     </td>
                 </tr>
             </c:forEach>

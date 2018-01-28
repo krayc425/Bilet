@@ -23,7 +23,7 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/venue/show/${venue.vid}">返回</a>
+            <a class="navbar-brand" href="/venue/show/${vid}">返回</a>
         </div>
     </div>
 </nav>
@@ -31,12 +31,12 @@
 <div class="container">
     <h1>Bilet 座位管理</h1>
     <hr/>
-    <a href="/venue/${venue.vid}/seats/add" type="button" class="btn btn-primary btn-sm">添加</a>
+    <a href="/venue/${vid}/seats/add" type="button" class="btn btn-primary btn-sm">添加</a>
     <hr/>
     <c:if test="${empty seats}">
         <div class="alert alert-warning" role="alert">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>没有座位，请<a
-                href="/venue/${venue.vid}/seats/add" type="button" class="btn btn-primary btn-sm">添加</a>
+                href="/venue/${vid}/seats/add" type="button" class="btn btn-primary btn-sm">添加</a>
         </div>
     </c:if>
     <c:if test="${!empty seats}">
@@ -53,9 +53,9 @@
                     <td>${seat.name}</td>
                     <td>${seat.number}</td>
                     <td>
-                        <a href="/venue/${venue.vid}/seats/update/${seat.sid}" type="button"
+                        <a href="/venue/${vid}/seats/update/${seat.sid}" type="button"
                            class="btn btn-sm btn-warning">修改</a>
-                        <a href="/venue/${venue.vid}/seats/delete/${seat.sid}" type="button"
+                        <a href="/venue/${vid}/seats/delete/${seat.sid}" type="button"
                            class="btn btn-sm btn-danger">删除</a>
                     </td>
                 </tr>

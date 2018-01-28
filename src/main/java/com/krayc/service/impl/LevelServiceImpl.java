@@ -1,7 +1,8 @@
-package com.krayc.service;
+package com.krayc.service.impl;
 
 import com.krayc.model.LevelEntity;
 import com.krayc.repository.LevelRepository;
+import com.krayc.service.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

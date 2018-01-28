@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping(value = "member")
 public class MemberController {
 
     @Autowired
@@ -29,18 +30,18 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @RequestMapping(value = "/member/add", method = RequestMethod.GET)
+    @RequestMapping(value = "add", method = RequestMethod.GET)
     public String addMember() {
         return "member/addMember";
     }
 
-    @RequestMapping(value = "/member/addPost", method = RequestMethod.POST)
+    @RequestMapping(value = "addPost", method = RequestMethod.POST)
     public String addMemberPost(@ModelAttribute("member") MemberEntity memberEntity) {
         memberService.addMember(memberEntity);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/member/show/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "show/{id}", method = RequestMethod.GET)
     public String showMember(@PathVariable("id") Integer mid, ModelMap modelMap) {
         MemberEntity memberEntity1 = memberService.findByMid(mid);
         MemberInfoVO memberInfoVO = new MemberInfoVO(
@@ -48,6 +49,7 @@ public class MemberController {
                 memberEntity1.getEmail(),
                 memberEntity1.getBankAccount(),
                 levelService.findLevelEntityWithPoint(memberEntity1.getPoint()).getDescription(),
+                memberEntity1.getPoint(),
                 memberEntity1.getIsTerminated() == Byte.valueOf("1") ? "已被注销" : "可以使用",
                 memberEntity1.getIsEmailPassed() == Byte.valueOf("1") ? "已经激活" : "尚未激活");
         modelMap.addAttribute("member", memberInfoVO);
@@ -57,19 +59,21 @@ public class MemberController {
         return "member/memberDetail";
     }
 
-    @RequestMapping(value = "/member/login", method = RequestMethod.GET)
+    @RequestMapping(value = "login", method = RequestMethod.GET)
     public String loginMember() {
         return "member/loginMember";
     }
 
-    @RequestMapping(value = "/member/loginPost", method = RequestMethod.POST)
+    @RequestMapping(value = "loginPost", method = RequestMethod.POST)
     public String loginMemberPost(@ModelAttribute("member") MemberEntity memberEntity, HttpServletRequest request) {
         switch (memberService.login(memberEntity)) {
             case LOGIN_SUCCESS:
-                HttpSession session = request.getSession(false);
-                session.setAttribute("member", memberEntity);
+                MemberEntity memberEntity1 = memberService.findByEmail(memberEntity.getEmail());
 
-                return "redirect:/member/show/" + memberEntity.getMid();
+                HttpSession session = request.getSession(false);
+                session.setAttribute("member", memberEntity1);
+
+                return "redirect:/member/show/" + memberEntity1.getMid();
             case LOGIN_NOT_ACTIVATED:
                 System.out.println("Not activated");
                 return "redirect:/";
@@ -84,7 +88,7 @@ public class MemberController {
         }
     }
 
-    @RequestMapping(value = "/member/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logoutMember(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         session.setAttribute("member", null);
@@ -92,7 +96,7 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/member/activate/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "activate/{id}", method = RequestMethod.GET)
     public String activateMember(@PathVariable("id") Integer mid, ModelMap modelMap) {
         MemberEntity memberEntity = memberService.findByMid(mid);
         if (memberEntity.getIsEmailPassed() == 1) {
@@ -103,7 +107,7 @@ public class MemberController {
         return "redirect:/member/show/" + mid;
     }
 
-    @RequestMapping(value = "/member/update/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
     public String updateUser(@PathVariable("id") Integer userId, ModelMap modelMap) {
         MemberEntity memberEntity = memberService.findByMid(userId);
         MemberUpdateVO memberUpdateVO = new MemberUpdateVO(memberEntity.getMid(), memberEntity.getBankAccount(), memberEntity.getPassword());
@@ -112,14 +116,14 @@ public class MemberController {
         return "member/updateMember";
     }
 
-    @RequestMapping(value = "/member/updatePost/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "updatePost/{id}", method = RequestMethod.POST)
     public String updateUserPost(@PathVariable("id") Integer userId, @ModelAttribute("memberP") MemberEntity user) {
         user.setMid(userId);
         memberService.updateMember(user);
         return "redirect:/member/show/" + userId;
     }
 
-    @RequestMapping(value = "/member/terminate/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "terminate/{id}", method = RequestMethod.GET)
     public String terminateUser(@PathVariable("id") Integer userid) {
         memberService.terminateMember(userid);
         return "redirect:/";

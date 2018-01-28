@@ -13,6 +13,8 @@ public interface MemberService {
 
     public MemberEntity findByMid(Integer mid);
 
+    public MemberEntity findByEmail(String email);
+
     public LoginStatus login(MemberEntity memberEntity);
 
     public void addMember(MemberEntity memberEntity);

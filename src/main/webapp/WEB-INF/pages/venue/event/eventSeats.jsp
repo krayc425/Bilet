@@ -33,8 +33,8 @@
     <hr/>
     <c:if test="${eventSeats.size() != venue.seatsByVid.size()}">
         <a href="/venue/${venue.vid}/events/${event.eid}/seats/add" type="button" class="btn btn-primary btn-sm">添加</a>
+        <hr/>
     </c:if>
-    <hr/>
     <c:if test="${empty eventSeats}">
         <div class="alert alert-warning" role="alert">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>没有活动座位，请<a

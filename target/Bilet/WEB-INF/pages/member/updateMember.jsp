@@ -23,7 +23,7 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/member/show/${user.mid}">返回</a>
+            <a class="navbar-brand" href="/member/show/${member.mid}">返回</a>
         </div>
     </div>
 </nav>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Kray
@@ -23,7 +24,6 @@
     <hr/>
     <h2>欢迎您！${venue.name}</h2>
     <hr/>
-    <a href="/venue/${venue.vid}/events" type="button" class="btn btn-default btn-sm">管理活动</a>
     <a href="/venue/update/${venue.vid}" type="button" class="btn btn-warning btn-sm">修改场馆信息</a>
     <hr/>
     <table class="table table-bordered table-striped">
@@ -40,18 +40,25 @@
             <td>${venue.address}</td>
         </tr>
         <tr>
-            <th>密码</th>
-            <td>${venue.password}</td>
-        </tr>
-        <tr>
-            <th>是否通过</th>
+            <th>是否通过审核</th>
             <td>${venue.isPassed}</td>
         </tr>
         <tr>
             <th>座位</th>
             <td>
-                ${venue.seatsByVid.size()} 个
-                <a class="btn btn-default" href="/venue/${venue.vid}/seats" role="button">查看详情</a>
+                ${venue.seatsNumber} 个
+                <c:if test="${!venue.isPassed.equals('尚未通过')}">
+                    <a class="btn btn-default" href="/venue/${venue.vid}/seats" role="button">管理座位</a>
+                </c:if>
+            </td>
+        </tr>
+        <tr>
+            <th>活动</th>
+            <td>
+                ${venue.eventsNumber} 个
+                <c:if test="${!venue.isPassed.equals('尚未通过')}">
+                    <a class="btn btn-default" href="/venue/${venue.vid}/events" role="button">管理活动</a>
+                </c:if>
             </td>
         </tr>
     </table>

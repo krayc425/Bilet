@@ -45,6 +45,9 @@
             <input type="text" class="form-control" id="address" name="address" placeholder="请输入地址" value="${venue.address}"/>
         </div>
         <input type="hidden" id="vid" name="vid" value="${venue.vid}"/>
+        <hr/>
+        <b>注意：一旦更新场馆信息，需要重新等待管理员审核通过后才能进行发布活动等其他操作！</b>
+        <hr/>
         <div class="form-group">
             <label for="vid"></label>
             <button type="submit" class="btn btn-sm btn-success">提交</button>

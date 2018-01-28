@@ -33,7 +33,7 @@
     <hr/>
     <!-- 如果用户列表为空 -->
     <c:if test="${empty venueList}">
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-success" role="alert">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>没有待审核的场地信息
         </div>
     </c:if>

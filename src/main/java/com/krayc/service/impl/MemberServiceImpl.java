@@ -1,7 +1,8 @@
-package com.krayc.service;
+package com.krayc.service.impl;
 
 import com.krayc.model.MemberEntity;
 import com.krayc.repository.MemberRepository;
+import com.krayc.service.MemberService;
 import com.krayc.util.LoginStatus;
 import io.github.biezhi.ome.OhMyEmail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findOne(mid);
     }
 
+    public MemberEntity findByEmail(String email) {
+        return memberRepository.findByEmail(email);
+    }
 
     public LoginStatus login(MemberEntity memberEntity) {
         MemberEntity anotherEntity = memberRepository.findByEmail(memberEntity.getEmail());

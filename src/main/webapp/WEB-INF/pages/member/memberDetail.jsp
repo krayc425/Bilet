@@ -29,10 +29,6 @@
     <a href="/member/update/${member.mid}" type="button" class="btn btn-warning btn-sm">修改信息</a>
     <hr/>
     <table class="table table-bordered table-striped">
-        <%--<tr>--%>
-        <%--<th>ID</th>--%>
-        <%--<td>${member.mid}</td>--%>
-        <%--</tr>--%>
         <tr>
             <th>邮箱</th>
             <td>${member.email}</td>
@@ -41,10 +37,10 @@
             <th>银行账户</th>
             <td>${member.bankAccount}</td>
         </tr>
-        <%--<tr>--%>
-        <%--<th>密码</th>--%>
-        <%--<td>${member.password}</td>--%>
-        <%--</tr>--%>
+        <tr>
+            <th>积分</th>
+            <td>${member.point}</td>
+        </tr>
         <tr>
             <th>等级</th>
             <td>${member.level}</td>
