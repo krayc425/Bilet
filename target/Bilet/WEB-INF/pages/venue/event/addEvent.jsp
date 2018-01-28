@@ -20,6 +20,15 @@
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
 <body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/venue/${venue.vid}/events">返回</a>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
     <h1>Bilet 添加活动</h1>
     <hr/>
@@ -33,11 +42,11 @@
             <input type="text" class="form-control" id="description" name="description" placeholder="请输入活动描述"/>
         </div>
         <div class="form-group">
-            <label for="type">种类</label>
-            <select class="form-control" id="type" name="type">
+            <label>种类</label>
+            <select class="form-control" name="eventTypeEntity">
                 <c:forEach items="${eventTypes}" var="eventType">
                     <option value="${eventType.etid}">
-                        ${eventType.name}
+                            ${eventType.name}
                     </option>
                 </c:forEach>
             </select>

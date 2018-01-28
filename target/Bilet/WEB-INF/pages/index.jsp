@@ -12,45 +12,6 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Bilet</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-right">
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">登录<span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="/member/login">会员登录</a></li>
-                    <li><a href="/venue/login">场馆登录</a></li>
-                    <li><a href="/admin/login">管理员登录</a></li>
-                </ul>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">注册<span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="/member/add">会员注册</a></li>
-                    <li><a href="/venue/add">场馆申请</a></li>
-                </ul>
-            </div>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-
 <div class="jumbotron">
     <div class="container">
         <h1>Hello, Bilet!</h1>
@@ -62,7 +23,17 @@
             </button>
             <ul class="dropdown-menu">
                 <li><a href="/member/add">会员注册</a></li>
-                <li><a href="#">场馆注册</a></li>
+                <li><a href="/venue/add">场馆申请</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">登录<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="/member/login">会员登录</a></li>
+                <li><a href="/venue/login">场馆登录</a></li>
+                <li><a href="/admin/login">管理员登录</a></li>
             </ul>
         </div>
         </p>

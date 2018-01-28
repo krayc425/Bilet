@@ -1,12 +1,10 @@
 package com.krayc.controller;
 
 import com.krayc.model.EventEntity;
+import com.krayc.model.EventSeatEntity;
 import com.krayc.model.SeatEntity;
 import com.krayc.model.VenueEntity;
-import com.krayc.repository.EventRepository;
-import com.krayc.repository.EventTypeRepository;
-import com.krayc.repository.SeatRepository;
-import com.krayc.repository.VenueRepository;
+import com.krayc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class VenueController {
@@ -33,6 +33,9 @@ public class VenueController {
 
     @Autowired
     private EventTypeRepository eventTypeRepository;
+
+    @Autowired
+    private EventSeatRepository eventSeatRepository;
 
     @RequestMapping(value = "/venue/add", method = RequestMethod.GET)
     public String addVenue() {
@@ -63,7 +66,7 @@ public class VenueController {
             System.out.println("Login Success");
             modelMap.addAttribute("venue", venueEntity1);
 
-            HttpSession session = request.getSession(true);
+            HttpSession session = request.getSession(false);
             session.setAttribute("venue", venueEntity1);
 
             return "redirect:/venue/show/" + venueEntity.getVid();
@@ -72,6 +75,14 @@ public class VenueController {
 
             return "redirect:/";
         }
+    }
+
+    @RequestMapping(value = "/venue/logout", method = RequestMethod.GET)
+    public String logoutVenue(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        session.setAttribute("venue", null);
+        session.invalidate();
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/venue/update/{id}", method = RequestMethod.GET)
@@ -151,10 +162,59 @@ public class VenueController {
     }
 
     @RequestMapping(value = "/venue/{vid}/events/addPost", method = RequestMethod.POST)
-    public String addEventPost(@PathVariable("vid") Integer vid, @ModelAttribute("event") EventEntity eventEntity) {
+    public String addEventPost(@PathVariable("vid") Integer vid, HttpServletRequest request) {
+        EventEntity eventEntity = new EventEntity();
+        eventEntity.setName(request.getParameter("name"));
+        eventEntity.setTime(request.getParameter("time"));
+        eventEntity.setDescription(request.getParameter("description"));
         eventEntity.setVenueId(venueRepository.findOne(vid));
+        eventEntity.setEventTypeEntity(eventTypeRepository.findOne(Integer.parseInt(request.getParameter("eventTypeEntity"))));
         eventRepository.saveAndFlush(eventEntity);
-        return "redirect:/venue/" + vid + "/events";
+        System.out.println("Event Id " + eventEntity.getEid());
+        return "redirect:/venue/" + vid + "/events/" + eventEntity.getEid() + "/seats";
+    }
+
+    @RequestMapping(value = "/venue/{vid}/events/{eid}/seats")
+    public String eventSeats(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, ModelMap modelMap) {
+        VenueEntity venueEntity = venueRepository.findOne(vid);
+        modelMap.addAttribute("venue", venueEntity);
+        EventEntity eventEntity = eventRepository.findOne(eid);
+        modelMap.addAttribute("event", eventEntity);
+
+        Collection<EventSeatEntity> alreadySeats = eventSeatRepository.findEventSeatEntitiesBySeatInAndEventIs(venueEntity.getSeatsByVid(), eventEntity);
+
+        modelMap.addAttribute("eventSeats", alreadySeats);
+        return "/venue/event/eventSeats";
+    }
+
+    @RequestMapping(value = "/venue/{vid}/events/{eid}/seats/add")
+    public String addEventSeats(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, ModelMap modelMap) {
+        VenueEntity venueEntity = venueRepository.findOne(vid);
+        modelMap.addAttribute("venue", venueEntity);
+        EventEntity eventEntity = eventRepository.findOne(eid);
+        modelMap.addAttribute("event", eventEntity);
+
+        Collection<EventSeatEntity> alreadySeats = eventSeatRepository.findEventSeatEntitiesBySeatInAndEventIs(venueEntity.getSeatsByVid(), eventEntity);
+        Collection<SeatEntity> toBeAddedSeats = venueEntity.getSeatsByVid();
+
+        for (EventSeatEntity eventSeatEntity : alreadySeats) {
+            toBeAddedSeats.remove(eventSeatEntity.getSeat());
+        }
+
+        modelMap.addAttribute("eventSeats", toBeAddedSeats);
+
+        return "/venue/event/addEventSeat";
+    }
+
+    @RequestMapping(value = "/venue/{vid}/events/{eid}/seats/addPost")
+    public String addEventSeatsPost(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, HttpServletRequest request) {
+        EventSeatEntity eventSeatEntity = new EventSeatEntity();
+        eventSeatEntity.setEvent(eventRepository.findOne(eid));
+        eventSeatEntity.setSeat(seatRepository.findOne(Integer.parseInt(request.getParameter("seatId"))));
+        eventSeatEntity.setNumber(Integer.parseInt(request.getParameter("number")));
+        eventSeatEntity.setPrice(Integer.parseInt(request.getParameter("price")));
+        eventSeatRepository.saveAndFlush(eventSeatEntity);
+        return "redirect:/venue/" + vid + "/events/" + eid + "/seats";
     }
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class AdminController {
@@ -24,6 +25,11 @@ public class AdminController {
     @Autowired
     private VenueRepository venueRepository;
 
+    @RequestMapping(value = "admin/adminHome", method = RequestMethod.GET)
+    public String adminHome() {
+        return "admin/adminHome";
+    }
+
     @RequestMapping(value = "/admin/login", method = RequestMethod.GET)
     public String loginMember() {
         return "admin/loginAdmin";
@@ -32,15 +38,25 @@ public class AdminController {
     @RequestMapping(value = "/admin/loginPost", method = RequestMethod.POST)
     public String loginMemberPost(@ModelAttribute("admin") AdminEntity adminEntity, HttpServletRequest request, ModelMap modelMap) {
         AdminEntity adminEntity1 = adminRepository.findByUsername(adminEntity.getUsername());
-
         if (adminEntity1 != null && adminEntity.getPassword().equals(adminEntity1.getPassword())) {
             System.out.println("Login Success");
+            HttpSession session = request.getSession(false);
+            session.setAttribute("admin", adminEntity1);
+
             modelMap.addAttribute("admin", adminEntity1);
-            return "admin/adminHome";
+            return "redirect:/admin/adminHome";
         } else {
             System.out.println("Login Failed");
             return "redirect:/";
         }
+    }
+
+    @RequestMapping(value = "/admin/logout", method = RequestMethod.GET)
+    public String logoutVenue(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        session.setAttribute("admin ", null);
+        session.invalidate();
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/admin/venues", method = RequestMethod.GET)

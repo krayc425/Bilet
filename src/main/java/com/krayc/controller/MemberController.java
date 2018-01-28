@@ -49,7 +49,7 @@ public class MemberController {
 
     @RequestMapping(value = "/member/show/{id}", method = RequestMethod.GET)
     public String showMember(@PathVariable("id") Integer mid, ModelMap modelMap) {
-        modelMap.addAttribute("user", memberRepository.findOne(mid));
+        modelMap.addAttribute("member", memberRepository.findOne(mid));
         return "member/memberDetail";
     }
 
@@ -66,10 +66,10 @@ public class MemberController {
                 && memberEntity1.getIsEmailPassed() == 1
                 && memberEntity1.getIsTerminated() != 1) {
             System.out.println("Login Success");
-            modelMap.addAttribute("user", memberEntity1);
+            modelMap.addAttribute("member", memberEntity1);
 
-            HttpSession session = request.getSession(true);
-            session.setAttribute("user", memberEntity1);
+            HttpSession session = request.getSession(false);
+            session.setAttribute("member", memberEntity1);
 
             return "redirect:/member/show/" + memberEntity1.getMid();
         } else {
@@ -77,6 +77,14 @@ public class MemberController {
 
             return "redirect:/";
         }
+    }
+
+    @RequestMapping(value = "/member/logout", method = RequestMethod.GET)
+    public String logoutVenue(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        session.setAttribute("member", null);
+        session.invalidate();
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/member/activate/{id}", method = RequestMethod.GET)

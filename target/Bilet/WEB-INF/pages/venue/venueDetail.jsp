@@ -48,11 +48,13 @@
         <tr>
             <th>座位</th>
             <td>
-                <p>${venue.seatsByVid.size()} 个</p>
+                ${venue.seatsByVid.size()} 个
                 <a class="btn btn-default" href="/venue/${venue.vid}/seats" role="button">查看详情</a>
             </td>
         </tr>
     </table>
+    <hr/>
+    <a href="/venue/logout" type="button" class="btn btn-danger btn-sm">登出</a>
 </div>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="/assets/jquery-3.3.1.min.js"></script>

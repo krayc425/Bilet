@@ -2,6 +2,7 @@ package com.krayc.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 @Entity
 @Table(name = "Event", schema = "Bilet")
@@ -11,14 +12,13 @@ public class EventEntity {
     private String name;
     private String description;
     private Timestamp time;
-    private int type;
     private VenueEntity venueId;
-
-    public EventEntity() {
-    }
+    private EventTypeEntity eventTypeEntity;
+    private Collection<EventSeatEntity> eventSeats;
 
     @Id
     @Column(name = "eid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getEid() {
         return eid;
     }
@@ -53,23 +53,12 @@ public class EventEntity {
         return time;
     }
 
+    public void setTime(String timeString) {
+        this.time = Timestamp.valueOf(timeString);
+    }
+
     public void setTime(Timestamp time) {
         this.time = time;
-    }
-
-    @Basic
-    @Column(name = "type")
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public void setTime(String timeString) {
-        System.out.println("Set time through String");
-        this.time = Timestamp.valueOf(timeString);
     }
 
     @Override
@@ -97,6 +86,16 @@ public class EventEntity {
     }
 
     @ManyToOne
+    @JoinColumn(name = "type", referencedColumnName = "etid", nullable = false)
+    public EventTypeEntity getEventTypeEntity() {
+        return eventTypeEntity;
+    }
+
+    public void setEventTypeEntity(EventTypeEntity eventTypeEntity) {
+        this.eventTypeEntity = eventTypeEntity;
+    }
+
+    @ManyToOne
     @JoinColumn(name = "vid", referencedColumnName = "vid", nullable = false)
     public VenueEntity getVenueId() {
         return venueId;
@@ -104,5 +103,14 @@ public class EventEntity {
 
     public void setVenueId(VenueEntity venueId) {
         this.venueId = venueId;
+    }
+
+    @OneToMany(mappedBy = "event")
+    public Collection<EventSeatEntity> getEventSeats() {
+        return eventSeats;
+    }
+
+    public void setEventSeats(Collection<EventSeatEntity> eventSeats) {
+        this.eventSeats = eventSeats;
     }
 }

@@ -7,51 +7,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a97b00b3-1efc-4ac6-8d20-0ccca4676459" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/controller/AdminController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/filter/CharacterEncodingFilter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/model/AdminEntity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/model/EventEntity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/model/EventTypeEntity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/repository/AdminRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/repository/EventRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/repository/EventTypeRepository.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminHome.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminVenue.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/loginAdmin.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/addEvent.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/updateVenue.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueEvents.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/admin/adminHome.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/admin/adminVenue.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/admin/loginAdmin.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/updateVenue.jsp" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/model/EventSeatEntity.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/repository/EventSeatRepository.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/addEventSeat.jsp" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/eventSeats.jsp" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/a350cff9-5bd0-4f5e-a187-ef3bd0c0823c.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/a350cff9-5bd0-4f5e-a187-ef3bd0c0823c.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/krayc/controller/AdminController.java" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/controller/AdminController.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/krayc/controller/MainController.java" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/controller/MainController.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/krayc/controller/MemberController.java" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/controller/MemberController.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/krayc/controller/VenueController.java" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/controller/VenueController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/krayc/model/MemberEntity.java" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/model/MemberEntity.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/krayc/model/SeatEntity.java" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/model/SeatEntity.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/krayc/model/VenueEntity.java" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/model/VenueEntity.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/krayc/repository/MemberRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/repository/MemberRepository.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/krayc/repository/VenueRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/repository/VenueRepository.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/krayc/model/EventEntity.java" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/model/EventEntity.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/krayc/model/EventTypeEntity.java" afterPath="$PROJECT_DIR$/src/main/java/com/krayc/model/EventTypeEntity.java" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminHome.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminHome.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminVenue.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminVenue.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/index.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/index.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/memberDetail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/memberDetail.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/members.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/members.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/updateMember.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/updateMember.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/loginVenue.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/loginVenue.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/addEvent.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/addEvent.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/addSeat.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/addSeat.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/updateSeat.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/updateSeat.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/updateVenue.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/updateVenue.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueDetail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueDetail.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueEvents.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueEvents.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueSeats.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueSeats.jsp" />
       <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/classes/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/classes/META-INF/persistence.xml" />
+      <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/admin/adminHome.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/admin/adminHome.jsp" />
+      <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/admin/adminVenue.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/admin/adminVenue.jsp" />
       <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/index.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/index.jsp" />
       <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/member/memberDetail.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/member/memberDetail.jsp" />
-      <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/member/members.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/member/members.jsp" />
       <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/member/updateMember.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/member/updateMember.jsp" />
-      <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/loginVenue.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/loginVenue.jsp" />
+      <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/event/addEvent.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/event/addEvent.jsp" />
+      <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/seat/addSeat.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/seat/addSeat.jsp" />
       <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/seat/updateSeat.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/seat/updateSeat.jsp" />
+      <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/updateVenue.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/updateVenue.jsp" />
       <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/venueDetail.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/venueDetail.jsp" />
+      <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/venueEvents.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/venueEvents.jsp" />
       <change beforePath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/venueSeats.jsp" afterPath="$PROJECT_DIR$/target/Bilet/WEB-INF/pages/venue/venueSeats.jsp" />
       <change beforePath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" />
     </list>
@@ -89,18 +81,28 @@
       <file leaf-file-name="addEvent.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/addEvent.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="35" column="28" lean-forward="false" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+            <state relative-caret-position="308">
+              <caret line="52" column="14" lean-forward="false" selection-start-line="42" selection-start-column="14" selection-end-line="52" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdminEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/AdminEntity.java">
+      <file leaf-file-name="addEventSeat.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/addEventSeat.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="39" lean-forward="false" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+            <state relative-caret-position="398">
+              <caret line="36" column="33" lean-forward="false" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addSeat.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/addSeat.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="353">
+              <caret line="40" column="101" lean-forward="false" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="101" />
               <folding />
             </state>
           </provider>
@@ -109,44 +111,56 @@
       <file leaf-file-name="EventEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/EventEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-839">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <state relative-caret-position="-45">
+              <caret line="20" column="55" lean-forward="false" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1031#1032#0" expanded="true" />
-                <element signature="e#1063#1064#0" expanded="true" />
-                <element signature="e#1129#1130#0" expanded="true" />
-                <element signature="e#1156#1157#0" expanded="true" />
-                <element signature="e#1193#1194#0" expanded="true" />
-                <element signature="e#1225#1226#0" expanded="true" />
-                <element signature="e#2393#2394#0" expanded="true" />
-                <element signature="e#2423#2424#0" expanded="true" />
+                <element signature="e#1160#1161#0" expanded="true" />
+                <element signature="e#1217#1218#0" expanded="true" />
+                <element signature="e#1260#1261#0" expanded="true" />
+                <element signature="e#1292#1293#0" expanded="true" />
+                <element signature="e#2316#2317#0" expanded="true" />
+                <element signature="e#2354#2355#0" expanded="true" />
+                <element signature="e#2611#2612#0" expanded="true" />
+                <element signature="e#2641#2642#0" expanded="true" />
+                <element signature="e#2823#2824#0" expanded="true" />
+                <element signature="e#2856#2857#0" expanded="true" />
+                <element signature="e#2929#2930#0" expanded="true" />
+                <element signature="e#2973#2974#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventTypeEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/EventTypeEntity.java">
+      <file leaf-file-name="EventSeatEntity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/EventSeatEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="53">
-              <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="390">
+              <caret line="34" column="18" lean-forward="false" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MemberController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/MemberController.java">
+      <file leaf-file-name="eventSeats.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/eventSeats.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="563">
-              <caret line="97" column="17" lean-forward="false" selection-start-line="97" selection-start-column="17" selection-end-line="97" selection-end-column="17" />
-              <folding>
-                <element signature="e#2170#2171#0" expanded="true" />
-                <element signature="e#2213#2214#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="246">
+              <caret line="30" column="23" lean-forward="true" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Requirement.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Requirement.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="0">
+                <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -154,12 +168,12 @@
       <file leaf-file-name="VenueController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/VenueController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="141" column="75" lean-forward="false" selection-start-line="141" selection-start-column="75" selection-end-line="141" selection-end-column="75" />
+            <state relative-caret-position="285">
+              <caret line="185" column="56" lean-forward="false" selection-start-line="185" selection-start-column="44" selection-end-line="185" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1894#1895#0" expanded="true" />
-                <element signature="e#1935#1936#0" expanded="true" />
+                <element signature="e#1902#1903#0" expanded="true" />
+                <element signature="e#1943#1944#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -168,43 +182,18 @@
       <file leaf-file-name="venueDetail.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueDetail.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="51" column="98" lean-forward="true" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="98" />
+            <state relative-caret-position="20">
+              <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VenueEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/VenueEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="9" column="39" lean-forward="false" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
-              <folding>
-                <element signature="e#2801#2802#0" expanded="true" />
-                <element signature="e#2835#2836#0" expanded="true" />
-                <element signature="e#2906#2907#0" expanded="true" />
-                <element signature="e#2952#2953#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="venueEvents.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="venueEvents.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueEvents.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="venueSeats.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueSeats.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="30" column="14" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+            <state relative-caret-position="56">
+              <caret line="35" column="9" lean-forward="true" selection-start-line="35" selection-start-column="9" selection-end-line="41" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -216,9 +205,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="spring-beans.schema" />
-        <option value="Jsp File" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -229,6 +218,8 @@
       <find>user</find>
       <find>J2EELab</find>
       <find>!1</find>
+      <find>sid</find>
+      <find>Event Id</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -242,8 +233,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/controller/MainController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/members.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/memberDetail.jsp" />
@@ -251,7 +240,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/updateMember.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/model/SeatEntity.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/model/VenueEntity.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/krayc/controller/MainController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/util/MailService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
@@ -259,38 +247,43 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/loginMember.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/addVenue.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/repository/SeatRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/addSeat.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/memberDetail.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminLogin.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/repository/MemberRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/repository/AdminRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/krayc/controller/MemberController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/loginAdmin.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/members.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminVenue.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminHome.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/updateMember.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/updateSeat.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/filter/CharacterEncodingFilter.java" />
         <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/loginVenue.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/repository/VenueRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/updateVenue.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueDetail.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueSeats.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/krayc/controller/AdminController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/repository/EventTypeRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/repository/EventRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/model/MemberEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/model/SeatEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/model/VenueEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/model/AdminEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/krayc/controller/MainController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/memberDetail.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/krayc/controller/MemberController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminHome.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/krayc/controller/AdminController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/index.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueSeats.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/updateVenue.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/updateSeat.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/addSeat.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/updateMember.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminVenue.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueDetail.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/krayc/model/EventTypeEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/krayc/model/EventEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/addEvent.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/krayc/controller/VenueController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueEvents.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/addEvent.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/krayc/model/EventSeatEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/krayc/repository/EventSeatRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/krayc/model/EventEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/addEventSeat.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/krayc/controller/VenueController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/eventSeats.jsp" />
       </list>
     </option>
   </component>
@@ -335,6 +328,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
@@ -501,7 +495,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -528,8 +521,8 @@
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat" />
     </key>
     <key name="ImportMappingsDialog.RecentPackages">
-      <recent name="com.krayc.model" />
       <recent name="" />
+      <recent name="com.krayc.model" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/webapp/assets" />
@@ -698,12 +691,13 @@
       <workItem from="1516942571966" duration="11826000" />
       <workItem from="1516967389705" duration="4089000" />
       <workItem from="1516974826649" duration="567000" />
-      <workItem from="1517034339474" duration="5404000" />
+      <workItem from="1517034339474" duration="12676000" />
+      <workItem from="1517115169156" duration="2245000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41264000" />
+    <option name="totallyTimeSpent" value="50781000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -717,27 +711,27 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2741148" sideWeight="0.528125" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2741148" sideWeight="0.471875" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2771673" sideWeight="0.471875" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21367522" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25579977" sideWeight="0.5036649" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25579977" sideWeight="0.5036649" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -757,25 +751,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="42" lean-forward="true" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp" />
-    <entry file="file://$PROJECT_DIR$/Bilet.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/Venue.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/Seat.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/SeatEntity.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/VenueEntity.xml" />
     <entry file="jar://$MAVEN_REPOSITORY$/io/github/biezhi/oh-my-email/0.0.3/oh-my-email-0.0.3.jar!/io/github/biezhi/ome/OhMyEmail.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -793,69 +768,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="65" lean-forward="false" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminLogin.jsp" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/MainController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/members.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/memberDetail.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="24" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/loginMember.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="31" column="44" lean-forward="true" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminHome.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminVenue.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="36" column="27" lean-forward="true" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/loginAdmin.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="29" column="32" lean-forward="true" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -883,52 +796,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <marker date="1516768098672" expanded="false" signature="0:104" ph="/.../" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/loginVenue.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="39" lean-forward="false" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/updateMember.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="46" column="66" lean-forward="false" selection-start-line="46" selection-start-column="66" selection-end-line="46" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/updateVenue.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="14" lean-forward="false" selection-start-line="36" selection-start-column="14" selection-end-line="37" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/EventController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="28" lean-forward="false" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="39" column="18" lean-forward="true" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/EventController.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/repository/SeatRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -945,18 +816,147 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/AdminController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/repository/VenueRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="165">
+          <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/repository/EventTypeRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/repository/MemberRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/addSeat.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/repository/EventRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+        <state relative-caret-position="120">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="65" lean-forward="false" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/AdminEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="39" lean-forward="false" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminHome.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="55" column="33" lean-forward="false" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+          <folding>
+            <element signature="e#1012#1013#0" expanded="false" />
+            <element signature="e#1052#1053#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="35" column="57" lean-forward="true" selection-start-line="35" selection-start-column="57" selection-end-line="35" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/updateVenue.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/loginVenue.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="14" column="39" lean-forward="false" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/updateMember.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/addMember.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="33" column="24" lean-forward="true" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/loginMember.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="31" column="44" lean-forward="true" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/memberDetail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/members.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/loginAdmin.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="29" column="32" lean-forward="true" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -969,75 +969,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/member/addMember.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="24" lean-forward="true" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/updateSeat.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/repository/VenueRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/repository/EventTypeRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/EventSeatEntityPK.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/VenueEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="9" column="39" lean-forward="false" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+        <state relative-caret-position="120">
+          <caret line="12" column="17" lean-forward="true" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
           <folding>
-            <element signature="e#2801#2802#0" expanded="true" />
-            <element signature="e#2835#2836#0" expanded="true" />
-            <element signature="e#2906#2907#0" expanded="true" />
-            <element signature="e#2952#2953#0" expanded="true" />
+            <element signature="e#2801#2802#0" expanded="false" />
+            <element signature="e#2835#2836#0" expanded="false" />
+            <element signature="e#2906#2907#0" expanded="false" />
+            <element signature="e#2952#2953#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/AdminEntity.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="39" lean-forward="false" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/SeatEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="38" lean-forward="false" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/repository/MemberRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        <state relative-caret-position="135">
+          <caret line="17" column="56" lean-forward="false" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
           <folding />
         </state>
       </provider>
@@ -1050,20 +999,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/repository/EventRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/EventTypeEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="825">
+          <caret line="63" column="5" lean-forward="true" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1378#1379#0" expanded="false" />
+            <element signature="e#1413#1414#0" expanded="false" />
+            <element signature="e#1486#1487#0" expanded="false" />
+            <element signature="e#1534#1535#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/EventTypeEntity.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/MemberController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+        <state relative-caret-position="195">
+          <caret line="83" column="54" lean-forward="false" selection-start-line="83" selection-start-column="54" selection-end-line="83" selection-end-column="54" />
+          <folding>
+            <element signature="e#2172#2173#0" expanded="false" />
+            <element signature="e#2215#2216#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/SeatEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="47" column="41" lean-forward="true" selection-start-line="47" selection-start-column="41" selection-end-line="47" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/admin/adminVenue.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="6" lean-forward="false" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/updateSeat.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="36" column="116" lean-forward="false" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="116" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueSeats.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="23" lean-forward="false" selection-start-line="31" selection-start-column="23" selection-end-line="34" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/repository/EventSeatRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1072,73 +1068,101 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/EventEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-839">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state relative-caret-position="-45">
+          <caret line="20" column="55" lean-forward="false" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1031#1032#0" expanded="true" />
-            <element signature="e#1063#1064#0" expanded="true" />
-            <element signature="e#1129#1130#0" expanded="true" />
-            <element signature="e#1156#1157#0" expanded="true" />
-            <element signature="e#1193#1194#0" expanded="true" />
-            <element signature="e#1225#1226#0" expanded="true" />
-            <element signature="e#2393#2394#0" expanded="true" />
-            <element signature="e#2423#2424#0" expanded="true" />
+            <element signature="e#1160#1161#0" expanded="true" />
+            <element signature="e#1217#1218#0" expanded="true" />
+            <element signature="e#1260#1261#0" expanded="true" />
+            <element signature="e#1292#1293#0" expanded="true" />
+            <element signature="e#2316#2317#0" expanded="true" />
+            <element signature="e#2354#2355#0" expanded="true" />
+            <element signature="e#2611#2612#0" expanded="true" />
+            <element signature="e#2641#2642#0" expanded="true" />
+            <element signature="e#2823#2824#0" expanded="true" />
+            <element signature="e#2856#2857#0" expanded="true" />
+            <element signature="e#2929#2930#0" expanded="true" />
+            <element signature="e#2973#2974#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/MemberController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueDetail.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="97" column="17" lean-forward="false" selection-start-line="97" selection-start-column="17" selection-end-line="97" selection-end-column="17" />
-          <folding>
-            <element signature="e#2170#2171#0" expanded="true" />
-            <element signature="e#2213#2214#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="20">
+          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/VenueController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/seat/addSeat.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="141" column="75" lean-forward="false" selection-start-line="141" selection-start-column="75" selection-end-line="141" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1894#1895#0" expanded="true" />
-            <element signature="e#1935#1936#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueSeats.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="30" column="14" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+        <state relative-caret-position="353">
+          <caret line="40" column="101" lean-forward="false" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="101" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/addEvent.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="35" column="28" lean-forward="false" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+        <state relative-caret-position="308">
+          <caret line="52" column="14" lean-forward="false" selection-start-line="42" selection-start-column="14" selection-end-line="52" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueDetail.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/addEventSeat.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="51" column="98" lean-forward="true" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="98" />
+        <state relative-caret-position="398">
+          <caret line="36" column="33" lean-forward="false" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Requirement.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/controller/VenueController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="185" column="56" lean-forward="false" selection-start-line="185" selection-start-column="44" selection-end-line="185" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1902#1903#0" expanded="true" />
+            <element signature="e#1943#1944#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/krayc/model/EventSeatEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="34" column="18" lean-forward="false" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/venueEvents.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="20" column="6" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+        <state relative-caret-position="56">
+          <caret line="35" column="9" lean-forward="true" selection-start-line="35" selection-start-column="9" selection-end-line="41" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/venue/event/eventSeats.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="30" column="23" lean-forward="true" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
           <folding />
         </state>
       </provider>

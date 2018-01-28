@@ -19,6 +19,15 @@
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
 <body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/venue/show/${venue.vid}">返回</a>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
     <h1>Bilet 座位管理</h1>
     <hr/>

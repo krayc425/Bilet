@@ -19,12 +19,15 @@
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
 <body>
+
 <div class="container">
     <h1>Bilet 管理员首页</h1>
     <hr/>
     <h2>欢迎您！${admin.username}</h2>
     <hr/>
     <a href="/admin/venues" type="button" class="btn btn-default btn-sm">审核场地信息</a>
+    <hr/>
+    <a href="/admin/logout" type="button" class="btn btn-danger btn-sm">登出</a>
 </div>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="/assets/jquery-3.3.1.min.js"></script>

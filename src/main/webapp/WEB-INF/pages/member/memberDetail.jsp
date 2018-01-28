@@ -18,30 +18,33 @@
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
 <body>
+
 <div class="container">
     <h1>Bilet 用户详情</h1>
     <hr/>
-    <a href="/member/update/${user.mid}" type="button" class="btn btn-warning btn-sm">修改信息</a>
-    <a href="/member/terminate/${user.mid}" type="button" class="btn btn-danger btn-sm">取消资格</a>
+    <a href="/member/update/${member.mid}" type="button" class="btn btn-warning btn-sm">修改信息</a>
+    <a href="/member/terminate/${member.mid}" type="button" class="btn btn-danger btn-sm">取消资格</a>
     <hr/>
     <table class="table table-bordered table-striped">
         <tr>
             <th>ID</th>
-            <td>${user.mid}</td>
+            <td>${member.mid}</td>
         </tr>
         <tr>
             <th>邮箱</th>
-            <td>${user.email}</td>
+            <td>${member.email}</td>
         </tr>
         <tr>
             <th>银行账户</th>
-            <td>${user.bankAccount}</td>
+            <td>${member.bankAccount}</td>
         </tr>
         <tr>
             <th>密码</th>
-            <td>${user.password}</td>
+            <td>${member.password}</td>
         </tr>
     </table>
+    <hr/>
+    <a href="/member/logout" type="button" class="btn btn-danger btn-sm">登出</a>
 </div>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="/assets/jquery-3.3.1.min.js"></script>

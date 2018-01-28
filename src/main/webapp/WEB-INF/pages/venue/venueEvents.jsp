@@ -19,6 +19,16 @@
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
 <body>
+
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/venue/show/${venue.vid}">返回</a>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
     <h1>Bilet 活动管理</h1>
     <hr/>
@@ -44,11 +54,12 @@
                 <tr>
                     <td>${event.eid}</td>
                     <td>${event.name}</td>
-                    <td>${eventTypes.get(event.type - 1).name}</td>
+                    <%--<td>${eventTypes.get(event.type - 1).name}</td>--%>
+                    <td>${event.eventTypeEntity.name}</td>
                     <td>${event.time}</td>
                     <td>${event.description}</td>
                     <td>
-                        <a class="btn btn-default" href="/venue/${venue.vid}/seats" role="button">座位管理</a>
+                        <a class="btn btn-default" href="/venue/${venue.vid}/events/${event.eid}/seats" role="button">座位管理</a>
                     </td>
                 </tr>
             </c:forEach>

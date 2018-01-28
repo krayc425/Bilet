@@ -11,11 +11,7 @@ import java.util.Collection;
 public class EventTypeEntity {
     private int etid;
     private String name;
-//    private Collection<EventEntity> eventsByType;
-
-
-    public EventTypeEntity() {
-    }
+    private Collection<EventEntity> eventsByType;
 
     @Id
     @Column(name = "etid")
@@ -57,13 +53,14 @@ public class EventTypeEntity {
         return result;
     }
 
-//    @OneToMany(mappedBy = "type", fetch = FetchType.EAGER)
-//    @Fetch(value = FetchMode.SUBSELECT)
-//    public Collection<EventEntity> getEventsByType() {
-//        return eventsByType;
-//    }
-//
-//    public void setEventsByType(Collection<EventEntity> eventsByType) {
-//        this.eventsByType = eventsByType;
-//    }
+    @OneToMany(mappedBy = "eventTypeEntity", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    public Collection<EventEntity> getEventsByType() {
+        return eventsByType;
+    }
+
+    public void setEventsByType(Collection<EventEntity> eventsByType) {
+        this.eventsByType = eventsByType;
+    }
+
 }
