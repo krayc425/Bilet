@@ -31,24 +31,23 @@
 <div class="container">
     <h1>Bilet 更新用户信息</h1>
     <hr/>
-    <form:form action="/member/updatePost/${user.mid}" method="post" role="form">
+    <form:form action="/member/updatePost/${member.mid}" method="post" role="form">
         <div class="form-group">
             <label for="password">密码</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" value="${user.password}"/>
+            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码"
+                   value="${member.password}"/>
         </div>
         <div class="form-group">
             <label for="bankAccount">银行账户</label>
             <input type="text" class="form-control" id="bankAccount" name="bankAccount"
-                   placeholder="请输入银行账户" value="${user.bankAccount}"/>
-        </div>
-        <div>
-            <label for="email"></label>
-            <input type="hidden" class="form-control" id="email" name="email" value="${user.email}"/>
+                   placeholder="请输入银行账户" value="${member.bankAccount}"/>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-sm btn-success">提交</button>
         </div>
     </form:form>
+    <hr/>
+    <a href="/member/terminate/${user.mid}" type="button" class="btn btn-danger btn-sm">取消资格</a>
 </div>
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="/assets/jquery-3.3.1.min.js"></script>

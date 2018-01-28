@@ -9,6 +9,7 @@
         <class>com.krayc.model.EventEntity</class>
         <class>com.krayc.model.EventTypeEntity</class>
         <class>com.krayc.model.EventSeatEntity</class>
+        <class>com.krayc.model.LevelEntity</class>
         <properties>
             <!-- 使用MySQL方言 -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>

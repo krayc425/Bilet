@@ -21,6 +21,8 @@
 <div class="container">
     <h1>Bilet 场馆详情</h1>
     <hr/>
+    <h2>欢迎您！${venue.name}</h2>
+    <hr/>
     <a href="/venue/${venue.vid}/events" type="button" class="btn btn-default btn-sm">管理活动</a>
     <a href="/venue/update/${venue.vid}" type="button" class="btn btn-warning btn-sm">修改场馆信息</a>
     <hr/>

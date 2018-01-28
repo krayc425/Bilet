@@ -15,6 +15,7 @@ public class MemberEntity {
 
     @Id
     @Column(name = "mid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getMid() {
         return mid;
     }

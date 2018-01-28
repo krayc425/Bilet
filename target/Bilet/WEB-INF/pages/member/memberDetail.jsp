@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Kray
@@ -22,14 +23,16 @@
 <div class="container">
     <h1>Bilet 用户详情</h1>
     <hr/>
+    <h2>欢迎您！${member.email}</h2>
+    <hr/>
+    <a href="#" type="button" class="btn btn-primary btn-sm">订单历史</a>
     <a href="/member/update/${member.mid}" type="button" class="btn btn-warning btn-sm">修改信息</a>
-    <a href="/member/terminate/${member.mid}" type="button" class="btn btn-danger btn-sm">取消资格</a>
     <hr/>
     <table class="table table-bordered table-striped">
-        <tr>
-            <th>ID</th>
-            <td>${member.mid}</td>
-        </tr>
+        <%--<tr>--%>
+        <%--<th>ID</th>--%>
+        <%--<td>${member.mid}</td>--%>
+        <%--</tr>--%>
         <tr>
             <th>邮箱</th>
             <td>${member.email}</td>
@@ -38,11 +41,50 @@
             <th>银行账户</th>
             <td>${member.bankAccount}</td>
         </tr>
+        <%--<tr>--%>
+        <%--<th>密码</th>--%>
+        <%--<td>${member.password}</td>--%>
+        <%--</tr>--%>
         <tr>
-            <th>密码</th>
-            <td>${member.password}</td>
+            <th>等级</th>
+            <td>${member.level}</td>
+        </tr>
+        <tr>
+            <th>邮箱状态</th>
+            <td>${member.isEmailPassed}</td>
+        </tr>
+        <tr>
+            <th>账户状态</th>
+            <td>${member.isTerminated}</td>
         </tr>
     </table>
+    <c:if test="${!empty events}">
+        <hr/>
+        <h2>演出列表</h2>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>活动 ID</th>
+                <th>名称</th>
+                <th>类别</th>
+                <th>时间</th>
+                <th>描述</th>
+                <th>操作</th>
+            </tr>
+            <c:forEach items="${events}" var="event">
+                <tr>
+                    <td>${event.eid}</td>
+                    <td>${event.name}</td>
+                    <td>${event.eventTypeEntity.name}</td>
+                    <td>${event.time}</td>
+                    <td>${event.description}</td>
+                    <td>
+                        <a class="btn btn-primary" href="#" role="button">购票</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+
     <hr/>
     <a href="/member/logout" type="button" class="btn btn-danger btn-sm">登出</a>
 </div>

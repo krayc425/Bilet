@@ -13,8 +13,8 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
 
     @Modifying
     @Transactional
-    @Query("update MemberEntity us set us.email=:qEmail, us.bankAccount=:qBankAccount, us.password=:qPassword where us.mid=:qId")
-    public void updateMember(@Param("qEmail") String qEmail, @Param("qPassword") String password, @Param("qBankAccount") String bankAccount, @Param("qId") Integer qId);
+    @Query("update MemberEntity us set us.bankAccount=:qBankAccount, us.password=:qPassword where us.mid=:qId")
+    public void updateMember(@Param("qPassword") String password, @Param("qBankAccount") String bankAccount, @Param("qId") Integer qId);
 
     public MemberEntity findByEmail(String email);
 

@@ -931,377 +931,431 @@
       <Engine>InnoDB</Engine>
       <Collation>utf8mb4_general_ci</Collation>
     </table>
-    <table id="235" parent="2" name="Member">
+    <table id="235" parent="2" name="Level">
       <Engine>InnoDB</Engine>
       <Collation>utf8mb4_general_ci</Collation>
     </table>
-    <table id="236" parent="2" name="Seat">
+    <table id="236" parent="2" name="Member">
       <Engine>InnoDB</Engine>
       <Collation>utf8mb4_general_ci</Collation>
     </table>
-    <table id="237" parent="2" name="Venue">
+    <table id="237" parent="2" name="Seat">
       <Engine>InnoDB</Engine>
       <Collation>utf8mb4_general_ci</Collation>
     </table>
-    <column id="238" parent="231" name="username">
+    <table id="238" parent="2" name="Venue">
+      <Engine>InnoDB</Engine>
+      <Collation>utf8mb4_general_ci</Collation>
+    </table>
+    <column id="239" parent="231" name="username">
       <Position>1</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="239" parent="231" name="password">
+    <column id="240" parent="231" name="password">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="240" parent="231" name="aid">
+    <column id="241" parent="231" name="aid">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="241" parent="231" name="Admin_aid_uindex">
+    <index id="242" parent="231" name="Admin_aid_uindex">
       <ColNames>aid</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="242" parent="231" name="PRIMARY">
+    <key id="243" parent="231" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>aid</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="243" parent="231" name="Admin_aid_uindex">
+    <key id="244" parent="231" name="Admin_aid_uindex">
       <ColNames>aid</ColNames>
       <UnderlyingIndexName>Admin_aid_uindex</UnderlyingIndexName>
     </key>
-    <column id="244" parent="232" name="eid">
+    <column id="245" parent="232" name="eid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="245" parent="232" name="name">
+    <column id="246" parent="232" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="246" parent="232" name="type">
+    <column id="247" parent="232" name="type">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="247" parent="232" name="description">
+    <column id="248" parent="232" name="description">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="248" parent="232" name="time">
+    <column id="249" parent="232" name="time">
       <Position>5</Position>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="249" parent="232" name="vid">
+    <column id="250" parent="232" name="vid">
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="250" parent="232" name="Event_eid_uindex">
+    <index id="251" parent="232" name="Event_eid_uindex">
       <ColNames>eid</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="251" parent="232" name="FK403827A93B28F55">
+    <index id="252" parent="232" name="FK403827A93B28F55">
       <ColNames>type</ColNames>
     </index>
-    <index id="252" parent="232" name="FK403827ADD370367">
+    <index id="253" parent="232" name="FK403827ADD370367">
       <ColNames>vid</ColNames>
     </index>
-    <key id="253" parent="232" name="PRIMARY">
+    <key id="254" parent="232" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>eid</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="254" parent="232" name="Event_eid_uindex">
+    <key id="255" parent="232" name="Event_eid_uindex">
       <ColNames>eid</ColNames>
       <UnderlyingIndexName>Event_eid_uindex</UnderlyingIndexName>
     </key>
-    <foreign-key id="255" parent="232" name="Event_EventType_etid_fk">
+    <foreign-key id="256" parent="232" name="Event_EventType_etid_fk">
       <ColNames>type</ColNames>
       <RefSchemaName>bilet</RefSchemaName>
       <RefTableName>EventType</RefTableName>
       <RefColNames>etid</RefColNames>
     </foreign-key>
-    <foreign-key id="256" parent="232" name="FK403827A93B28F55">
+    <foreign-key id="257" parent="232" name="FK403827A93B28F55">
       <ColNames>type</ColNames>
       <RefSchemaName>Bilet</RefSchemaName>
       <RefTableName>EventType</RefTableName>
       <RefColNames>etid</RefColNames>
     </foreign-key>
-    <foreign-key id="257" parent="232" name="Event_Venue_vid_fk">
+    <foreign-key id="258" parent="232" name="Event_Venue_vid_fk">
       <ColNames>vid</ColNames>
       <RefSchemaName>bilet</RefSchemaName>
       <RefTableName>Venue</RefTableName>
       <RefColNames>vid</RefColNames>
     </foreign-key>
-    <foreign-key id="258" parent="232" name="FK403827ADD370367">
+    <foreign-key id="259" parent="232" name="FK403827ADD370367">
       <ColNames>vid</ColNames>
       <RefSchemaName>Bilet</RefSchemaName>
       <RefTableName>Venue</RefTableName>
       <RefColNames>vid</RefColNames>
     </foreign-key>
-    <column id="259" parent="233" name="eid">
+    <column id="260" parent="233" name="eid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="233" name="sid">
+    <column id="261" parent="233" name="sid">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="261" parent="233" name="number">
-      <Position>3</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
     <column id="262" parent="233" name="price">
-      <Position>4</Position>
+      <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="263" parent="233" name="esid">
-      <Position>5</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="264" parent="233" name="EventSeat_esid_uindex">
-      <ColNames>esid</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <index id="265" parent="233" name="EventSeat_Event_eid_fk">
-      <ColNames>eid</ColNames>
-    </index>
-    <index id="266" parent="233" name="EventSeat_Seat_sid_fk">
-      <ColNames>sid</ColNames>
-    </index>
-    <key id="267" parent="233" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>esid</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <key id="268" parent="233" name="EventSeat_esid_uindex">
-      <ColNames>esid</ColNames>
-      <UnderlyingIndexName>EventSeat_esid_uindex</UnderlyingIndexName>
-    </key>
-    <foreign-key id="269" parent="233" name="EventSeat_Event_eid_fk">
-      <ColNames>eid</ColNames>
-      <RefSchemaName>bilet</RefSchemaName>
-      <RefTableName>Event</RefTableName>
-      <RefColNames>eid</RefColNames>
-    </foreign-key>
-    <foreign-key id="270" parent="233" name="EventSeat_Seat_sid_fk">
-      <ColNames>sid</ColNames>
-      <RefSchemaName>bilet</RefSchemaName>
-      <RefTableName>Seat</RefTableName>
-      <RefColNames>sid</RefColNames>
-    </foreign-key>
-    <column id="271" parent="234" name="etid">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="272" parent="234" name="name">
-      <Position>2</Position>
-      <DataType>varchar(255)|0</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="273" parent="234" name="EventType_etid_uindex">
-      <ColNames>etid</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <key id="274" parent="234" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>etid</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <key id="275" parent="234" name="EventType_etid_uindex">
-      <ColNames>etid</ColNames>
-      <UnderlyingIndexName>EventType_etid_uindex</UnderlyingIndexName>
-    </key>
-    <column id="276" parent="235" name="mid">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="277" parent="235" name="email">
-      <Position>2</Position>
-      <DataType>varchar(255)|0</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="278" parent="235" name="password">
-      <Position>3</Position>
-      <DataType>varchar(255)|0</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="279" parent="235" name="bankAccount">
       <Position>4</Position>
-      <DataType>varchar(255)|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="280" parent="235" name="point">
+    <column id="264" parent="233" name="number">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="281" parent="235" name="isTerminated">
+    <index id="265" parent="233" name="EventSeat_esid_uindex">
+      <ColNames>esid</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="266" parent="233" name="FK7950F79F3ED4BF81">
+      <ColNames>eid</ColNames>
+    </index>
+    <index id="267" parent="233" name="FK7950F79FD5729E72">
+      <ColNames>sid</ColNames>
+    </index>
+    <key id="268" parent="233" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>esid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="269" parent="233" name="EventSeat_esid_uindex">
+      <ColNames>esid</ColNames>
+      <UnderlyingIndexName>EventSeat_esid_uindex</UnderlyingIndexName>
+    </key>
+    <foreign-key id="270" parent="233" name="EventSeat_Event_eid_fk">
+      <ColNames>eid</ColNames>
+      <RefSchemaName>bilet</RefSchemaName>
+      <RefTableName>Event</RefTableName>
+      <RefColNames>eid</RefColNames>
+    </foreign-key>
+    <foreign-key id="271" parent="233" name="FK7950F79F3ED4BF81">
+      <ColNames>eid</ColNames>
+      <RefSchemaName>Bilet</RefSchemaName>
+      <RefTableName>Event</RefTableName>
+      <RefColNames>eid</RefColNames>
+    </foreign-key>
+    <foreign-key id="272" parent="233" name="EventSeat_Seat_sid_fk">
+      <ColNames>sid</ColNames>
+      <RefSchemaName>bilet</RefSchemaName>
+      <RefTableName>Seat</RefTableName>
+      <RefColNames>sid</RefColNames>
+    </foreign-key>
+    <foreign-key id="273" parent="233" name="FK7950F79FD5729E72">
+      <ColNames>sid</ColNames>
+      <RefSchemaName>Bilet</RefSchemaName>
+      <RefTableName>Seat</RefTableName>
+      <RefColNames>sid</RefColNames>
+    </foreign-key>
+    <column id="274" parent="234" name="etid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="275" parent="234" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="276" parent="234" name="EventType_etid_uindex">
+      <ColNames>etid</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="277" parent="234" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>etid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="278" parent="234" name="EventType_etid_uindex">
+      <ColNames>etid</ColNames>
+      <UnderlyingIndexName>EventType_etid_uindex</UnderlyingIndexName>
+    </key>
+    <column id="279" parent="235" name="lid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="280" parent="235" name="minimumPoint">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="281" parent="235" name="discount">
+      <Position>3</Position>
+      <DataType>double|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="282" parent="235" name="description">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="283" parent="235" name="Level_lid_uindex">
+      <ColNames>lid</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="284" parent="235" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>lid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="285" parent="235" name="Level_lid_uindex">
+      <ColNames>lid</ColNames>
+      <UnderlyingIndexName>Level_lid_uindex</UnderlyingIndexName>
+    </key>
+    <column id="286" parent="236" name="mid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="287" parent="236" name="email">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="288" parent="236" name="password">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="289" parent="236" name="bankAccount">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="290" parent="236" name="point">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="291" parent="236" name="isTerminated">
       <Position>6</Position>
       <DataType>tinyint(1)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="235" name="isEmailPassed">
+    <column id="292" parent="236" name="isEmailPassed">
       <Position>7</Position>
       <DataType>tinyint(1)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="283" parent="235" name="Member_mid_uindex">
+    <index id="293" parent="236" name="Member_mid_uindex">
       <ColNames>mid</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="284" parent="235" name="Member_email_uindex">
+    <index id="294" parent="236" name="Member_email_uindex">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="285" parent="235" name="PRIMARY">
+    <key id="295" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>mid</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="286" parent="235" name="Member_mid_uindex">
+    <key id="296" parent="236" name="Member_mid_uindex">
       <ColNames>mid</ColNames>
       <UnderlyingIndexName>Member_mid_uindex</UnderlyingIndexName>
     </key>
-    <key id="287" parent="235" name="Member_email_uindex">
+    <key id="297" parent="236" name="Member_email_uindex">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>Member_email_uindex</UnderlyingIndexName>
     </key>
-    <column id="288" parent="236" name="sid">
+    <column id="298" parent="237" name="sid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="289" parent="236" name="name">
+    <column id="299" parent="237" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="290" parent="236" name="number">
+    <column id="300" parent="237" name="number">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="291" parent="236" name="vid">
+    <column id="301" parent="237" name="vid">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="292" parent="236" name="Seat_sid_uindex">
+    <index id="302" parent="237" name="Seat_sid_uindex">
       <ColNames>sid</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="293" parent="236" name="FK274225DD370367">
+    <index id="303" parent="237" name="FK274225DD370367">
       <ColNames>vid</ColNames>
     </index>
-    <key id="294" parent="236" name="PRIMARY">
+    <key id="304" parent="237" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>sid</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="295" parent="236" name="Seat_sid_uindex">
+    <key id="305" parent="237" name="Seat_sid_uindex">
       <ColNames>sid</ColNames>
       <UnderlyingIndexName>Seat_sid_uindex</UnderlyingIndexName>
     </key>
-    <foreign-key id="296" parent="236" name="Seat_Venue_vid_fk">
+    <foreign-key id="306" parent="237" name="Seat_Venue_vid_fk">
       <ColNames>vid</ColNames>
       <RefSchemaName>bilet</RefSchemaName>
       <RefTableName>Venue</RefTableName>
       <RefColNames>vid</RefColNames>
     </foreign-key>
-    <column id="297" parent="237" name="vid">
+    <column id="307" parent="238" name="vid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="298" parent="237" name="address">
+    <column id="308" parent="238" name="address">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="299" parent="237" name="isPassed">
+    <column id="309" parent="238" name="isPassed">
       <Position>3</Position>
       <DataType>tinyint(1)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="300" parent="237" name="name">
+    <column id="310" parent="238" name="name">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="301" parent="237" name="password">
+    <column id="311" parent="238" name="password">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="302" parent="237" name="Venue_vid_uindex">
+    <index id="312" parent="238" name="Venue_vid_uindex">
       <ColNames>vid</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="303" parent="237" name="PRIMARY">
+    <key id="313" parent="238" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>vid</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="304" parent="237" name="Venue_vid_uindex">
+    <key id="314" parent="238" name="Venue_vid_uindex">
       <ColNames>vid</ColNames>
       <UnderlyingIndexName>Venue_vid_uindex</UnderlyingIndexName>
     </key>

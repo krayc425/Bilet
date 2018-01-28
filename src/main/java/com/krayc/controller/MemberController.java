@@ -1,11 +1,12 @@
 package com.krayc.controller;
 
 import com.krayc.model.MemberEntity;
-import com.krayc.repository.MemberRepository;
-import io.github.biezhi.ome.OhMyEmail;
+import com.krayc.service.EventService;
+import com.krayc.service.LevelService;
+import com.krayc.service.MemberService;
+import com.krayc.vo.MemberInfoVO;
+import com.krayc.vo.MemberUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,7 +21,13 @@ import javax.servlet.http.HttpSession;
 public class MemberController {
 
     @Autowired
-    private MemberRepository memberRepository;
+    private EventService eventService;
+
+    @Autowired
+    private LevelService levelService;
+
+    @Autowired
+    private MemberService memberService;
 
     @RequestMapping(value = "/member/add", method = RequestMethod.GET)
     public String addMember() {
@@ -29,27 +36,24 @@ public class MemberController {
 
     @RequestMapping(value = "/member/addPost", method = RequestMethod.POST)
     public String addMemberPost(@ModelAttribute("member") MemberEntity memberEntity) {
-        memberRepository.saveAndFlush(memberEntity);
-
-        MemberEntity memberEntity1 = memberRepository.findByEmail(memberEntity.getEmail());
-
-        OhMyEmail.config(OhMyEmail.SMTP_163(false), "krayc425@163.com", "songkuixi2");
-        try {
-            OhMyEmail.subject("Welcome to Bilet!")
-                    .from("Bilet")
-                    .to(memberEntity.getEmail())
-                    .text("http://localhost:8080/member/activate/" + memberEntity1.getMid())
-                    .send();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        memberService.addMember(memberEntity);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/member/show/{id}", method = RequestMethod.GET)
     public String showMember(@PathVariable("id") Integer mid, ModelMap modelMap) {
-        modelMap.addAttribute("member", memberRepository.findOne(mid));
+        MemberEntity memberEntity1 = memberService.findByMid(mid);
+        MemberInfoVO memberInfoVO = new MemberInfoVO(
+                memberEntity1.getMid(),
+                memberEntity1.getEmail(),
+                memberEntity1.getBankAccount(),
+                levelService.findLevelEntityWithPoint(memberEntity1.getPoint()).getDescription(),
+                memberEntity1.getIsTerminated() == Byte.valueOf("1") ? "已被注销" : "可以使用",
+                memberEntity1.getIsEmailPassed() == Byte.valueOf("1") ? "已经激活" : "尚未激活");
+        modelMap.addAttribute("member", memberInfoVO);
+
+        modelMap.addAttribute("events", eventService.findAllEvents());
+
         return "member/memberDetail";
     }
 
@@ -59,28 +63,29 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/member/loginPost", method = RequestMethod.POST)
-    public String loginMemberPost(@ModelAttribute("member") MemberEntity memberEntity, HttpServletRequest request, ModelMap modelMap) {
-        MemberEntity memberEntity1 = memberRepository.findByEmail(memberEntity.getEmail());
+    public String loginMemberPost(@ModelAttribute("member") MemberEntity memberEntity, HttpServletRequest request) {
+        switch (memberService.login(memberEntity)) {
+            case LOGIN_SUCCESS:
+                HttpSession session = request.getSession(false);
+                session.setAttribute("member", memberEntity);
 
-        if (memberEntity1 != null && memberEntity.getPassword().equals(memberEntity1.getPassword())
-                && memberEntity1.getIsEmailPassed() == 1
-                && memberEntity1.getIsTerminated() != 1) {
-            System.out.println("Login Success");
-            modelMap.addAttribute("member", memberEntity1);
-
-            HttpSession session = request.getSession(false);
-            session.setAttribute("member", memberEntity1);
-
-            return "redirect:/member/show/" + memberEntity1.getMid();
-        } else {
-            System.out.println("Login Failed");
-
-            return "redirect:/";
+                return "redirect:/member/show/" + memberEntity.getMid();
+            case LOGIN_NOT_ACTIVATED:
+                System.out.println("Not activated");
+                return "redirect:/";
+            case LOGIN_WRONG_EMAIL_PASSWORD:
+                System.out.println("Wrong email and password");
+                return "redirect:/";
+            case LOGIN_TERMINATED:
+                System.out.println("Terminated");
+                return "redirect:/";
+            default:
+                return "redirect:/";
         }
     }
 
     @RequestMapping(value = "/member/logout", method = RequestMethod.GET)
-    public String logoutVenue(HttpServletRequest request) {
+    public String logoutMember(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         session.setAttribute("member", null);
         session.invalidate();
@@ -89,33 +94,34 @@ public class MemberController {
 
     @RequestMapping(value = "/member/activate/{id}", method = RequestMethod.GET)
     public String activateMember(@PathVariable("id") Integer mid, ModelMap modelMap) {
-        MemberEntity memberEntity = memberRepository.findOne(mid);
+        MemberEntity memberEntity = memberService.findByMid(mid);
         if (memberEntity.getIsEmailPassed() == 1) {
             System.out.println("激活过了");
         } else {
-            memberRepository.updateActivationMember(mid, Byte.valueOf("1"));
-
-            modelMap.addAttribute("user", memberEntity);
+            memberService.activateMember(mid);
         }
         return "redirect:/member/show/" + mid;
     }
 
     @RequestMapping(value = "/member/update/{id}", method = RequestMethod.GET)
     public String updateUser(@PathVariable("id") Integer userId, ModelMap modelMap) {
-        modelMap.addAttribute("user", memberRepository.findOne(userId));
+        MemberEntity memberEntity = memberService.findByMid(userId);
+        MemberUpdateVO memberUpdateVO = new MemberUpdateVO(memberEntity.getMid(), memberEntity.getBankAccount(), memberEntity.getPassword());
+
+        modelMap.addAttribute("member", memberUpdateVO);
         return "member/updateMember";
     }
 
     @RequestMapping(value = "/member/updatePost/{id}", method = RequestMethod.POST)
     public String updateUserPost(@PathVariable("id") Integer userId, @ModelAttribute("memberP") MemberEntity user) {
-        memberRepository.updateMember(user.getEmail(), user.getPassword(), user.getBankAccount(), userId);
-        memberRepository.flush();
+        user.setMid(userId);
+        memberService.updateMember(user);
         return "redirect:/member/show/" + userId;
     }
 
     @RequestMapping(value = "/member/terminate/{id}", method = RequestMethod.GET)
     public String terminateUser(@PathVariable("id") Integer userid) {
-        memberRepository.terminateMember(userid, Byte.valueOf("1"));
+        memberService.terminateMember(userid);
         return "redirect:/";
     }
 
