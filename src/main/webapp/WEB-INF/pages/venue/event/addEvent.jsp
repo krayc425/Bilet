@@ -35,11 +35,11 @@
     <form:form action="/venue/${vid}/events/addPost" method="post" role="form">
         <div class="form-group">
             <label for="name">名字</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="请输入活动名字"/>
+            <input type="text" class="form-control" id="name" name="name" placeholder="请输入活动名字" required/>
         </div>
         <div class="form-group">
             <label for="description">描述</label>
-            <input type="text" class="form-control" id="description" name="description" placeholder="请输入活动描述"/>
+            <input type="text" class="form-control" id="description" name="description" placeholder="请输入活动描述" required/>
         </div>
         <div class="form-group">
             <label>种类</label>
@@ -53,14 +53,11 @@
         </div>
         <div class="form-group">
             <label for="time">时间（请按 yyyy-MM-dd HH:mm:ss 格式输入）</label>
-            <input type="text" class="form-control" id="time" name="time" placeholder="请输入活动时间"/>
+            <input type="text" class="form-control" id="time" name="time" placeholder="请输入活动时间" required/>
         </div>
         <button type="submit" class="btn btn-sm btn-success">提交</button>
     </form:form>
 </div>
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="/assets/jquery-3.3.1.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<%@include file="../../jsFile.jsp" %>
 </body>
 </html>

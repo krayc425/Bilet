@@ -18,25 +18,40 @@
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">返回</a>
+        </div>
+    </div>
+</nav>
+
 <body>
 <div class="container">
     <h1>Bilet 场馆登录</h1>
     <hr/>
+
+    <%@include file="../displayError.jsp" %>
+
     <form:form action="/venue/loginPost" method="post" role="form">
         <div class="form-group">
             <label for="vid">7 位识别码</label>
-            <input type="text" class="form-control" id="vid" name="vid" placeholder="请输入识别码"/>
+            <input type="text" maxlength="7" class="form-control" id="vid" name="vid" placeholder="请输入识别码" required/>
+            <script type="text/javascript">
+                var text = document.getElementById("vid");
+                text.onkeyup = function () {
+                    this.value = this.value.replace(/\D/g, '');
+                }
+            </script>
         </div>
         <div class="form-group">
             <label for="password">密码</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码"/>
+            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" required/>
         </div>
         <button type="submit" class="btn btn-sm btn-success">登录</button>
     </form:form>
 </div>
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="/assets/jquery-3.3.1.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<%@include file="../jsFile.jsp" %>
 </body>
 </html>

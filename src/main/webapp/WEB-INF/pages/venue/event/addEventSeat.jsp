@@ -32,10 +32,14 @@
 <div class="container">
     <h1>Bilet 添加活动座位</h1>
     <hr/>
-    <form:form action="/venue/${venue.vid}/events/${event.eid}/seats/addPost" method="post" role="form">
+
+    <%@include file="../../displayError.jsp" %>
+
+    <form:form action="/venue/${venue.vid}/events/${event.eid}/seats/addPost" method="post"
+               role="form">
         <div class="form-group">
             <label>选择一种座位</label>
-            <select class="form-control" name="seatId">
+            <select class="form-control" name="seatId" id="seatId">
                 <c:forEach items="${eventSeats}" var="seat">
                     <option value="${seat.sid}">
                             ${seat.name} - 最多 ${seat.number} 个
@@ -45,11 +49,13 @@
         </div>
         <div class="form-group">
             <label for="number">数量</label>
-            <input type="text" class="form-control" id="number" name="number" placeholder="请输入座位数量"/>
+            <input type="number" max=max class="form-control" id="number"
+                   name="number"
+                   placeholder="请输入座位数量" required/>
         </div>
         <div class="form-group">
             <label for="number">价格</label>
-            <input type="text" class="form-control" id="price" name="price" placeholder="请输入座位价格"/>
+            <input type="number" min="0" class="form-control" id="price" name="price" placeholder="请输入座位价格" required/>
         </div>
         <hr/>
         <b>注意：一旦提交座位情况，将不得更改。请谨慎小心提交！</b>
@@ -57,9 +63,7 @@
         <button type="submit" class="btn btn-sm btn-success">提交</button>
     </form:form>
 </div>
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="/assets/jquery-3.3.1.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+<%@include file="../../jsFile.jsp" %>
 </body>
 </html>

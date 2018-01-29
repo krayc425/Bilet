@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
 <body>
+
 <div class="container">
     <h1>Bilet 场馆详情</h1>
     <hr/>
@@ -65,9 +66,6 @@
     <hr/>
     <a href="/venue/logout" type="button" class="btn btn-danger btn-sm">登出</a>
 </div>
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="/assets/jquery-3.3.1.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<%@include file="../jsFile.jsp" %>
 </body>
 </html>

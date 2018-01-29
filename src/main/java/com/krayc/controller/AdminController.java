@@ -1,8 +1,9 @@
 package com.krayc.controller;
 
 import com.krayc.model.AdminEntity;
-import com.krayc.repository.AdminRepository;
+import com.krayc.service.AdminService;
 import com.krayc.service.VenueService;
+import com.krayc.vo.MessageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,43 +11,42 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value = "admin")
-public class AdminController {
+public class AdminController extends BaseController {
 
     @Autowired
-    private AdminRepository adminRepository;
+    private AdminService adminService;
 
     @Autowired
     private VenueService venueService;
 
     @RequestMapping(value = "adminHome", method = RequestMethod.GET)
     public String adminHome() {
-        return "admin/adminHome";
+        return "admin/adminDetail";
     }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String loginMember() {
-        return "admin/loginAdmin";
+    public ModelAndView loginMember() {
+        return new ModelAndView("admin/loginAdmin");
     }
 
     @RequestMapping(value = "loginPost", method = RequestMethod.POST)
-    public String loginMemberPost(@ModelAttribute("admin") AdminEntity adminEntity, HttpServletRequest request, ModelMap modelMap) {
-        AdminEntity adminEntity1 = adminRepository.findByUsername(adminEntity.getUsername());
-        if (adminEntity1 != null && adminEntity.getPassword().equals(adminEntity1.getPassword())) {
-            System.out.println("Login Success");
-            HttpSession session = request.getSession(false);
-            session.setAttribute("admin", adminEntity1);
-
-            modelMap.addAttribute("admin", adminEntity1);
-            return "redirect:/admin/adminHome";
-        } else {
-            System.out.println("Login Failed");
-            return "redirect:/";
+    public ModelAndView loginMemberPost(@ModelAttribute("admin") AdminEntity adminEntity, HttpServletRequest request, ModelMap modelMap) {
+        switch (adminService.login(adminEntity)) {
+            case LOGIN_SUCCESS:
+                HttpSession session = request.getSession(false);
+                session.setAttribute("admin", adminEntity);
+                modelMap.addAttribute("admin", adminEntity);
+                return new ModelAndView("redirect:/admin/adminHome");
+            default:
+                MessageVO messageVO = new MessageVO(false, "用户名或密码错误");
+                return this.handleMessage(messageVO, "admin/loginAdmin");
         }
     }
 

@@ -7,10 +7,7 @@ import com.krayc.model.VenueEntity;
 import com.krayc.service.EventService;
 import com.krayc.service.SeatService;
 import com.krayc.service.VenueService;
-import com.krayc.vo.EventVO;
-import com.krayc.vo.SeatVO;
-import com.krayc.vo.VenueInfoVO;
-import com.krayc.vo.VenueUpdateVO;
+import com.krayc.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Controller
-public class VenueController {
+public class VenueController extends BaseController {
 
     @Autowired
     private VenueService venueService;
@@ -56,24 +54,22 @@ public class VenueController {
     }
 
     @RequestMapping(value = "/venue/login", method = RequestMethod.GET)
-    public String loginVenue() {
-        return "venue/loginVenue";
+    public ModelAndView loginVenue() {
+        return new ModelAndView("venue/loginVenue");
     }
 
     @RequestMapping(value = "/venue/loginPost", method = RequestMethod.POST)
-    public String loginVenuePost(@ModelAttribute("venue") VenueEntity venueEntity, HttpServletRequest request, ModelMap modelMap) {
-        VenueEntity venueEntity1 = venueService.findByVid(venueEntity.getVid());
-        if (venueEntity1 != null && venueEntity.getPassword().equals(venueEntity1.getPassword())) {
-            System.out.println("Login Success");
-
-            HttpSession session = request.getSession(false);
-            session.setAttribute("venue", venueEntity1);
-
-            return "redirect:/venue/show/" + venueEntity.getVid();
-        } else {
-            System.out.println("Login Failed");
-
-            return "redirect:/";
+    public ModelAndView loginVenuePost(@ModelAttribute("venue") VenueEntity venueEntity, HttpServletRequest request, ModelMap modelMap) {
+        switch (venueService.login(venueEntity)) {
+            case LOGIN_SUCCESS:
+                VenueEntity venueEntity1 = venueService.findByVid(venueEntity.getVid());
+                HttpSession session = request.getSession(false);
+                session.setAttribute("venue", venueEntity1);
+                modelMap.addAttribute("venue", venueEntity1);
+                return new ModelAndView("redirect:/venue/show/" + venueEntity.getVid());
+            default:
+                MessageVO messageVO = new MessageVO(false, "识别码或密码错误");
+                return this.handleMessage(messageVO, "venue/loginVenue");
         }
     }
 
@@ -190,11 +186,13 @@ public class VenueController {
     }
 
     @RequestMapping(value = "/venue/{vid}/events/{eid}/seats/add")
-    public String addEventSeats(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, ModelMap modelMap) {
+    public ModelAndView addEventSeats(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid) {
+        ModelAndView modelAndView = new ModelAndView("/venue/event/addEventSeat");
+
         VenueEntity venueEntity = venueService.findByVid(vid);
-        modelMap.addAttribute("venue", venueEntity);
+        modelAndView.addObject("venue", venueEntity);
         EventEntity eventEntity = eventService.findByEid(eid);
-        modelMap.addAttribute("event", eventEntity);
+        modelAndView.addObject("event", eventEntity);
 
         Collection<EventSeatEntity> alreadySeats = eventService.findEventSeatOtherThanSeatsAndInEvent(venueEntity.getSeatsByVid(), eventEntity);
         Collection<SeatEntity> toBeAddedSeats = venueEntity.getSeatsByVid();
@@ -203,20 +201,28 @@ public class VenueController {
             toBeAddedSeats.remove(eventSeatEntity.getSeat());
         }
 
-        modelMap.addAttribute("eventSeats", toBeAddedSeats);
+        modelAndView.addObject("eventSeats", toBeAddedSeats);
 
-        return "/venue/event/addEventSeat";
+        return modelAndView;
     }
 
     @RequestMapping(value = "/venue/{vid}/events/{eid}/seats/addPost")
-    public String addEventSeatsPost(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, HttpServletRequest request) {
-        EventSeatEntity eventSeatEntity = new EventSeatEntity();
-        eventSeatEntity.setEvent(eventService.findByEid(eid));
-        eventSeatEntity.setSeat(seatService.findBySid(Integer.parseInt(request.getParameter("seatId"))));
-        eventSeatEntity.setNumber(Integer.parseInt(request.getParameter("number")));
-        eventSeatEntity.setPrice(Integer.parseInt(request.getParameter("price")));
-        eventService.addEventSeat(eventSeatEntity);
-        return "redirect:/venue/" + vid + "/events/" + eid + "/seats";
+    public ModelAndView addEventSeatsPost(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, HttpServletRequest request) {
+        SeatEntity seatEntity = seatService.findBySid(Integer.parseInt(request.getParameter("seatId")));
+        Integer eventSeatNumber = Integer.parseInt(request.getParameter("number"));
+
+        if (eventSeatNumber > seatEntity.getNumber()) {
+            MessageVO messageVO = new MessageVO(false, "输入的座位数量超过该种座位最大限额");
+            return this.handleMessage(messageVO, "redirect:/venue/" + vid + "/events/" + eid + "/seats/add");
+        } else {
+            EventSeatEntity eventSeatEntity = new EventSeatEntity();
+            eventSeatEntity.setEvent(eventService.findByEid(eid));
+            eventSeatEntity.setSeat(seatEntity);
+            eventSeatEntity.setNumber(eventSeatNumber);
+            eventSeatEntity.setPrice(Integer.parseInt(request.getParameter("price")));
+            eventService.addEventSeat(eventSeatEntity);
+            return new ModelAndView("redirect:/venue/" + vid + "/events/" + eid + "/seats");
+        }
     }
 
 }

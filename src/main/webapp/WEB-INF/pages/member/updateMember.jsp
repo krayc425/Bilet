@@ -49,9 +49,6 @@
     <hr/>
     <a href="/member/terminate/${user.mid}" type="button" class="btn btn-danger btn-sm">取消资格</a>
 </div>
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="/assets/jquery-3.3.1.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<%@include file="../jsFile.jsp" %>
 </body>
 </html>

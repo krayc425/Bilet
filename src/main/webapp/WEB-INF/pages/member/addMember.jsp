@@ -19,28 +19,34 @@
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
 <body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">返回</a>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
     <h1>Bilet 会员注册</h1>
     <hr/>
     <form:form action="/member/addPost" method="post" role="form">
         <div class="form-group">
             <label for="email">邮箱</label>
-            <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱"/>
+            <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱" required/>
         </div>
         <div class="form-group">
             <label for="password">密码</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码"/>
+            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" required/>
         </div>
         <div class="form-group">
             <label for="bankAccount">银行账户</label>
-            <input type="text" class="form-control" id="bankAccount" name="bankAccount" placeholder="请输入银行账户"/>
+            <input type="text" class="form-control" id="bankAccount" name="bankAccount" placeholder="请输入银行账户" required/>
         </div>
         <button type="submit" class="btn btn-sm btn-success">注册</button>
     </form:form>
 </div>
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="/assets/jquery-3.3.1.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<%@include file="../jsFile.jsp" %>
 </body>
 </html>

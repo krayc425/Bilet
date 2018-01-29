@@ -19,6 +19,14 @@
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
 
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">返回</a>
+        </div>
+    </div>
+</nav>
+
 <body>
 <div class="container">
     <h1>Bilet 场馆申请</h1>
@@ -39,9 +47,6 @@
         <button type="submit" class="btn btn-sm btn-success">提交</button>
     </form:form>
 </div>
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="/assets/jquery-3.3.1.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<%@include file="../jsFile.jsp" %>
 </body>
 </html>

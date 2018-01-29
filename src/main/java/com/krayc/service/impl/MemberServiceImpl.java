@@ -37,6 +37,9 @@ public class MemberServiceImpl implements MemberService {
 
     public LoginStatus login(MemberEntity memberEntity) {
         MemberEntity anotherEntity = memberRepository.findByEmail(memberEntity.getEmail());
+        if (anotherEntity == null) {
+            return LoginStatus.LOGIN_WRONG_EMAIL_PASSWORD;
+        }
         if (!anotherEntity.getPassword().equals(memberEntity.getPassword())) {
             return LoginStatus.LOGIN_WRONG_EMAIL_PASSWORD;
         } else {

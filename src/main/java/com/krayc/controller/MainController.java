@@ -20,7 +20,7 @@ public class MainController {
         if (session != null) {
             if (session.getAttribute("admin") != null) {
                 modelMap.addAttribute("admin", session.getAttribute("admin"));
-                return "admin/adminHome";
+                return "admin/adminDetail";
             } else if (session.getAttribute("member") != null) {
                 MemberEntity memberEntity = (MemberEntity) session.getAttribute("member");
                 modelMap.addAttribute("member", memberEntity);

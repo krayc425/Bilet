@@ -1,6 +1,7 @@
 package com.krayc.service;
 
 import com.krayc.model.VenueEntity;
+import com.krayc.util.LoginStatus;
 
 import java.util.List;
 
@@ -15,5 +16,7 @@ public interface VenueService {
     public void addVenue(VenueEntity venueEntity);
 
     public void updateVenue(VenueEntity venueEntity);
+
+    public LoginStatus login(VenueEntity venueEntity);
 
 }

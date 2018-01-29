@@ -6,6 +6,7 @@ import com.krayc.service.LevelService;
 import com.krayc.service.MemberService;
 import com.krayc.vo.MemberInfoVO;
 import com.krayc.vo.MemberUpdateVO;
+import com.krayc.vo.MessageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,13 +14,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value = "member")
-public class MemberController {
+public class MemberController extends BaseController {
 
     @Autowired
     private EventService eventService;
@@ -60,12 +62,12 @@ public class MemberController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String loginMember() {
-        return "member/loginMember";
+    public ModelAndView loginMember() {
+        return new ModelAndView("member/loginMember");
     }
 
     @RequestMapping(value = "loginPost", method = RequestMethod.POST)
-    public String loginMemberPost(@ModelAttribute("member") MemberEntity memberEntity, HttpServletRequest request) {
+    public ModelAndView loginMemberPost(@ModelAttribute("member") MemberEntity memberEntity, HttpServletRequest request) {
         switch (memberService.login(memberEntity)) {
             case LOGIN_SUCCESS:
                 MemberEntity memberEntity1 = memberService.findByEmail(memberEntity.getEmail());
@@ -73,18 +75,21 @@ public class MemberController {
                 HttpSession session = request.getSession(false);
                 session.setAttribute("member", memberEntity1);
 
-                return "redirect:/member/show/" + memberEntity1.getMid();
-            case LOGIN_NOT_ACTIVATED:
-                System.out.println("Not activated");
-                return "redirect:/";
-            case LOGIN_WRONG_EMAIL_PASSWORD:
-                System.out.println("Wrong email and password");
-                return "redirect:/";
-            case LOGIN_TERMINATED:
-                System.out.println("Terminated");
-                return "redirect:/";
+                return new ModelAndView("redirect:/member/show/" + memberEntity1.getMid());
+            case LOGIN_NOT_ACTIVATED: {
+                MessageVO messageVO = new MessageVO(false, "账户尚未被激活");
+                return this.handleMessage(messageVO, "member/loginMember");
+            }
+            case LOGIN_WRONG_EMAIL_PASSWORD: {
+                MessageVO messageVO = new MessageVO(false, "邮箱或密码错误");
+                return this.handleMessage(messageVO, "member/loginMember");
+            }
+            case LOGIN_TERMINATED: {
+                MessageVO messageVO = new MessageVO(false, "账户已经被取消");
+                return this.handleMessage(messageVO, "member/loginMember");
+            }
             default:
-                return "redirect:/";
+                return new ModelAndView("redirect:/");
         }
     }
 
