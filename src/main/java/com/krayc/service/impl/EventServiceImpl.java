@@ -46,7 +46,6 @@ public class EventServiceImpl implements EventService {
         eventRepository.saveAndFlush(eventEntity);
     }
 
-
     public void addEventSeat(EventSeatEntity eventSeatEntity) {
         eventSeatRepository.saveAndFlush(eventSeatEntity);
     }

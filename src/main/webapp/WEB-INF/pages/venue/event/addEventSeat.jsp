@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.krayc.model.SeatEntity" %><%--
   Created by IntelliJ IDEA.
   User: Kray
   Date: 2018/1/27
@@ -52,6 +52,12 @@
             <input type="number" max=max class="form-control" id="number"
                    name="number"
                    placeholder="请输入座位数量" required/>
+            <script type="text/javascript">
+                var text = document.getElementById("number");
+                text.onkeyup = function () {
+                    this.value = this.value.replace(/\D/g, '');
+                }
+            </script>
         </div>
         <div class="form-group">
             <label for="number">价格</label>

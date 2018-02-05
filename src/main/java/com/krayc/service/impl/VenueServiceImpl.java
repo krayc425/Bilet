@@ -16,7 +16,7 @@ public class VenueServiceImpl implements VenueService {
     private VenueRepository venueRepository;
 
     public void passVenueOrNot(Integer vid, Boolean isPass) {
-        venueRepository.passVenue(Byte.valueOf(isPass ? "1" : "0"), vid);
+        venueRepository.passVenue(Byte.valueOf(isPass ? "1" : "-1"), vid);
         venueRepository.flush();
     }
 

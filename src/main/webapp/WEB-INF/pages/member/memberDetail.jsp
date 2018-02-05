@@ -27,6 +27,7 @@
     <hr/>
     <a href="#" type="button" class="btn btn-primary btn-sm">订单历史</a>
     <a href="/member/update/${member.mid}" type="button" class="btn btn-warning btn-sm">修改信息</a>
+    <a href="/member/coupon/${member.mid}" type="button" class="btn btn-default btn-sm">我的优惠券</a>
     <hr/>
     <table class="table table-bordered table-striped">
         <tr>
@@ -38,8 +39,12 @@
             <td>${member.bankAccount}</td>
         </tr>
         <tr>
-            <th>积分</th>
-            <td>${member.point}</td>
+            <th>累积积分</th>
+            <td>${member.totalPoint}</td>
+        </tr>
+        <tr>
+            <th>可兑换积分</th>
+            <td>${member.currentPoint}</td>
         </tr>
         <tr>
             <th>等级</th>

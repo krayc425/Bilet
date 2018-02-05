@@ -1,9 +1,12 @@
 package com.krayc.controller;
 
+import com.krayc.model.MemberCouponEntity;
 import com.krayc.model.MemberEntity;
+import com.krayc.service.CouponService;
 import com.krayc.service.EventService;
 import com.krayc.service.LevelService;
 import com.krayc.service.MemberService;
+import com.krayc.vo.MemberCouponVO;
 import com.krayc.vo.MemberInfoVO;
 import com.krayc.vo.MemberUpdateVO;
 import com.krayc.vo.MessageVO;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Collection;
 
 @Controller
 @RequestMapping(value = "member")
@@ -31,6 +35,9 @@ public class MemberController extends BaseController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private CouponService couponService;
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String addMember() {
@@ -50,8 +57,9 @@ public class MemberController extends BaseController {
                 memberEntity1.getMid(),
                 memberEntity1.getEmail(),
                 memberEntity1.getBankAccount(),
-                levelService.findLevelEntityWithPoint(memberEntity1.getPoint()).getDescription(),
-                memberEntity1.getPoint(),
+                levelService.findLevelEntityWithPoint(memberEntity1.getTotalPoint()).getDescription(),
+                memberEntity1.getTotalPoint(),
+                memberEntity1.getCurrentPoint(),
                 memberEntity1.getIsTerminated() == Byte.valueOf("1") ? "已被注销" : "可以使用",
                 memberEntity1.getIsEmailPassed() == Byte.valueOf("1") ? "已经激活" : "尚未激活");
         modelMap.addAttribute("member", memberInfoVO);
@@ -129,9 +137,37 @@ public class MemberController extends BaseController {
     }
 
     @RequestMapping(value = "terminate/{id}", method = RequestMethod.GET)
-    public String terminateUser(@PathVariable("id") Integer userid) {
-        memberService.terminateMember(userid);
+    public String terminateUser(@PathVariable("id") Integer mid) {
+        memberService.terminateMember(mid);
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "coupon/{id}", method = RequestMethod.GET)
+    public String coupon(@PathVariable("id") Integer mid, ModelMap modelMap) {
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        Collection<MemberCouponVO> memberCouponEntities = couponService.findMemberCouponVOsByMid(mid);
+        modelMap.addAttribute("member", memberEntity);
+        modelMap.addAttribute("memberCoupons", memberCouponEntities);
+        return "member/coupon/memberCouponDetail";
+    }
+
+    @RequestMapping(value = "coupon/{id}/redeem", method = RequestMethod.GET)
+    public String redeemCoupon(@PathVariable("id") Integer mid, ModelMap modelMap) {
+        modelMap.addAttribute("allCoupons", couponService.findAllCoupons());
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        modelMap.addAttribute("member", memberEntity);
+        return "member/coupon/redeemMemberCoupon";
+    }
+
+    @RequestMapping(value = "coupon/{id}/redeem/{cid}", method = RequestMethod.GET)
+    public String redeemCouponPost(@PathVariable("id") Integer mid, @PathVariable("cid") Integer cid) {
+        MemberCouponEntity memberCouponEntity = new MemberCouponEntity();
+        memberCouponEntity.setCouponByCid(couponService.findByCid(cid));
+        memberCouponEntity.setMemberByMid(memberService.findByMid(mid));
+        memberCouponEntity.setUsage(0);
+        couponService.redeemCoupon(memberCouponEntity);
+
+        return "redirect:/member/coupon/" + mid;
     }
 
 }

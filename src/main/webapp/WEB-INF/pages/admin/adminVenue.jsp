@@ -55,7 +55,7 @@
                     <td>${venue.seatsByVid.size()}</td>
                     <td>
                         <a href="/admin/venue/good/${venue.vid}" type="button" class="btn btn-sm btn-success">通过</a>
-                        <a href="/admin/venue/bad/${venue.vid}" type="button" class="btn btn-sm btn-warning">拒绝</a>
+                        <a href="/admin/venue/bad/${venue.vid}" type="button" class="btn btn-sm btn-danger">拒绝</a>
                     </td>
                 </tr>
             </c:forEach>

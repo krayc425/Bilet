@@ -14,7 +14,14 @@ public class VenueInfoVO {
     public VenueInfoVO(VenueEntity venueEntity) {
         this.vid = String.format("%07d", venueEntity.getVid());
         this.address = venueEntity.getAddress();
-        this.isPassed = venueEntity.getIsPassed() == Byte.valueOf("1") ? "审核通过" : "尚未通过";
+        Byte isPassedByte = venueEntity.getIsPassed();
+        if (isPassedByte.equals(Byte.valueOf("1"))) {
+            this.isPassed = "审核通过";
+        } else if (isPassedByte.equals(Byte.valueOf("-1"))) {
+            this.isPassed = "审核未通过";
+        } else if (isPassedByte.equals(Byte.valueOf("0"))) {
+            this.isPassed = "尚未审核";
+        }
         this.name = venueEntity.getName();
         this.seatsNumber = venueEntity.getSeatsByVid().size();
         this.eventsNumber = venueEntity.getEventsByVid().size();

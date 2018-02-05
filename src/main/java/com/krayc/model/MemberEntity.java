@@ -1,6 +1,10 @@
 package com.krayc.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "Member", schema = "Bilet")
@@ -9,9 +13,11 @@ public class MemberEntity {
     private String email;
     private String password;
     private String bankAccount;
-    private int point;
+    private int totalPoint;
+    private int currentPoint;
     private byte isTerminated;
     private byte isEmailPassed;
+    private Collection<MemberCouponEntity> memberCoupons;
 
     @Id
     @Column(name = "mid")
@@ -55,13 +61,23 @@ public class MemberEntity {
     }
 
     @Basic
-    @Column(name = "point")
-    public int getPoint() {
-        return point;
+    @Column(name = "totalPoint")
+    public int getTotalPoint() {
+        return totalPoint;
     }
 
-    public void setPoint(int point) {
-        this.point = point;
+    public void setTotalPoint(int totalPoint) {
+        this.totalPoint = totalPoint;
+    }
+
+    @Basic
+    @Column(name = "currentPoint")
+    public int getCurrentPoint() {
+        return currentPoint;
+    }
+
+    public void setCurrentPoint(int currentPoint) {
+        this.currentPoint = currentPoint;
     }
 
     @Basic
@@ -92,7 +108,8 @@ public class MemberEntity {
         MemberEntity that = (MemberEntity) o;
 
         if (mid != that.mid) return false;
-        if (point != that.point) return false;
+        if (totalPoint != that.totalPoint) return false;
+        if (currentPoint != that.currentPoint) return false;
         if (isTerminated != that.isTerminated) return false;
         if (isEmailPassed != that.isEmailPassed) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
@@ -108,9 +125,20 @@ public class MemberEntity {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (bankAccount != null ? bankAccount.hashCode() : 0);
-        result = 31 * result + point;
+        result = 31 * result + totalPoint;
+        result = 31 * result + currentPoint;
         result = 31 * result + (int) isTerminated;
         result = 31 * result + (int) isEmailPassed;
         return result;
+    }
+
+    @OneToMany(mappedBy = "memberByMid", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    public Collection<MemberCouponEntity> getMemberCoupons() {
+        return memberCoupons;
+    }
+
+    public void setMemberCoupons(Collection<MemberCouponEntity> memberCoupons) {
+        this.memberCoupons = memberCoupons;
     }
 }

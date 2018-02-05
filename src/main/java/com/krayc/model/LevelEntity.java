@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class LevelEntity {
     private int lid;
     private int minimumPoint;
-    private double discount;
     private String description;
 
     @Id
@@ -31,16 +30,6 @@ public class LevelEntity {
     }
 
     @Basic
-    @Column(name = "discount")
-    public double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
-
-    @Basic
     @Column(name = "description")
     public String getDescription() {
         return description;
@@ -59,7 +48,6 @@ public class LevelEntity {
 
         if (lid != that.lid) return false;
         if (minimumPoint != that.minimumPoint) return false;
-        if (Double.compare(that.discount, discount) != 0) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
 
         return true;
@@ -71,8 +59,6 @@ public class LevelEntity {
         long temp;
         result = lid;
         result = 31 * result + minimumPoint;
-        temp = Double.doubleToLongBits(discount);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }

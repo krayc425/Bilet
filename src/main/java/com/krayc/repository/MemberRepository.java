@@ -25,7 +25,12 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
 
     @Modifying
     @Transactional
-    @Query("update MemberEntity me set me.isTerminated=:isTerminated where me.mid=:mid")
+    @Query("update MemberEntity us set us.isTerminated=:isTerminated where us.mid=:mid")
     public void terminateMember(@Param("mid") Integer mid, @Param("isTerminated") Byte isTerminated);
+
+    @Modifying
+    @Transactional
+    @Query("update MemberEntity us set us.currentPoint=:point where us.mid=:qId")
+    public void updateCurrentPoint(@Param("point") Integer point, @Param("qId") Integer qId);
 
 }
