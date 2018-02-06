@@ -10,12 +10,13 @@ import java.util.Collection;
 @Entity
 @Table(name = "Order", schema = "Bilet")
 public class OrderEntity {
+
     private int oid;
     private Timestamp orderTime;
     private byte status;
     private EventEntity eventByEid;
     private MemberEntity memberByMid;
-    private CouponEntity couponByCid;
+    private MemberCouponEntity memberCouponEntity;
     private Collection<OrderEventSeatEntity> orderEventSeats;
 
     @Id
@@ -96,13 +97,13 @@ public class OrderEntity {
     }
 
     @OneToOne
-    @JoinColumn(name = "cid", referencedColumnName = "cid")
-    public CouponEntity getCouponByCid() {
-        return couponByCid;
+    @JoinColumn(name = "mcid", referencedColumnName = "mcid")
+    public MemberCouponEntity getMemberCouponEntity() {
+        return memberCouponEntity;
     }
 
-    public void setCouponByCid(CouponEntity couponByCid) {
-        this.couponByCid = couponByCid;
+    public void setMemberCouponEntity(MemberCouponEntity memberCouponEntity) {
+        this.memberCouponEntity = memberCouponEntity;
     }
 
     @OneToMany(mappedBy = "orderByOid", fetch = FetchType.EAGER)

@@ -53,12 +53,16 @@
                     <td>${order.status}</td>
                     <td>
                         <c:if test="${order.status.equals('等待付款')}">
-                            <a class="btn btn-primary" href="/member/order/${member.mid}/pay/${order.oid}" role="button">付款</a>
-                            <a class="btn btn-danger" href="/member/order/${member.mid}/cancel/${order.oid}" role="button">取消</a>
+                            <a class="btn btn-primary" href="/member/order/${member.mid}/pay/${order.oid}"
+                               role="button">付款</a>
+                            <a class="btn btn-danger" href="/member/order/${member.mid}/cancel/${order.oid}"
+                               role="button">取消</a>
                         </c:if>
                         <c:if test="${order.status.equals('等待演出')}">
-                            <a class="btn btn-primary" href="#" role="button">查看详情</a>
-                            <a class="btn btn-danger" href="/member/order/${member.mid}/refund/${order.oid}" role="button">退票</a>
+                            <a class="btn btn-primary" href="/member/order/${member.mid}/detail/${order.oid}"
+                               role="button">查看详情</a>
+                            <a class="btn btn-danger" href="/member/order/${member.mid}/refund/${order.oid}"
+                               role="button">退票</a>
                         </c:if>
                     </td>
                 </tr>

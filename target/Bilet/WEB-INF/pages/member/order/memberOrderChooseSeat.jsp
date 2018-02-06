@@ -65,13 +65,13 @@
                 </table>
             </div>
 
-            <c:if test="${!empty member.memberCoupons}">
+            <c:if test="${!empty coupons}">
                 <div class="form-group">
                     <label>优惠券</label>
                     <select class="form-control" name="memberCouponCid">
                         <option>选择一张优惠券</option>
-                        <c:forEach items="${member.memberCoupons}" var="memberCoupon">
-                            <option value="${memberCoupon.couponByCid.cid}">
+                        <c:forEach items="${coupons}" var="memberCoupon">
+                            <option value="${memberCoupon.mcid}">
                                     ${memberCoupon.couponByCid.name}
                             </option>
                         </c:forEach>

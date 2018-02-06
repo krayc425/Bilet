@@ -32,6 +32,15 @@ public class CouponServiceImpl implements CouponService {
         return couponRepository.findAll();
     }
 
+    public MemberCouponEntity findByMcid(Integer mcid) {
+        return memberCouponRepository.findOne(mcid);
+    }
+
+    public List<MemberCouponEntity> findAvailableCouponsByMid(Integer mid) {
+        MemberEntity memberEntity = memberRepository.findOne(mid);
+        return memberCouponRepository.findByMemberByMidAndUsage(memberEntity, 0);
+    }
+
     public void redeemCoupon(MemberCouponEntity memberCouponEntity) {
         Date date = new Date(System.currentTimeMillis());
         memberCouponEntity.setTime(DateFormatter.getDateFormatter().stringFromDate(date));
@@ -49,20 +58,7 @@ public class CouponServiceImpl implements CouponService {
     public List<MemberCouponVO> findMemberCouponVOsByMid(Integer mid) {
         ArrayList<MemberCouponVO> memberCouponVOS = new ArrayList<MemberCouponVO>();
         for (MemberCouponEntity memberCouponEntity : memberRepository.findOne(mid).getMemberCoupons()) {
-            String usageDescription;
-            switch (memberCouponEntity.getUsage()) {
-                case 0:
-                    usageDescription = "兑换";
-                    break;
-                case 1:
-                    usageDescription = "试用";
-                    break;
-                default:
-                    usageDescription = "";
-                    break;
-            }
-            memberCouponVOS.add(new MemberCouponVO(DateFormatter.getDateFormatter().stringFromDate(memberCouponEntity.getTime()),
-                    usageDescription, memberCouponEntity.getCouponByCid().getName()));
+            memberCouponVOS.add(new MemberCouponVO(memberCouponEntity));
         }
         return memberCouponVOS;
     }

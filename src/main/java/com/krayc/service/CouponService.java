@@ -14,6 +14,10 @@ public interface CouponService {
 
     public CouponEntity findByCid(Integer cid);
 
+    public MemberCouponEntity findByMcid(Integer mcid);
+
+    public List<MemberCouponEntity> findAvailableCouponsByMid(Integer mid);
+
     public List<MemberCouponVO> findMemberCouponVOsByMid(Integer mid);
 
 }

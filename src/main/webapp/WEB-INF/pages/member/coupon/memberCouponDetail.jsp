@@ -45,7 +45,7 @@
             <tr>
                 <th>优惠券名称</th>
                 <th>时间</th>
-                <th>操作</th>
+                <th>状态</th>
             </tr>
             <c:forEach items="${memberCoupons}" var="memberCoupon">
                 <tr>

@@ -2,7 +2,6 @@ package com.krayc.controller;
 
 import com.krayc.model.*;
 import com.krayc.service.*;
-import com.krayc.util.DateFormatter;
 import com.krayc.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -178,6 +176,8 @@ public class MemberController extends BaseController {
         EventEntity eventEntity = eventService.findByEid(eid);
         modelAndView.addObject("event", eventEntity);
 
+        modelAndView.addObject("coupons", couponService.findAvailableCouponsByMid(mid));
+
         return modelAndView;
     }
 
@@ -210,7 +210,7 @@ public class MemberController extends BaseController {
         String couponString = request.getParameter("memberCouponCid");
         if (couponString != null && !couponString.equals("")) {
             try {
-                orderEntity.setCouponByCid(couponService.findByCid(Integer.parseInt(couponString)));
+                orderEntity.setMemberCouponEntity(couponService.findByMcid(Integer.parseInt(couponString)));
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
@@ -241,27 +241,7 @@ public class MemberController extends BaseController {
 
         ArrayList<OrderVO> orderVOS = new ArrayList<OrderVO>();
         for (OrderEntity orderEntity : memberEntity.getOrders()) {
-            Date date = new Date(orderEntity.getOrderTime().getTime());
-
-            String status = "";
-            switch (orderEntity.getStatus()) {
-                case 0:
-                    status = "等待付款";
-                    break;
-                case 1:
-                    status = "等待演出";
-                    break;
-                case 2:
-                    status = "已取消";
-                    break;
-                case 3:
-                    status = "已退款";
-                    break;
-                default:
-                    break;
-            }
-            orderVOS.add(new OrderVO(orderEntity.getOid(), DateFormatter.getDateFormatter().stringFromDate(date),
-                    status, orderEntity.getEventByEid(), orderEntity.getOrderEventSeats().size()));
+            orderVOS.add(new OrderVO(orderEntity));
 
         }
         modelMap.addAttribute("orders", orderVOS);
@@ -285,6 +265,18 @@ public class MemberController extends BaseController {
     public String refundOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
         orderService.refundOrder(orderService.findByOid(oid), memberService.findByMid(mid).getBankAccount());
         return "redirect:/member/order/" + mid;
+    }
+
+    @RequestMapping(value = "order/{mid}/detail/{oid}", method = RequestMethod.GET)
+    public String orderDetail(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid, ModelMap modelMap) {
+        modelMap.addAttribute("member", memberService.findByMid(mid));
+
+        OrderEntity orderEntity = orderService.findByOid(oid);
+        modelMap.addAttribute("order", new OrderVO(orderEntity));
+
+        modelMap.addAttribute("seats", orderEntity.getOrderEventSeats());
+
+        return "member/order/memberOrderDetail";
     }
 
 }

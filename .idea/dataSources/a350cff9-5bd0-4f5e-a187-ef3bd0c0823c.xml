@@ -1438,7 +1438,7 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="333" parent="240" name="cid">
+    <column id="333" parent="240" name="mcid">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
@@ -1460,7 +1460,7 @@
       <ColNames>eid</ColNames>
     </index>
     <index id="338" parent="240" name="FK48E972E124428C3">
-      <ColNames>cid</ColNames>
+      <ColNames>mcid</ColNames>
     </index>
     <key id="339" parent="240" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
@@ -1483,11 +1483,11 @@
       <RefTableName>Event</RefTableName>
       <RefColNames>eid</RefColNames>
     </foreign-key>
-    <foreign-key id="343" parent="240" name="FK48E972E124428C3">
-      <ColNames>cid</ColNames>
-      <RefSchemaName>Bilet</RefSchemaName>
-      <RefTableName>Coupon</RefTableName>
-      <RefColNames>cid</RefColNames>
+    <foreign-key id="343" parent="240" name="Order_MemberCoupon_mcid_fk">
+      <ColNames>mcid</ColNames>
+      <RefSchemaName>bilet</RefSchemaName>
+      <RefTableName>MemberCoupon</RefTableName>
+      <RefColNames>mcid</RefColNames>
     </foreign-key>
     <column id="344" parent="241" name="oesid">
       <Position>1</Position>

@@ -1,12 +1,33 @@
 package com.krayc.vo;
 
-import java.sql.Timestamp;
+import com.krayc.model.MemberCouponEntity;
+import com.krayc.util.DateFormatter;
 
 public class MemberCouponVO {
 
     private String time;
     private String usageDescription;
     private String couponName;
+    private int mcid;
+
+    public MemberCouponVO(MemberCouponEntity memberCouponEntity) {
+        this.couponName = memberCouponEntity.getCouponByCid().getName();
+        String usageDescription;
+        switch (memberCouponEntity.getUsage()) {
+            case 0:
+                usageDescription = "未使用";
+                break;
+            case 1:
+                usageDescription = "已使用";
+                break;
+            default:
+                usageDescription = "";
+                break;
+        }
+        this.mcid = memberCouponEntity.getMcid();
+        this.usageDescription = usageDescription;
+        this.time = DateFormatter.getDateFormatter().stringFromDate(memberCouponEntity.getTime());
+    }
 
     public MemberCouponVO(String time, String usageDescription, String couponName) {
         this.time = time;
@@ -37,4 +58,13 @@ public class MemberCouponVO {
     public void setCouponName(String couponName) {
         this.couponName = couponName;
     }
+
+    public int getMcid() {
+        return mcid;
+    }
+
+    public void setMcid(int mcid) {
+        this.mcid = mcid;
+    }
+
 }
