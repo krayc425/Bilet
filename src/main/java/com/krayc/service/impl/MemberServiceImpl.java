@@ -1,6 +1,8 @@
 package com.krayc.service.impl;
 
+import com.krayc.model.BankAccountEntity;
 import com.krayc.model.MemberEntity;
+import com.krayc.repository.BankAccountRepository;
 import com.krayc.repository.MemberRepository;
 import com.krayc.service.MemberService;
 import com.krayc.util.LoginStatus;
@@ -14,6 +16,9 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private BankAccountRepository bankAccountRepository;
+
     public void updateMember(MemberEntity user) {
         memberRepository.updateMember(user.getPassword(), user.getBankAccount(), user.getMid());
         memberRepository.flush();
@@ -25,6 +30,10 @@ public class MemberServiceImpl implements MemberService {
 
     public void activateMember(Integer mid) {
         memberRepository.updateActivationMember(mid, Byte.valueOf("1"));
+    }
+
+    public double findBalance(String bankAccount) {
+        return bankAccountRepository.findByBankAccount(bankAccount).getBalance();
     }
 
     public MemberEntity findByMid(Integer mid) {
@@ -55,6 +64,12 @@ public class MemberServiceImpl implements MemberService {
 
     public void addMember(MemberEntity memberEntity) {
         memberRepository.saveAndFlush(memberEntity);
+
+        BankAccountEntity bankAccountEntity = new BankAccountEntity();
+        bankAccountEntity.setBalance(0);
+        bankAccountEntity.setBankAccount(memberEntity.getBankAccount());
+        bankAccountRepository.saveAndFlush(bankAccountEntity);
+
         OhMyEmail.config(OhMyEmail.SMTP_163(false), "krayc425@163.com", "songkuixi2");
         try {
             OhMyEmail.subject("Welcome to Bilet!")

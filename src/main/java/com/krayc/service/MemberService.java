@@ -19,4 +19,6 @@ public interface MemberService {
 
     public void addMember(MemberEntity memberEntity);
 
+    public double findBalance(String bankAccount);
+
 }

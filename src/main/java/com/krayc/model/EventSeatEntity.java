@@ -1,15 +1,21 @@
 package com.krayc.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "EventSeat", schema = "Bilet")
 public class EventSeatEntity {
+
     private int number;
     private int price;
     private int esid;
     private EventEntity event;
     private SeatEntity seat;
+    private Collection<OrderEventSeatEntity> orderEventSeats;
 
     @Basic
     @Column(name = "number")
@@ -63,7 +69,7 @@ public class EventSeatEntity {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "eid", referencedColumnName = "eid", nullable = false)
     public EventEntity getEvent() {
         return event;
@@ -81,5 +87,15 @@ public class EventSeatEntity {
 
     public void setSeat(SeatEntity seat) {
         this.seat = seat;
+    }
+
+    @OneToMany(mappedBy = "eventSeatByEsid")
+    @Fetch(value = FetchMode.SUBSELECT)
+    public Collection<OrderEventSeatEntity> getOrderEventSeats() {
+        return orderEventSeats;
+    }
+
+    public void setOrderEventSeats(Collection<OrderEventSeatEntity> orderEventSeats) {
+        this.orderEventSeats = orderEventSeats;
     }
 }

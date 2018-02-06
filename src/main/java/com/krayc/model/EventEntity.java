@@ -1,5 +1,8 @@
 package com.krayc.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -15,6 +18,7 @@ public class EventEntity {
     private VenueEntity venueId;
     private EventTypeEntity eventTypeEntity;
     private Collection<EventSeatEntity> eventSeats;
+    private Collection<OrderEntity> orders;
 
     @Id
     @Column(name = "eid")
@@ -53,12 +57,12 @@ public class EventEntity {
         return time;
     }
 
-    public void setTime(String timeString) {
-        this.time = Timestamp.valueOf(timeString);
-    }
-
     public void setTime(Timestamp time) {
         this.time = time;
+    }
+
+    public void setTime(String timeString) {
+        this.time = Timestamp.valueOf(timeString);
     }
 
     @Override
@@ -105,7 +109,8 @@ public class EventEntity {
         this.venueId = venueId;
     }
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     public Collection<EventSeatEntity> getEventSeats() {
         return eventSeats;
     }
@@ -113,4 +118,15 @@ public class EventEntity {
     public void setEventSeats(Collection<EventSeatEntity> eventSeats) {
         this.eventSeats = eventSeats;
     }
+
+    @OneToMany(mappedBy = "eventByEid")
+    @Fetch(value = FetchMode.SUBSELECT)
+    public Collection<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Collection<OrderEntity> orders) {
+        this.orders = orders;
+    }
+
 }

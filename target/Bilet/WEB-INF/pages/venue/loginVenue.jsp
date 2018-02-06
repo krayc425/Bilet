@@ -49,6 +49,7 @@
             <label for="password">密码</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" required/>
         </div>
+        <hr/>
         <button type="submit" class="btn btn-sm btn-success">登录</button>
     </form:form>
 </div>

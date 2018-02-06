@@ -7,12 +7,12 @@ import com.krayc.repository.CouponRepository;
 import com.krayc.repository.MemberCouponRepository;
 import com.krayc.repository.MemberRepository;
 import com.krayc.service.CouponService;
+import com.krayc.util.DateFormatter;
 import com.krayc.vo.MemberCouponVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +34,7 @@ public class CouponServiceImpl implements CouponService {
 
     public void redeemCoupon(MemberCouponEntity memberCouponEntity) {
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateString = simpleDateFormat.format(date);
-        memberCouponEntity.setTime(dateString);
+        memberCouponEntity.setTime(DateFormatter.getDateFormatter().stringFromDate(date));
         memberCouponRepository.saveAndFlush(memberCouponEntity);
 
         // 扣除会员积分
@@ -48,14 +46,10 @@ public class CouponServiceImpl implements CouponService {
         return couponRepository.findOne(cid);
     }
 
-
     public List<MemberCouponVO> findMemberCouponVOsByMid(Integer mid) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         ArrayList<MemberCouponVO> memberCouponVOS = new ArrayList<MemberCouponVO>();
         for (MemberCouponEntity memberCouponEntity : memberRepository.findOne(mid).getMemberCoupons()) {
-
-            String usageDescription = "";
+            String usageDescription;
             switch (memberCouponEntity.getUsage()) {
                 case 0:
                     usageDescription = "兑换";
@@ -67,10 +61,10 @@ public class CouponServiceImpl implements CouponService {
                     usageDescription = "";
                     break;
             }
-
-            memberCouponVOS.add(new MemberCouponVO(simpleDateFormat.format(memberCouponEntity.getTime()),
+            memberCouponVOS.add(new MemberCouponVO(DateFormatter.getDateFormatter().stringFromDate(memberCouponEntity.getTime()),
                     usageDescription, memberCouponEntity.getCouponByCid().getName()));
         }
         return memberCouponVOS;
     }
+
 }

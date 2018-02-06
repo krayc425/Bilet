@@ -45,7 +45,6 @@
     <c:if test="${!empty eventSeats}">
         <table class="table table-bordered table-striped">
             <tr>
-                <th>座位 ID</th>
                 <th>名称</th>
                 <th>最大数量</th>
                 <th>数量</th>
@@ -53,7 +52,6 @@
             </tr>
             <c:forEach items="${eventSeats}" var="eventSeat">
                 <tr>
-                    <td>${eventSeat.seat.sid}</td>
                     <td>${eventSeat.seat.name}</td>
                     <td>${eventSeat.seat.number}</td>
                     <td>${eventSeat.number}</td>

@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Coupon", schema = "Bilet")
 public class CouponEntity {
+
     private int cid;
     private double discount;
     private String name;
@@ -76,4 +77,5 @@ public class CouponEntity {
         result = 31 * result + point;
         return result;
     }
+
 }

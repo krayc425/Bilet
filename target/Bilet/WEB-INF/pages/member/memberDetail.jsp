@@ -25,9 +25,9 @@
     <hr/>
     <h2>欢迎您！${member.email}</h2>
     <hr/>
-    <a href="#" type="button" class="btn btn-primary btn-sm">订单历史</a>
+    <a href="/member/order/${member.mid}" type="button" class="btn btn-primary btn-sm">我的订单</a>
+    <a href="/member/coupon/${member.mid}" type="button" class="btn btn-primary btn-sm">我的优惠券</a>
     <a href="/member/update/${member.mid}" type="button" class="btn btn-warning btn-sm">修改信息</a>
-    <a href="/member/coupon/${member.mid}" type="button" class="btn btn-default btn-sm">我的优惠券</a>
     <hr/>
     <table class="table table-bordered table-striped">
         <tr>
@@ -39,7 +39,11 @@
             <td>${member.bankAccount}</td>
         </tr>
         <tr>
-            <th>总积分</th>
+            <th>余额</th>
+            <td>${member.balance}</td>
+        </tr>
+        <tr>
+            <th>累积积分</th>
             <td>${member.totalPoint}</td>
         </tr>
         <tr>
@@ -64,7 +68,6 @@
         <h2>演出列表</h2>
         <table class="table table-bordered table-striped">
             <tr>
-                <th>活动 ID</th>
                 <th>名称</th>
                 <th>类别</th>
                 <th>时间</th>
@@ -73,13 +76,13 @@
             </tr>
             <c:forEach items="${events}" var="event">
                 <tr>
-                    <td>${event.eid}</td>
                     <td>${event.name}</td>
                     <td>${event.eventTypeEntity.name}</td>
                     <td>${event.time}</td>
                     <td>${event.description}</td>
                     <td>
-                        <a class="btn btn-primary" href="#" role="button">购票</a>
+                        <a class="btn btn-primary" href="/member/${member.mid}/order/${event.eid}/chooseSeat" role="button">选座购票</a>
+                        <a class="btn btn-primary" href="#" role="button">立即购票</a>
                     </td>
                 </tr>
             </c:forEach>

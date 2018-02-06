@@ -1,15 +1,9 @@
 package com.krayc.controller;
 
-import com.krayc.model.MemberCouponEntity;
-import com.krayc.model.MemberEntity;
-import com.krayc.service.CouponService;
-import com.krayc.service.EventService;
-import com.krayc.service.LevelService;
-import com.krayc.service.MemberService;
-import com.krayc.vo.MemberCouponVO;
-import com.krayc.vo.MemberInfoVO;
-import com.krayc.vo.MemberUpdateVO;
-import com.krayc.vo.MessageVO;
+import com.krayc.model.*;
+import com.krayc.service.*;
+import com.krayc.util.DateFormatter;
+import com.krayc.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Controller
@@ -38,6 +34,9 @@ public class MemberController extends BaseController {
 
     @Autowired
     private CouponService couponService;
+
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String addMember() {
@@ -61,7 +60,8 @@ public class MemberController extends BaseController {
                 memberEntity1.getTotalPoint(),
                 memberEntity1.getCurrentPoint(),
                 memberEntity1.getIsTerminated() == Byte.valueOf("1") ? "已被注销" : "可以使用",
-                memberEntity1.getIsEmailPassed() == Byte.valueOf("1") ? "已经激活" : "尚未激活");
+                memberEntity1.getIsEmailPassed() == Byte.valueOf("1") ? "已经激活" : "尚未激活",
+                memberService.findBalance(memberEntity1.getBankAccount()));
         modelMap.addAttribute("member", memberInfoVO);
 
         modelMap.addAttribute("events", eventService.findAllEvents());
@@ -166,8 +166,125 @@ public class MemberController extends BaseController {
         memberCouponEntity.setMemberByMid(memberService.findByMid(mid));
         memberCouponEntity.setUsage(0);
         couponService.redeemCoupon(memberCouponEntity);
+        return "redirect:/member/coupon/" + mid + "/redeem";
+    }
 
-        return "redirect:/member/coupon/" + mid;
+    @RequestMapping(value = "{mid}/order/{eid}/chooseSeat", method = RequestMethod.GET)
+    public ModelAndView orderChooseSeat(@PathVariable("eid") Integer eid, @PathVariable("mid") Integer mid) {
+        ModelAndView modelAndView = new ModelAndView("member/order/memberOrderChooseSeat");
+
+        modelAndView.addObject("member", memberService.findByMid(mid));
+
+        EventEntity eventEntity = eventService.findByEid(eid);
+        modelAndView.addObject("event", eventEntity);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "{mid}/order/{eid}/chooseSeatPost", method = RequestMethod.GET)
+    public ModelAndView orderChooseSeatPost(@PathVariable("eid") Integer eid, @PathVariable("mid") Integer mid, HttpServletRequest request) {
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        EventEntity eventEntity = eventService.findByEid(eid);
+
+        Integer totalSeatNumber = 0;
+        for (EventSeatEntity eventSeatEntity : eventEntity.getEventSeats()) {
+            totalSeatNumber += Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
+        }
+
+        if (totalSeatNumber == 0) {
+            MessageVO messageVO = new MessageVO(false, "请至少请购买 1 张票");
+            return this.handleMessage(messageVO, "redirect:/member/" + mid + "/order/" + eid + "/chooseSeat");
+        }
+
+        if (totalSeatNumber > 6) {
+            MessageVO messageVO = new MessageVO(false, "总购票数量不能大于 6 张");
+            return this.handleMessage(messageVO, "redirect:/member/" + mid + "/order/" + eid + "/chooseSeat");
+        }
+
+        // 没有问题，下订单
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setEventByEid(eventEntity);
+        orderEntity.setMemberByMid(memberEntity);
+        orderEntity.setStatus(Byte.valueOf("0"));
+
+        String couponString = request.getParameter("memberCouponCid");
+        if (couponString != null && !couponString.equals("")) {
+            try {
+                orderEntity.setCouponByCid(couponService.findByCid(Integer.parseInt(couponString)));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ArrayList<OrderEventSeatEntity> orderEventSeatEntities = new ArrayList<OrderEventSeatEntity>();
+        for (EventSeatEntity eventSeatEntity : eventEntity.getEventSeats()) {
+            Integer eventSeatCount = Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
+            if (eventSeatCount > 0) {
+                for (int i = 0; i < eventSeatCount; i++) {
+                    OrderEventSeatEntity orderEventSeatEntity = new OrderEventSeatEntity();
+                    orderEventSeatEntity.setIsValid(1);
+                    orderEventSeatEntity.setEventSeatByEsid(eventSeatEntity);
+                    orderEventSeatEntities.add(orderEventSeatEntity);
+                }
+            }
+        }
+
+        orderService.createOrder(orderEntity, orderEventSeatEntities);
+
+        return new ModelAndView("redirect:/member/order/" + mid);
+    }
+
+    @RequestMapping(value = "order/{mid}", method = RequestMethod.GET)
+    public String orders(@PathVariable("mid") Integer mid, ModelMap modelMap) {
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        modelMap.addAttribute("member", memberEntity);
+
+        ArrayList<OrderVO> orderVOS = new ArrayList<OrderVO>();
+        for (OrderEntity orderEntity : memberEntity.getOrders()) {
+            Date date = new Date(orderEntity.getOrderTime().getTime());
+
+            String status = "";
+            switch (orderEntity.getStatus()) {
+                case 0:
+                    status = "等待付款";
+                    break;
+                case 1:
+                    status = "等待演出";
+                    break;
+                case 2:
+                    status = "已取消";
+                    break;
+                case 3:
+                    status = "已退款";
+                    break;
+                default:
+                    break;
+            }
+            orderVOS.add(new OrderVO(orderEntity.getOid(), DateFormatter.getDateFormatter().stringFromDate(date),
+                    status, orderEntity.getEventByEid(), orderEntity.getOrderEventSeats().size()));
+
+        }
+        modelMap.addAttribute("orders", orderVOS);
+
+        return "member/order/memberOrders";
+    }
+
+    @RequestMapping(value = "order/{mid}/pay/{oid}", method = RequestMethod.GET)
+    public String payOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
+        orderService.payOrder(orderService.findByOid(oid), memberService.findByMid(mid).getBankAccount());
+        return "redirect:/member/order/" + mid;
+    }
+
+    @RequestMapping(value = "order/{mid}/cancel/{oid}", method = RequestMethod.GET)
+    public String cancelOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
+        orderService.cancelOrder(oid);
+        return "redirect:/member/order/" + mid;
+    }
+
+    @RequestMapping(value = "order/{mid}/refund/{oid}", method = RequestMethod.GET)
+    public String refundOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
+        orderService.refundOrder(orderService.findByOid(oid), memberService.findByMid(mid).getBankAccount());
+        return "redirect:/member/order/" + mid;
     }
 
 }

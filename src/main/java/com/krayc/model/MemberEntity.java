@@ -9,6 +9,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "Member", schema = "Bilet")
 public class MemberEntity {
+
     private int mid;
     private String email;
     private String password;
@@ -18,6 +19,7 @@ public class MemberEntity {
     private byte isTerminated;
     private byte isEmailPassed;
     private Collection<MemberCouponEntity> memberCoupons;
+    private Collection<OrderEntity> orders;
 
     @Id
     @Column(name = "mid")
@@ -141,4 +143,15 @@ public class MemberEntity {
     public void setMemberCoupons(Collection<MemberCouponEntity> memberCoupons) {
         this.memberCoupons = memberCoupons;
     }
+
+    @OneToMany(mappedBy = "memberByMid", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    public Collection<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Collection<OrderEntity> orders) {
+        this.orders = orders;
+    }
+
 }

@@ -42,14 +42,12 @@
     <c:if test="${!empty seats}">
         <table class="table table-bordered table-striped">
             <tr>
-                <th>座位 ID</th>
                 <th>名称</th>
                 <th>数量</th>
                 <th>操作</th>
             </tr>
             <c:forEach items="${seats}" var="seat">
                 <tr>
-                    <td>${seat.sid}</td>
                     <td>${seat.name}</td>
                     <td>${seat.number}</td>
                     <td>

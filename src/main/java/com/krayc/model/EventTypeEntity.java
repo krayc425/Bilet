@@ -9,6 +9,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "EventType", schema = "Bilet")
 public class EventTypeEntity {
+
     private int etid;
     private String name;
     private Collection<EventEntity> eventsByType;

@@ -43,7 +43,6 @@
     <c:if test="${!empty events}">
         <table class="table table-bordered table-striped">
             <tr>
-                <th>活动 ID</th>
                 <th>名称</th>
                 <th>类别</th>
                 <th>时间</th>
@@ -52,7 +51,6 @@
             </tr>
             <c:forEach items="${events}" var="event">
                 <tr>
-                    <td>${event.eid}</td>
                     <td>${event.name}</td>
                     <td>${event.eventType}</td>
                     <td>${event.time}</td>

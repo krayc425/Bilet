@@ -27,6 +27,7 @@ public class MainController {
                 return "redirect:/member/show/" + memberEntity.getMid();
             } else if (session.getAttribute("venue") != null) {
                 VenueEntity venueEntity = (VenueEntity) session.getAttribute("venue");
+                modelMap.addAttribute("venue", venueEntity);
                 return "redirect:/venue/show/" + venueEntity.getVid();
             }
         }
