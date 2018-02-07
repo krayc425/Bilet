@@ -5,9 +5,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Level", schema = "Bilet")
 public class LevelEntity {
+
     private int lid;
     private int minimumPoint;
     private String description;
+    private double discount;
 
     @Id
     @Column(name = "lid")
@@ -62,4 +64,15 @@ public class LevelEntity {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
+
+    @Basic
+    @Column(name = "discount")
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
 }

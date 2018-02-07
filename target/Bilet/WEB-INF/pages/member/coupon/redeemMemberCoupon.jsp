@@ -38,7 +38,7 @@
         <table class="table table-bordered table-striped">
             <tr>
                 <th>优惠券名称</th>
-                <th>至少需要积分</th>
+                <th>需要积分</th>
                 <th>操作</th>
             </tr>
             <c:forEach items="${allCoupons}" var="coupon">

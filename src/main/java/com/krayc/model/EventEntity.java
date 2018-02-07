@@ -89,7 +89,8 @@ public class EventEntity {
         return result;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
+//            (fetch = FetchType.EAGER)
     @JoinColumn(name = "type", referencedColumnName = "etid", nullable = false)
     public EventTypeEntity getEventTypeEntity() {
         return eventTypeEntity;
@@ -99,7 +100,8 @@ public class EventEntity {
         this.eventTypeEntity = eventTypeEntity;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
+//            (fetch = FetchType.EAGER)
     @JoinColumn(name = "vid", referencedColumnName = "vid", nullable = false)
     public VenueEntity getVenueId() {
         return venueId;
@@ -109,7 +111,8 @@ public class EventEntity {
         this.venueId = venueId;
     }
 
-    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "event")
+//            , fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     public Collection<EventSeatEntity> getEventSeats() {
         return eventSeats;
@@ -119,7 +122,8 @@ public class EventEntity {
         this.eventSeats = eventSeats;
     }
 
-    @OneToMany(mappedBy = "eventByEid", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "eventByEid")
+//            , fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     public Collection<OrderEntity> getOrders() {
         return orders;

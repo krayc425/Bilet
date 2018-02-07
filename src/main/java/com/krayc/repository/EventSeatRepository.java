@@ -12,4 +12,6 @@ public interface EventSeatRepository extends JpaRepository<EventSeatEntity, Inte
 
     public List<EventSeatEntity> findEventSeatEntitiesBySeatInAndEventIs(Collection<SeatEntity> seatEntities, EventEntity eventEntity);
 
+    public List<EventSeatEntity> findByEvent(EventEntity eventEntity);
+
 }

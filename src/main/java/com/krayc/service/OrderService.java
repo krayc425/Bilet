@@ -1,5 +1,6 @@
 package com.krayc.service;
 
+import com.krayc.model.MemberEntity;
 import com.krayc.model.OrderEntity;
 import com.krayc.model.OrderEventSeatEntity;
 
@@ -11,10 +12,12 @@ public interface OrderService {
 
     public void createOrder(OrderEntity orderEntity, List<OrderEventSeatEntity> eventSeatEntityList);
 
-    public Boolean payOrder(OrderEntity orderEntity, String bankAccount);
+    public Boolean payOrder(OrderEntity orderEntity, MemberEntity memberEntity);
 
     public void cancelOrder(OrderEntity orderEntity);
 
-    public void refundOrder(OrderEntity orderEntity, String bankAccount);
+    public void refundOrder(OrderEntity orderEntity, MemberEntity memberEntity);
+
+    public void confirmOrder(OrderEntity orderEntity);
 
 }

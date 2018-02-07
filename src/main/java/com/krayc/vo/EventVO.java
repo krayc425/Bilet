@@ -1,6 +1,7 @@
 package com.krayc.vo;
 
 import com.krayc.model.EventEntity;
+import com.krayc.util.DateFormatter;
 
 public class EventVO {
 
@@ -15,7 +16,7 @@ public class EventVO {
         this.name = eventEntity.getName();
         this.description = eventEntity.getDescription();
         this.eventType = eventEntity.getEventTypeEntity().getName();
-        this.time = eventEntity.getTime().toString();
+        this.time = DateFormatter.getDateFormatter().stringFromDate(eventEntity.getTime());
     }
 
     public int getEid() {

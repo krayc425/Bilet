@@ -71,6 +71,9 @@ public class OrderVO {
             case 3:
                 status = "已退款";
                 break;
+            case 4:
+                status = "已检票";
+                break;
             default:
                 break;
         }

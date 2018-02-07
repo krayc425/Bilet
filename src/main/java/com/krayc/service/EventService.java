@@ -16,6 +16,8 @@ public interface EventService {
 
     public List<EventEntity> findAllEvents();
 
+    public List<EventEntity> findAvailableEvents();
+
     public EventEntity findByEid(Integer eid);
 
     public void addEvent(EventEntity eventEntity);
@@ -23,5 +25,7 @@ public interface EventService {
     public void addEventSeat(EventSeatEntity eventSeatEntity);
 
     public List<EventSeatEntity> findEventSeatOtherThanSeatsAndInEvent(Collection<SeatEntity> eventSeatEntities, EventEntity eventEntity);
+
+    public List<EventSeatEntity> findEventSeatsByEid(EventEntity eventEntity);
 
 }

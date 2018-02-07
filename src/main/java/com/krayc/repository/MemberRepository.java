@@ -33,4 +33,9 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
     @Query("update MemberEntity us set us.currentPoint=:point where us.mid=:qId")
     public void updateCurrentPoint(@Param("point") Integer point, @Param("qId") Integer qId);
 
+    @Modifying
+    @Transactional
+    @Query("update MemberEntity us set us.totalPoint=:point where us.mid=:qId")
+    public void updateTotalPoint(@Param("point") Integer point, @Param("qId") Integer qId);
+
 }

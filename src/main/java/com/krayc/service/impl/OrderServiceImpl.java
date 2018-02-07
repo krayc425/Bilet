@@ -1,13 +1,8 @@
 package com.krayc.service.impl;
 
-import com.krayc.model.BankAccountEntity;
-import com.krayc.model.EventSeatEntity;
-import com.krayc.model.OrderEntity;
-import com.krayc.model.OrderEventSeatEntity;
-import com.krayc.repository.BankAccountRepository;
-import com.krayc.repository.MemberCouponRepository;
-import com.krayc.repository.OrderEventSeatRepository;
-import com.krayc.repository.OrderRepository;
+import com.krayc.model.*;
+import com.krayc.repository.*;
+import com.krayc.service.LevelService;
 import com.krayc.service.OrderService;
 import com.krayc.util.DateFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +28,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private MemberCouponRepository memberCouponRepository;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private LevelService levelService;
+
     public void createOrder(OrderEntity orderEntity, List<OrderEventSeatEntity> eventSeatEntityList) {
         Date date = new Date(System.currentTimeMillis());
         orderEntity.setOrderTime(DateFormatter.getDateFormatter().stringFromDate(date));
@@ -54,9 +55,9 @@ public class OrderServiceImpl implements OrderService {
         timer.schedule(new OrderChecker(orderEntity.getOid()), 15 * 60 * 1000);
     }
 
-    public Boolean payOrder(OrderEntity orderEntity, String bankAccount) {
-        Double orderPrice = calculateTotalPriceOfOrder(orderEntity);
-        BankAccountEntity bankAccountEntity = bankAccountRepository.findByBankAccount(bankAccount);
+    public Boolean payOrder(OrderEntity orderEntity, MemberEntity memberEntity) {
+        Double orderPrice = calculateTotalPriceOfOrder(orderEntity, memberEntity);
+        BankAccountEntity bankAccountEntity = bankAccountRepository.findByBankAccount(memberEntity.getBankAccount());
         if (bankAccountEntity.getBalance() >= orderPrice) {
             bankAccountRepository.updateBalance(bankAccountEntity.getBalance() - orderPrice, bankAccountEntity.getBankAccount());
             orderRepository.updateStatus(Byte.valueOf("1"), orderEntity.getOid());
@@ -78,10 +79,10 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public void refundOrder(OrderEntity orderEntity, String bankAccount) {
-        BankAccountEntity bankAccountEntity = bankAccountRepository.findByBankAccount(bankAccount);
+    public void refundOrder(OrderEntity orderEntity, MemberEntity memberEntity) {
+        BankAccountEntity bankAccountEntity = bankAccountRepository.findByBankAccount(memberEntity.getBankAccount());
 
-        bankAccountRepository.updateBalance(bankAccountEntity.getBalance() + calculateRefundAmount(orderEntity),
+        bankAccountRepository.updateBalance(bankAccountEntity.getBalance() + calculateRefundAmount(orderEntity, memberEntity),
                 bankAccountEntity.getBankAccount());
         orderRepository.updateStatus(Byte.valueOf("3"), orderEntity.getOid());
 
@@ -94,8 +95,14 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public void checkOutOfTimeOrder() {
-        System.out.println("Check Order Now");
+    public void confirmOrder(OrderEntity orderEntity) {
+        orderRepository.updateStatus(Byte.valueOf("4"), orderEntity.getOid());
+
+        MemberEntity memberEntity = orderEntity.getMemberByMid();
+        // 增加积分
+        int deltaPoint = (int) (0 + calculateTotalPriceOfOrder(orderEntity, memberEntity));
+        memberRepository.updateCurrentPoint(memberEntity.getCurrentPoint() + deltaPoint, memberEntity.getMid());
+        memberRepository.updateTotalPoint(memberEntity.getTotalPoint() + deltaPoint, memberEntity.getMid());
     }
 
     public OrderEntity findByOid(Integer oid) {
@@ -111,7 +118,7 @@ public class OrderServiceImpl implements OrderService {
         return 1;
     }
 
-    private Double calculateTotalPriceOfOrder(OrderEntity orderEntity) {
+    private Double calculateTotalPriceOfOrder(OrderEntity orderEntity, MemberEntity memberEntity) {
         Double totalAmount = 0.0;
         for (OrderEventSeatEntity orderEventSeatEntity : orderEntity.getOrderEventSeats()) {
             totalAmount += orderEventSeatEntity.getEventSeatByEsid().getPrice();
@@ -119,10 +126,10 @@ public class OrderServiceImpl implements OrderService {
         if (orderEntity.getMemberCouponEntity() != null) {
             totalAmount *= orderEntity.getMemberCouponEntity().getCouponByCid().getDiscount();
         }
-        return totalAmount;
+        return totalAmount * levelService.findLevelEntityWithPoint(memberEntity.getTotalPoint()).getDiscount();
     }
 
-    private Double calculateRefundAmount(OrderEntity orderEntity) {
+    private Double calculateRefundAmount(OrderEntity orderEntity, MemberEntity memberEntity) {
         long timeEvent = orderEntity.getEventByEid().getTime().getTime();
         long timeOrder = orderEntity.getOrderTime().getTime();
         long delta = timeEvent - timeOrder;
@@ -156,7 +163,7 @@ public class OrderServiceImpl implements OrderService {
                 percent = 1.0;
                 break;
         }
-        return calculateTotalPriceOfOrder(orderEntity) * percent;
+        return calculateTotalPriceOfOrder(orderEntity, memberEntity) * percent;
     }
 
     public class OrderChecker extends TimerTask {

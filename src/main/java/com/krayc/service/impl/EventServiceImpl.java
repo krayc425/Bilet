@@ -10,7 +10,9 @@ import com.krayc.repository.EventTypeRepository;
 import com.krayc.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,6 +40,10 @@ public class EventServiceImpl implements EventService {
         return eventRepository.findAll();
     }
 
+    public List<EventEntity> findAvailableEvents() {
+        return eventRepository.findByTimeAfter(new Timestamp(System.currentTimeMillis()));
+    }
+
     public EventEntity findByEid(Integer eid) {
         return eventRepository.findOne(eid);
     }
@@ -52,6 +58,10 @@ public class EventServiceImpl implements EventService {
 
     public List<EventSeatEntity> findEventSeatOtherThanSeatsAndInEvent(Collection<SeatEntity> eventSeatEntities, EventEntity eventEntity) {
         return eventSeatRepository.findEventSeatEntitiesBySeatInAndEventIs(eventSeatEntities, eventEntity);
+    }
+
+    public List<EventSeatEntity> findEventSeatsByEid(EventEntity eventEntity) {
+        return eventSeatRepository.findByEvent(eventEntity);
     }
 
 }

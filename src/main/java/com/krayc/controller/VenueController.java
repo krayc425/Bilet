@@ -2,6 +2,7 @@ package com.krayc.controller;
 
 import com.krayc.model.*;
 import com.krayc.service.EventService;
+import com.krayc.service.OrderService;
 import com.krayc.service.SeatService;
 import com.krayc.service.VenueService;
 import com.krayc.vo.*;
@@ -31,6 +32,9 @@ public class VenueController extends BaseController {
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addVenue() {
@@ -235,6 +239,13 @@ public class VenueController extends BaseController {
         }
         modelMap.addAttribute("orders", orderVOS);
         return "/venue/event/eventOrders";
+    }
+
+    @RequestMapping(value = "/{vid}/events/{eid}/orders/{oid}/confirm")
+    public String eventOrders(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, @PathVariable("oid") Integer oid) {
+        OrderEntity orderEntity = orderService.findByOid(oid);
+        orderService.confirmOrder(orderEntity);
+        return "redirect:/venue/" + vid + "/events/" + eid + "/orders";
     }
 
 }

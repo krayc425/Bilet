@@ -149,6 +149,8 @@ public class MemberController extends BaseController {
         EventEntity eventEntity = eventService.findByEid(eid);
         modelAndView.addObject("event", eventEntity);
 
+        modelAndView.addObject("eventSeats", eventService.findEventSeatsByEid(eventEntity));
+
         modelAndView.addObject("coupons", couponService.findAvailableCouponsByMember(memberEntity));
 
         return modelAndView;
@@ -223,7 +225,7 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "order/{mid}/pay/{oid}", method = RequestMethod.GET)
     public String payOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
-        Boolean result = orderService.payOrder(orderService.findByOid(oid), memberService.findByMid(mid).getBankAccount());
+        Boolean result = orderService.payOrder(orderService.findByOid(oid), memberService.findByMid(mid));
         if (result) {
             return "redirect:/member/order/" + mid;
         } else {
@@ -240,7 +242,8 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "order/{mid}/refund/{oid}", method = RequestMethod.GET)
     public String refundOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
-        orderService.refundOrder(orderService.findByOid(oid), memberService.findByMid(mid).getBankAccount());
+        orderService.refundOrder(orderService.findByOid(oid), memberService.findByMid(mid
+        ));
         return "redirect:/member/order/" + mid;
     }
 

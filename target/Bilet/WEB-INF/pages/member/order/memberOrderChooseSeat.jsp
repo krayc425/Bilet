@@ -37,9 +37,8 @@
     <hr/>
     <h2>活动名称：${event.name}</h2>
     <hr/>
-    <c:if test="${!empty event.eventSeats}">
+    <c:if test="${!empty eventSeats}">
         <form:form action="/member/${member.mid}/order/${event.eid}/chooseSeatPost" method="get" role="form">
-
             <div class="form-group">
                 <label>选座</label>
                 <table class="table table-bordered table-striped">
@@ -49,7 +48,7 @@
                         <th>价格</th>
                         <th>购买数量</th>
                     </tr>
-                    <c:forEach items="${event.eventSeats}" var="eventSeat">
+                    <c:forEach items="${eventSeats}" var="eventSeat">
                         <tr>
                             <td>${eventSeat.seat.name}</td>
                             <td>${eventSeat.number}</td>

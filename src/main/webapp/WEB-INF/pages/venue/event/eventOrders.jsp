@@ -54,10 +54,10 @@
                     <td>${order.eventByEid.name}</td>
                     <td>${order.status}</td>
                     <td>
-                        <c:if test="${order.status.equals('等待演出')}">
-                            <a class="btn btn-primary"
-                               href="/venue/${venue.vid}/events/${event.eid}/orders/${order.oid}"
-                               role="button">查看详情</a>
+                        <c:if test="${order.status.equals('等待检票')}">
+                            <a class="btn btn-success"
+                               href="/venue/${venue.vid}/events/${event.eid}/orders/${order.oid}/confirm"
+                               role="button">确认检票</a>
                         </c:if>
                     </td>
                 </tr>
