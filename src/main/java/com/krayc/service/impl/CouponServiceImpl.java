@@ -36,8 +36,7 @@ public class CouponServiceImpl implements CouponService {
         return memberCouponRepository.findOne(mcid);
     }
 
-    public List<MemberCouponEntity> findAvailableCouponsByMid(Integer mid) {
-        MemberEntity memberEntity = memberRepository.findOne(mid);
+    public List<MemberCouponEntity> findAvailableCouponsByMember(MemberEntity memberEntity) {
         return memberCouponRepository.findByMemberByMidAndUsage(memberEntity, 0);
     }
 
@@ -55,9 +54,9 @@ public class CouponServiceImpl implements CouponService {
         return couponRepository.findOne(cid);
     }
 
-    public List<MemberCouponVO> findMemberCouponVOsByMid(Integer mid) {
+    public List<MemberCouponVO> findMemberCouponVOsByMember(MemberEntity memberEntity) {
         ArrayList<MemberCouponVO> memberCouponVOS = new ArrayList<MemberCouponVO>();
-        for (MemberCouponEntity memberCouponEntity : memberRepository.findOne(mid).getMemberCoupons()) {
+        for (MemberCouponEntity memberCouponEntity : memberEntity.getMemberCoupons()) {
             memberCouponVOS.add(new MemberCouponVO(memberCouponEntity));
         }
         return memberCouponVOS;

@@ -10,7 +10,7 @@ public class MemberInfoVO {
     private int currentPoint;
     private String isTerminated;
     private String isEmailPassed;
-    private double balance;
+    private String balance;
 
     public MemberInfoVO(int mid, String email, String bankAccount, String level, int totalPoint, int currentPoint, String isTerminated, String isEmailPassed, double balance) {
         this.mid = mid;
@@ -21,7 +21,7 @@ public class MemberInfoVO {
         this.currentPoint = currentPoint;
         this.isTerminated = isTerminated;
         this.isEmailPassed = isEmailPassed;
-        this.balance = balance;
+        this.balance = String.format("%.2f", balance);
     }
 
     public int getTotalPoint() {
@@ -88,11 +88,12 @@ public class MemberInfoVO {
         this.isEmailPassed = isEmailPassed;
     }
 
-    public double getBalance() {
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
+
 }

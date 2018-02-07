@@ -49,7 +49,7 @@
             <td>
                 ${venue.seatsNumber} 个
                 <c:if test="${venue.isPassed.equals('审核通过')}">
-                    <a class="btn btn-default" href="/venue/${venue.vid}/seats" role="button">管理座位</a>
+                    <a class="btn btn-default" href="/venue/${venue.vid}/seats" role="button">座位管理</a>
                 </c:if>
             </td>
         </tr>
@@ -58,7 +58,7 @@
             <td>
                 ${venue.eventsNumber} 个
                 <c:if test="${venue.isPassed.equals('审核通过')}">
-                    <a class="btn btn-default" href="/venue/${venue.vid}/events" role="button">管理活动</a>
+                    <a class="btn btn-default" href="/venue/${venue.vid}/events" role="button">活动管理</a>
                 </c:if>
             </td>
         </tr>

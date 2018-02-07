@@ -74,4 +74,5 @@ public class VenueInfoVO {
     public void setEventsNumber(int eventsNumber) {
         this.eventsNumber = eventsNumber;
     }
+
 }

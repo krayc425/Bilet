@@ -13,6 +13,7 @@ public class OrderVO {
     private String status;
     private EventEntity eventByEid;
     private int seatNumber;
+    private String memberEmail;
 
     public int getOid() {
         return oid;
@@ -54,14 +55,6 @@ public class OrderVO {
         this.seatNumber = seatNumber;
     }
 
-    public OrderVO(int oid, String orderTime, String status, EventEntity eventByEid, int seatNumber) {
-        this.oid = oid;
-        this.orderTime = orderTime;
-        this.status = status;
-        this.eventByEid = eventByEid;
-        this.seatNumber = seatNumber;
-    }
-
     public OrderVO(OrderEntity orderEntity) {
         Date date = new Date(orderEntity.getOrderTime().getTime());
         String status = "";
@@ -70,7 +63,7 @@ public class OrderVO {
                 status = "等待付款";
                 break;
             case 1:
-                status = "等待演出";
+                status = "等待检票";
                 break;
             case 2:
                 status = "已取消";
@@ -86,6 +79,14 @@ public class OrderVO {
         this.orderTime = DateFormatter.getDateFormatter().stringFromDate(date);
         this.eventByEid = orderEntity.getEventByEid();
         this.seatNumber = orderEntity.getOrderEventSeats().size();
+        this.memberEmail = orderEntity.getMemberByMid().getEmail();
     }
 
+    public String getMemberEmail() {
+        return memberEmail;
+    }
+
+    public void setMemberEmail(String memberEmail) {
+        this.memberEmail = memberEmail;
+    }
 }

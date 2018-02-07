@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Collection;
 
 @Controller
 @RequestMapping(value = "member")
@@ -140,43 +139,17 @@ public class MemberController extends BaseController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "coupon/{id}", method = RequestMethod.GET)
-    public String coupon(@PathVariable("id") Integer mid, ModelMap modelMap) {
-        MemberEntity memberEntity = memberService.findByMid(mid);
-        Collection<MemberCouponVO> memberCouponEntities = couponService.findMemberCouponVOsByMid(mid);
-        modelMap.addAttribute("member", memberEntity);
-        modelMap.addAttribute("memberCoupons", memberCouponEntities);
-        return "member/coupon/memberCouponDetail";
-    }
-
-    @RequestMapping(value = "coupon/{id}/redeem", method = RequestMethod.GET)
-    public String redeemCoupon(@PathVariable("id") Integer mid, ModelMap modelMap) {
-        modelMap.addAttribute("allCoupons", couponService.findAllCoupons());
-        MemberEntity memberEntity = memberService.findByMid(mid);
-        modelMap.addAttribute("member", memberEntity);
-        return "member/coupon/redeemMemberCoupon";
-    }
-
-    @RequestMapping(value = "coupon/{id}/redeem/{cid}", method = RequestMethod.GET)
-    public String redeemCouponPost(@PathVariable("id") Integer mid, @PathVariable("cid") Integer cid) {
-        MemberCouponEntity memberCouponEntity = new MemberCouponEntity();
-        memberCouponEntity.setCouponByCid(couponService.findByCid(cid));
-        memberCouponEntity.setMemberByMid(memberService.findByMid(mid));
-        memberCouponEntity.setUsage(0);
-        couponService.redeemCoupon(memberCouponEntity);
-        return "redirect:/member/coupon/" + mid + "/redeem";
-    }
-
     @RequestMapping(value = "{mid}/order/{eid}/chooseSeat", method = RequestMethod.GET)
     public ModelAndView orderChooseSeat(@PathVariable("eid") Integer eid, @PathVariable("mid") Integer mid) {
         ModelAndView modelAndView = new ModelAndView("member/order/memberOrderChooseSeat");
 
-        modelAndView.addObject("member", memberService.findByMid(mid));
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        modelAndView.addObject("member", memberEntity);
 
         EventEntity eventEntity = eventService.findByEid(eid);
         modelAndView.addObject("event", eventEntity);
 
-        modelAndView.addObject("coupons", couponService.findAvailableCouponsByMid(mid));
+        modelAndView.addObject("coupons", couponService.findAvailableCouponsByMember(memberEntity));
 
         return modelAndView;
     }
@@ -242,7 +215,6 @@ public class MemberController extends BaseController {
         ArrayList<OrderVO> orderVOS = new ArrayList<OrderVO>();
         for (OrderEntity orderEntity : memberEntity.getOrders()) {
             orderVOS.add(new OrderVO(orderEntity));
-
         }
         modelMap.addAttribute("orders", orderVOS);
 
@@ -251,13 +223,18 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "order/{mid}/pay/{oid}", method = RequestMethod.GET)
     public String payOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
-        orderService.payOrder(orderService.findByOid(oid), memberService.findByMid(mid).getBankAccount());
-        return "redirect:/member/order/" + mid;
+        Boolean result = orderService.payOrder(orderService.findByOid(oid), memberService.findByMid(mid).getBankAccount());
+        if (result) {
+            return "redirect:/member/order/" + mid;
+        } else {
+            return "redirect:/member/charge/" + mid;
+        }
     }
 
     @RequestMapping(value = "order/{mid}/cancel/{oid}", method = RequestMethod.GET)
     public String cancelOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
-        orderService.cancelOrder(oid);
+        OrderEntity orderEntity = orderService.findByOid(oid);
+        orderService.cancelOrder(orderEntity);
         return "redirect:/member/order/" + mid;
     }
 
@@ -277,6 +254,22 @@ public class MemberController extends BaseController {
         modelMap.addAttribute("seats", orderEntity.getOrderEventSeats());
 
         return "member/order/memberOrderDetail";
+    }
+
+    @RequestMapping(value = "charge/{mid}")
+    public String charge(@PathVariable("mid") Integer mid, ModelMap modelMap) {
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        modelMap.addAttribute("member", memberEntity);
+        modelMap.addAttribute("bankAccount", memberService.findBankAccountEntity(memberEntity.getBankAccount()));
+        return "member/memberCharge";
+    }
+
+    @RequestMapping(value = "chargePost/{mid}")
+    public String chargePost(@PathVariable("mid") Integer mid, HttpServletRequest request) {
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        Double amount = Double.parseDouble(request.getParameter("chargeAmount"));
+        memberService.chargeAmount(memberEntity, amount);
+        return "redirect:/member/show/" + mid;
     }
 
 }

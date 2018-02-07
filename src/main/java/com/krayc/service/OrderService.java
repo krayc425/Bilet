@@ -11,9 +11,9 @@ public interface OrderService {
 
     public void createOrder(OrderEntity orderEntity, List<OrderEventSeatEntity> eventSeatEntityList);
 
-    public void payOrder(OrderEntity orderEntity, String bankAccount);
+    public Boolean payOrder(OrderEntity orderEntity, String bankAccount);
 
-    public void cancelOrder(Integer oid);
+    public void cancelOrder(OrderEntity orderEntity);
 
     public void refundOrder(OrderEntity orderEntity, String bankAccount);
 

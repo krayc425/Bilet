@@ -14,7 +14,7 @@ public class LevelServiceImpl implements LevelService {
     @Autowired
     private LevelRepository levelRepository;
 
-    public LevelEntity findLevelEntityWithPoint(int point) {
+    public LevelEntity findLevelEntityWithPoint(Integer point) {
         List<LevelEntity> entityList = levelRepository.findAll();
         for (int i = 0; i < entityList.size() - 1; i++) {
             if (point >= entityList.get(i).getMinimumPoint() && point < entityList.get(i + 1).getMinimumPoint()) {

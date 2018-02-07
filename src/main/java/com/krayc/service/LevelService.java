@@ -4,6 +4,6 @@ import com.krayc.model.LevelEntity;
 
 public interface LevelService {
 
-    LevelEntity findLevelEntityWithPoint(int point);
+    LevelEntity findLevelEntityWithPoint(Integer point);
 
 }

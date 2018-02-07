@@ -57,4 +57,5 @@ public class EventVO {
     public void setEventType(String eventType) {
         this.eventType = eventType;
     }
+
 }

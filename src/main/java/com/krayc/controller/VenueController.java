@@ -1,9 +1,6 @@
 package com.krayc.controller;
 
-import com.krayc.model.EventEntity;
-import com.krayc.model.EventSeatEntity;
-import com.krayc.model.SeatEntity;
-import com.krayc.model.VenueEntity;
+import com.krayc.model.*;
 import com.krayc.service.EventService;
 import com.krayc.service.SeatService;
 import com.krayc.service.VenueService;
@@ -23,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Controller
+@RequestMapping(value = "venue")
 public class VenueController extends BaseController {
 
     @Autowired
@@ -34,12 +32,12 @@ public class VenueController extends BaseController {
     @Autowired
     private EventService eventService;
 
-    @RequestMapping(value = "/venue/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addVenue() {
         return "venue/addVenue";
     }
 
-    @RequestMapping(value = "/venue/show/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
     public String showVenue(@PathVariable("id") Integer vid, ModelMap modelMap) {
         VenueEntity venueEntity = venueService.findByVid(vid);
         VenueInfoVO venueInfoVO = new VenueInfoVO(venueEntity);
@@ -47,18 +45,18 @@ public class VenueController extends BaseController {
         return "venue/venueDetail";
     }
 
-    @RequestMapping(value = "/venue/addPost", method = RequestMethod.POST)
+    @RequestMapping(value = "/addPost", method = RequestMethod.POST)
     public String addMemberPost(@ModelAttribute("venue") VenueEntity venueEntity) {
         venueService.addVenue(venueEntity);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/venue/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView loginVenue() {
         return new ModelAndView("venue/loginVenue");
     }
 
-    @RequestMapping(value = "/venue/loginPost", method = RequestMethod.POST)
+    @RequestMapping(value = "/loginPost", method = RequestMethod.POST)
     public ModelAndView loginVenuePost(@ModelAttribute("venue") VenueEntity venueEntity, HttpServletRequest request, ModelMap modelMap) {
         switch (venueService.login(venueEntity)) {
             case LOGIN_SUCCESS:
@@ -73,7 +71,7 @@ public class VenueController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/venue/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutVenue(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         session.setAttribute("venue", null);
@@ -81,7 +79,7 @@ public class VenueController extends BaseController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/venue/update/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String updateVenue(@PathVariable("id") Integer vid, ModelMap modelMap) {
         VenueEntity venueEntity = venueService.findByVid(vid);
         VenueUpdateVO venueUpdateVO = new VenueUpdateVO(venueEntity);
@@ -89,13 +87,13 @@ public class VenueController extends BaseController {
         return "venue/updateVenue";
     }
 
-    @RequestMapping(value = "/venue/updatePost", method = RequestMethod.POST)
+    @RequestMapping(value = "/updatePost", method = RequestMethod.POST)
     public String updateVenuePost(@ModelAttribute("venueP") VenueEntity venueEntity) {
         venueService.updateVenue(venueEntity);
         return "redirect:/venue/show/" + venueEntity.getVid();
     }
 
-    @RequestMapping(value = "/venue/{id}/seats", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/seats", method = RequestMethod.GET)
     public String seats(@PathVariable("id") Integer vid, ModelMap modelMap) {
         VenueEntity venueEntity = venueService.findByVid(vid);
         Collection<SeatVO> seatVOS = new ArrayList<SeatVO>();
@@ -107,40 +105,40 @@ public class VenueController extends BaseController {
         return "/venue/venueSeats";
     }
 
-    @RequestMapping(value = "/venue/{id}/seats/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/seats/add", method = RequestMethod.GET)
     public String addSeat(@PathVariable("id") Integer vid, ModelMap modelMap) {
         modelMap.addAttribute("vid", vid);
         return "/venue/seat/addSeat";
     }
 
-    @RequestMapping(value = "/venue/{id}/seats/addPost", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/seats/addPost", method = RequestMethod.POST)
     public String addSeatPost(@PathVariable("id") Integer vid, @ModelAttribute("seat") SeatEntity seatEntity) {
         seatEntity.setVenueId(venueService.findByVid(vid));
         seatService.addSeat(seatEntity);
         return "redirect:/venue/" + vid + "/seats";
     }
 
-    @RequestMapping(value = "/venue/{vid}/seats/delete/{sid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{vid}/seats/delete/{sid}", method = RequestMethod.GET)
     public String deleteSeat(@PathVariable("sid") int sid, @PathVariable("vid") int vid) {
         seatService.deleteSeat(sid);
         return "redirect:/venue/" + vid + "/seats";
     }
 
-    @RequestMapping(value = "/venue/{id}/seats/update/{sid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/seats/update/{sid}", method = RequestMethod.GET)
     public String updateSeat(@PathVariable("sid") int sid, @PathVariable("id") int vid, ModelMap modelMap) {
         modelMap.addAttribute("vid", vid);
         modelMap.addAttribute("seat", new SeatVO(seatService.findBySid(sid)));
         return "venue/seat/updateSeat";
     }
 
-    @RequestMapping(value = "/venue/{id}/seats/updatePost/{sid}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/seats/updatePost/{sid}", method = RequestMethod.POST)
     public String updateSeatPost(@PathVariable("sid") int sid, @PathVariable("id") int vid, @ModelAttribute("seatP") SeatEntity seatEntity) {
         seatEntity.setSid(sid);
         seatService.updateSeat(seatEntity);
         return "redirect:/venue/" + vid + "/seats";
     }
 
-    @RequestMapping(value = "/venue/{vid}/events", method = RequestMethod.GET)
+    @RequestMapping(value = "/{vid}/events", method = RequestMethod.GET)
     public String events(@PathVariable("vid") Integer vid, ModelMap modelMap) {
         VenueEntity venueEntity = venueService.findByVid(vid);
         modelMap.addAttribute("vid", vid);
@@ -153,14 +151,14 @@ public class VenueController extends BaseController {
         return "venue/venueEvents";
     }
 
-    @RequestMapping(value = "/venue/{vid}/events/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/{vid}/events/add", method = RequestMethod.GET)
     public String addEvent(@PathVariable("vid") Integer vid, ModelMap modelMap) {
         modelMap.addAttribute("vid", vid);
         modelMap.addAttribute("eventTypes", eventService.findAllEventTypes());
         return "/venue/event/addEvent";
     }
 
-    @RequestMapping(value = "/venue/{vid}/events/addPost", method = RequestMethod.POST)
+    @RequestMapping(value = "/{vid}/events/addPost", method = RequestMethod.POST)
     public String addEventPost(@PathVariable("vid") Integer vid, HttpServletRequest request) {
         EventEntity eventEntity = new EventEntity();
         eventEntity.setName(request.getParameter("name"));
@@ -172,7 +170,7 @@ public class VenueController extends BaseController {
         return "redirect:/venue/" + vid + "/events/" + eventEntity.getEid() + "/seats";
     }
 
-    @RequestMapping(value = "/venue/{vid}/events/{eid}/seats")
+    @RequestMapping(value = "/{vid}/events/{eid}/seats")
     public String eventSeats(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, ModelMap modelMap) {
         VenueEntity venueEntity = venueService.findByVid(vid);
         modelMap.addAttribute("venue", venueEntity);
@@ -185,7 +183,7 @@ public class VenueController extends BaseController {
         return "/venue/event/eventSeats";
     }
 
-    @RequestMapping(value = "/venue/{vid}/events/{eid}/seats/add")
+    @RequestMapping(value = "/{vid}/events/{eid}/seats/add")
     public ModelAndView addEventSeats(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid) {
         ModelAndView modelAndView = new ModelAndView("/venue/event/addEventSeat");
 
@@ -206,7 +204,7 @@ public class VenueController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/venue/{vid}/events/{eid}/seats/addPost")
+    @RequestMapping(value = "/{vid}/events/{eid}/seats/addPost")
     public ModelAndView addEventSeatsPost(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, HttpServletRequest request) {
         SeatEntity seatEntity = seatService.findBySid(Integer.parseInt(request.getParameter("seatId")));
         Integer eventSeatNumber = Integer.parseInt(request.getParameter("number"));
@@ -223,6 +221,20 @@ public class VenueController extends BaseController {
             eventService.addEventSeat(eventSeatEntity);
             return new ModelAndView("redirect:/venue/" + vid + "/events/" + eid + "/seats");
         }
+    }
+
+    @RequestMapping(value = "/{vid}/events/{eid}/orders")
+    public String eventOrders(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, ModelMap modelMap) {
+        VenueEntity venueEntity = venueService.findByVid(vid);
+        modelMap.addAttribute("venue", venueEntity);
+        EventEntity eventEntity = eventService.findByEid(eid);
+        modelMap.addAttribute("event", eventEntity);
+        ArrayList<OrderVO> orderVOS = new ArrayList<OrderVO>();
+        for (OrderEntity orderEntity : eventEntity.getOrders()) {
+            orderVOS.add(new OrderVO(orderEntity));
+        }
+        modelMap.addAttribute("orders", orderVOS);
+        return "/venue/event/eventOrders";
     }
 
 }

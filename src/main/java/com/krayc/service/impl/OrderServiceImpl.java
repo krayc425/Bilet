@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -46,21 +48,26 @@ public class OrderServiceImpl implements OrderService {
         if (orderEntity.getMemberCouponEntity() != null) {
             memberCouponRepository.updateUsage(1, orderEntity.getMemberCouponEntity().getMcid());
         }
+
+        // 15 分钟取消订单
+        Timer timer = new Timer();
+        timer.schedule(new OrderChecker(orderEntity.getOid()), 15 * 60 * 1000);
     }
 
-    public void payOrder(OrderEntity orderEntity, String bankAccount) {
+    public Boolean payOrder(OrderEntity orderEntity, String bankAccount) {
         Double orderPrice = calculateTotalPriceOfOrder(orderEntity);
         BankAccountEntity bankAccountEntity = bankAccountRepository.findByBankAccount(bankAccount);
         if (bankAccountEntity.getBalance() >= orderPrice) {
             bankAccountRepository.updateBalance(bankAccountEntity.getBalance() - orderPrice, bankAccountEntity.getBankAccount());
             orderRepository.updateStatus(Byte.valueOf("1"), orderEntity.getOid());
+            return true;
+        } else {
+            return false;
         }
     }
 
-    public void cancelOrder(Integer oid) {
-        orderRepository.updateStatus(Byte.valueOf("2"), oid);
-
-        OrderEntity orderEntity = orderRepository.findOne(oid);
+    public void cancelOrder(OrderEntity orderEntity) {
+        orderRepository.updateStatus(Byte.valueOf("2"), orderEntity.getOid());
 
         for (OrderEventSeatEntity orderEventSeatEntity : orderEntity.getOrderEventSeats()) {
             orderEventSeatRepository.updateStatus(0, orderEventSeatEntity.getOesid());
@@ -85,6 +92,10 @@ public class OrderServiceImpl implements OrderService {
         if (orderEntity.getMemberCouponEntity() != null) {
             memberCouponRepository.updateUsage(0, orderEntity.getMemberCouponEntity().getMcid());
         }
+    }
+
+    public void checkOutOfTimeOrder() {
+        System.out.println("Check Order Now");
     }
 
     public OrderEntity findByOid(Integer oid) {
@@ -112,19 +123,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private Double calculateRefundAmount(OrderEntity orderEntity) {
-
         long timeEvent = orderEntity.getEventByEid().getTime().getTime();
-
         long timeOrder = orderEntity.getOrderTime().getTime();
-
         long delta = timeEvent - timeOrder;
-
-        System.out.println("Refund!!! " + timeEvent + " " + timeOrder + " " + delta);
-
         double percent;
-
         int days = (int) (delta / (86400 * 1000));
-
         switch (days) {
             case 0:
             case 1:
@@ -153,8 +156,25 @@ public class OrderServiceImpl implements OrderService {
                 percent = 1.0;
                 break;
         }
-
         return calculateTotalPriceOfOrder(orderEntity) * percent;
+    }
+
+    public class OrderChecker extends TimerTask {
+
+        private Integer oid;
+
+        OrderChecker(Integer oid) {
+            this.oid = oid;
+        }
+
+        @Override
+        public void run() {
+            OrderEntity orderEntity = orderRepository.findOne(oid);
+            if (orderEntity.getStatus() == Byte.valueOf("0")) {
+                orderRepository.updateStatus(Byte.valueOf("2"), oid);
+            }
+        }
+
     }
 
 }

@@ -69,7 +69,7 @@ public class EventSeatEntity {
         return result;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "eid", referencedColumnName = "eid", nullable = false)
     public EventEntity getEvent() {
         return event;

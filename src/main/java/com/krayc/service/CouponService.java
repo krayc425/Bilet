@@ -2,6 +2,7 @@ package com.krayc.service;
 
 import com.krayc.model.CouponEntity;
 import com.krayc.model.MemberCouponEntity;
+import com.krayc.model.MemberEntity;
 import com.krayc.vo.MemberCouponVO;
 
 import java.util.List;
@@ -16,8 +17,8 @@ public interface CouponService {
 
     public MemberCouponEntity findByMcid(Integer mcid);
 
-    public List<MemberCouponEntity> findAvailableCouponsByMid(Integer mid);
+    public List<MemberCouponEntity> findAvailableCouponsByMember(MemberEntity memberEntity);
 
-    public List<MemberCouponVO> findMemberCouponVOsByMid(Integer mid);
+    public List<MemberCouponVO> findMemberCouponVOsByMember(MemberEntity memberEntity);
 
 }

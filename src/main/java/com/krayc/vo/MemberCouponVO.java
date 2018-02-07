@@ -29,12 +29,6 @@ public class MemberCouponVO {
         this.time = DateFormatter.getDateFormatter().stringFromDate(memberCouponEntity.getTime());
     }
 
-    public MemberCouponVO(String time, String usageDescription, String couponName) {
-        this.time = time;
-        this.usageDescription = usageDescription;
-        this.couponName = couponName;
-    }
-
     public String getTime() {
         return time;
     }

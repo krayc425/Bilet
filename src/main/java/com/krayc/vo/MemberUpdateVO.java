@@ -20,7 +20,6 @@ public class MemberUpdateVO {
         this.mid = mid;
     }
 
-
     public String getBankAccount() {
         return bankAccount;
     }
@@ -36,4 +35,5 @@ public class MemberUpdateVO {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

@@ -36,6 +36,10 @@ public class MemberServiceImpl implements MemberService {
         return bankAccountRepository.findByBankAccount(bankAccount).getBalance();
     }
 
+    public BankAccountEntity findBankAccountEntity(String bankAccount) {
+        return bankAccountRepository.findByBankAccount(bankAccount);
+    }
+
     public MemberEntity findByMid(Integer mid) {
         return memberRepository.findOne(mid);
     }
@@ -80,6 +84,12 @@ public class MemberServiceImpl implements MemberService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void chargeAmount(MemberEntity memberEntity, Double amount) {
+        BankAccountEntity bankAccountEntity = bankAccountRepository.findByBankAccount(memberEntity.getBankAccount());
+        bankAccountRepository.updateBalance(bankAccountEntity.getBalance() + amount,
+                bankAccountEntity.getBankAccount());
     }
 
 }

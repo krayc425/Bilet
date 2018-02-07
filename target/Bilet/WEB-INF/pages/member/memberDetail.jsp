@@ -40,7 +40,10 @@
         </tr>
         <tr>
             <th>余额</th>
-            <td>${member.balance}</td>
+            <td>
+                ${member.balance}
+                <a class="btn btn-default" href="/member/charge/${member.mid}" role="button">充值</a>
+            </td>
         </tr>
         <tr>
             <th>累积积分</th>
@@ -81,7 +84,8 @@
                     <td>${event.time}</td>
                     <td>${event.description}</td>
                     <td>
-                        <a class="btn btn-primary" href="/member/${member.mid}/order/${event.eid}/chooseSeat" role="button">选座购票</a>
+                        <a class="btn btn-primary" href="/member/${member.mid}/order/${event.eid}/chooseSeat"
+                           role="button">选座购票</a>
                         <a class="btn btn-primary" href="#" role="button">立即购票</a>
                     </td>
                 </tr>

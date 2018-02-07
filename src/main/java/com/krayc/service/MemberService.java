@@ -1,5 +1,6 @@
 package com.krayc.service;
 
+import com.krayc.model.BankAccountEntity;
 import com.krayc.model.MemberEntity;
 import com.krayc.util.LoginStatus;
 
@@ -20,5 +21,9 @@ public interface MemberService {
     public void addMember(MemberEntity memberEntity);
 
     public double findBalance(String bankAccount);
+
+    public BankAccountEntity findBankAccountEntity(String bankAccount);
+
+    public void chargeAmount(MemberEntity memberEntity, Double amount);
 
 }

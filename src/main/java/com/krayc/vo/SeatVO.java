@@ -3,6 +3,7 @@ package com.krayc.vo;
 import com.krayc.model.SeatEntity;
 
 public class SeatVO {
+
     private int sid;
     private String name;
     private int number;
@@ -36,4 +37,5 @@ public class SeatVO {
     public void setNumber(int number) {
         this.number = number;
     }
+
 }
