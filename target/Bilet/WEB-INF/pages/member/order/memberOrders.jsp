@@ -58,7 +58,7 @@
                             <a class="btn btn-danger" href="/member/order/${member.mid}/cancel/${order.oid}"
                                role="button">取消</a>
                         </c:if>
-                        <c:if test="${order.status.equals('等待演出')}">
+                        <c:if test="${order.status.equals('等待检票')}">
                             <a class="btn btn-primary" href="/member/order/${member.mid}/detail/${order.oid}"
                                role="button">查看详情</a>
                             <a class="btn btn-danger" href="/member/order/${member.mid}/refund/${order.oid}"

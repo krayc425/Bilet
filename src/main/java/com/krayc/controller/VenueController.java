@@ -1,10 +1,7 @@
 package com.krayc.controller;
 
 import com.krayc.model.*;
-import com.krayc.service.EventService;
-import com.krayc.service.OrderService;
-import com.krayc.service.SeatService;
-import com.krayc.service.VenueService;
+import com.krayc.service.*;
 import com.krayc.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "venue")
@@ -35,6 +33,9 @@ public class VenueController extends BaseController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private MemberService memberService;
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addVenue() {
@@ -174,7 +175,7 @@ public class VenueController extends BaseController {
         return "redirect:/venue/" + vid + "/events/" + eventEntity.getEid() + "/seats";
     }
 
-    @RequestMapping(value = "/{vid}/events/{eid}/seats")
+    @RequestMapping(value = "/{vid}/events/{eid}/seats", method = RequestMethod.GET)
     public String eventSeats(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, ModelMap modelMap) {
         VenueEntity venueEntity = venueService.findByVid(vid);
         modelMap.addAttribute("venue", venueEntity);
@@ -187,7 +188,7 @@ public class VenueController extends BaseController {
         return "/venue/event/eventSeats";
     }
 
-    @RequestMapping(value = "/{vid}/events/{eid}/seats/add")
+    @RequestMapping(value = "/{vid}/events/{eid}/seats/add", method = RequestMethod.GET)
     public ModelAndView addEventSeats(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid) {
         ModelAndView modelAndView = new ModelAndView("/venue/event/addEventSeat");
 
@@ -227,25 +228,93 @@ public class VenueController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/{vid}/events/{eid}/orders")
+    @RequestMapping(value = "/{vid}/events/{eid}/orders", method = RequestMethod.GET)
     public String eventOrders(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, ModelMap modelMap) {
         VenueEntity venueEntity = venueService.findByVid(vid);
         modelMap.addAttribute("venue", venueEntity);
         EventEntity eventEntity = eventService.findByEid(eid);
         modelMap.addAttribute("event", eventEntity);
         ArrayList<OrderVO> orderVOS = new ArrayList<OrderVO>();
-        for (OrderEntity orderEntity : eventEntity.getOrders()) {
+        for (OrderEntity orderEntity : orderService.findOrderByEvent(eventEntity)) {
             orderVOS.add(new OrderVO(orderEntity));
         }
         modelMap.addAttribute("orders", orderVOS);
         return "/venue/event/eventOrders";
     }
 
-    @RequestMapping(value = "/{vid}/events/{eid}/orders/{oid}/confirm")
+    @RequestMapping(value = "/{vid}/events/{eid}/orders/{oid}/confirm", method = RequestMethod.GET)
     public String eventOrders(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, @PathVariable("oid") Integer oid) {
         OrderEntity orderEntity = orderService.findByOid(oid);
         orderService.confirmOrder(orderEntity);
         return "redirect:/venue/" + vid + "/events/" + eid + "/orders";
+    }
+
+    @RequestMapping(value = "/{vid}/events/{eid}/chooseSeat", method = RequestMethod.GET)
+    public String eventOrdersChooseSeat(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, ModelMap modelMap) {
+        VenueEntity venueEntity = venueService.findByVid(vid);
+        EventEntity eventEntity = eventService.findByEid(eid);
+        modelMap.addAttribute("venue", venueEntity);
+        modelMap.addAttribute("event", eventEntity);
+        modelMap.addAttribute("eventSeats", eventService.findEventSeatsByEid(eventEntity));
+        return "/venue/event/eventChooseSeat";
+    }
+
+    @RequestMapping(value = "/{vid}/events/{eid}/chooseSeatPost", method = RequestMethod.GET)
+    public ModelAndView eventOrdersChooseSeatPost(@PathVariable("eid") Integer eid, @PathVariable("vid") Integer vid, HttpServletRequest request) {
+        EventEntity eventEntity = eventService.findByEid(eid);
+
+        String email = request.getParameter("email");
+
+        System.out.println("Email: " + email);
+
+        MemberEntity memberEntity;
+        if (email == null || email.equals("")) {
+            email = "bilet@bilet.com";
+        }
+        memberEntity = memberService.findByEmail(email);
+
+        List<EventSeatEntity> eventSeatEntities = eventService.findEventSeatsByEid(eventEntity);
+
+        Integer totalSeatNumber = 0;
+        for (EventSeatEntity eventSeatEntity : eventSeatEntities) {
+            totalSeatNumber += Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
+        }
+
+        if (totalSeatNumber == 0) {
+            MessageVO messageVO = new MessageVO(false, "请至少请购买 1 张票");
+            return this.handleMessage(messageVO, "redirect:/venue/" + vid + "/events/" + eid + "/chooseSeat");
+        }
+
+        if (totalSeatNumber > 6) {
+            MessageVO messageVO = new MessageVO(false, "总购票数量不能大于 6 张");
+            return this.handleMessage(messageVO, "redirect:/venue/" + vid + "/events/" + eid + "/chooseSeat");
+        }
+
+        // 没有问题，下订单
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setEventByEid(eventEntity);
+        orderEntity.setMemberByMid(memberEntity);
+        orderEntity.setStatus(Byte.valueOf("0"));
+        orderEntity.setType(Byte.valueOf("1"));
+
+        ArrayList<OrderEventSeatEntity> orderEventSeatEntities = new ArrayList<OrderEventSeatEntity>();
+        for (EventSeatEntity eventSeatEntity : eventSeatEntities) {
+            Integer eventSeatCount = Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
+            if (eventSeatCount > 0) {
+                for (int i = 0; i < eventSeatCount; i++) {
+                    OrderEventSeatEntity orderEventSeatEntity = new OrderEventSeatEntity();
+                    orderEventSeatEntity.setIsValid(0);
+                    orderEventSeatEntity.setEventSeatByEsid(eventSeatEntity);
+                    orderEventSeatEntities.add(orderEventSeatEntity);
+                }
+            }
+        }
+
+        orderService.createOrder(orderEntity, orderEventSeatEntities);
+
+        orderService.payOrder(orderEntity, memberEntity);
+
+        return new ModelAndView("redirect:/venue/" + vid + "/events/" + eid + "/orders");
     }
 
 }

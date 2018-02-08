@@ -18,6 +18,7 @@ public class OrderEntity {
     private MemberEntity memberByMid;
     private MemberCouponEntity memberCouponEntity;
     private Collection<OrderEventSeatEntity> orderEventSeats;
+    private Byte type;
 
     @Id
     @Column(name = "oid")
@@ -36,12 +37,12 @@ public class OrderEntity {
         return orderTime;
     }
 
-    public void setOrderTime(String timeString) {
-        this.orderTime = Timestamp.valueOf(timeString);
-    }
-
     public void setOrderTime(Timestamp orderTime) {
         this.orderTime = orderTime;
+    }
+
+    public void setOrderTime(String timeString) {
+        this.orderTime = Timestamp.valueOf(timeString);
     }
 
     @Basic
@@ -106,7 +107,7 @@ public class OrderEntity {
         this.memberCouponEntity = memberCouponEntity;
     }
 
-    @OneToMany(mappedBy = "orderByOid", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     public Collection<OrderEventSeatEntity> getOrderEventSeats() {
         return orderEventSeats;
@@ -115,4 +116,15 @@ public class OrderEntity {
     public void setOrderEventSeats(Collection<OrderEventSeatEntity> orderEventSeats) {
         this.orderEventSeats = orderEventSeats;
     }
+
+    @Basic
+    @Column(name = "type")
+    public Byte getType() {
+        return type;
+    }
+
+    public void setType(Byte type) {
+        this.type = type;
+    }
+
 }

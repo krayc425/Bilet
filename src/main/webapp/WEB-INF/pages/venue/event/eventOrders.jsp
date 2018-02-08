@@ -31,9 +31,11 @@
 <div class="container">
     <h1>Bilet 活动订单</h1>
     <hr/>
+    <a href="/venue/${venue.vid}/events/${event.eid}/chooseSeat" type="button" class="btn btn-primary btn-sm">现场购票</a>
+    <hr/>
     <c:if test="${empty orders}">
         <div class="alert alert-warning" role="alert">
-            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>没有订单</a>
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>没有订单
         </div>
     </c:if>
     <c:if test="${!empty orders}">

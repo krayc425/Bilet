@@ -1455,220 +1455,226 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="336" parent="240" name="Order_oid_uindex">
+    <column id="336" parent="240" name="type">
+      <Position>7</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="337" parent="240" name="Order_oid_uindex">
       <ColNames>oid</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="337" parent="240" name="FK48E972E950959C1">
+    <index id="338" parent="240" name="FK48E972E950959C1">
       <ColNames>mid</ColNames>
     </index>
-    <index id="338" parent="240" name="FK48E972E3ED4BF81">
+    <index id="339" parent="240" name="FK48E972E3ED4BF81">
       <ColNames>eid</ColNames>
     </index>
-    <index id="339" parent="240" name="FK48E972E124428C3">
+    <index id="340" parent="240" name="FK48E972E124428C3">
       <ColNames>mcid</ColNames>
     </index>
-    <index id="340" parent="240" name="FK48E972E269CC7F0">
+    <index id="341" parent="240" name="FK48E972E269CC7F0">
       <ColNames>mcid</ColNames>
     </index>
-    <key id="341" parent="240" name="PRIMARY">
+    <key id="342" parent="240" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>oid</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="342" parent="240" name="Order_oid_uindex">
+    <key id="343" parent="240" name="Order_oid_uindex">
       <ColNames>oid</ColNames>
       <UnderlyingIndexName>Order_oid_uindex</UnderlyingIndexName>
     </key>
-    <foreign-key id="343" parent="240" name="FK48E972E950959C1">
+    <foreign-key id="344" parent="240" name="FK48E972E950959C1">
       <ColNames>mid</ColNames>
       <RefSchemaName>Bilet</RefSchemaName>
       <RefTableName>Member</RefTableName>
       <RefColNames>mid</RefColNames>
     </foreign-key>
-    <foreign-key id="344" parent="240" name="FK48E972E3ED4BF81">
+    <foreign-key id="345" parent="240" name="FK48E972E3ED4BF81">
       <ColNames>eid</ColNames>
       <RefSchemaName>Bilet</RefSchemaName>
       <RefTableName>Event</RefTableName>
       <RefColNames>eid</RefColNames>
     </foreign-key>
-    <foreign-key id="345" parent="240" name="FK48E972E269CC7F0">
+    <foreign-key id="346" parent="240" name="FK48E972E269CC7F0">
       <ColNames>mcid</ColNames>
       <RefSchemaName>Bilet</RefSchemaName>
       <RefTableName>MemberCoupon</RefTableName>
       <RefColNames>mcid</RefColNames>
     </foreign-key>
-    <foreign-key id="346" parent="240" name="Order_MemberCoupon_mcid_fk">
+    <foreign-key id="347" parent="240" name="Order_MemberCoupon_mcid_fk">
       <ColNames>mcid</ColNames>
       <RefSchemaName>bilet</RefSchemaName>
       <RefTableName>MemberCoupon</RefTableName>
       <RefColNames>mcid</RefColNames>
     </foreign-key>
-    <column id="347" parent="241" name="oesid">
+    <column id="348" parent="241" name="oesid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="348" parent="241" name="oid">
+    <column id="349" parent="241" name="oid">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="349" parent="241" name="esid">
+    <column id="350" parent="241" name="esid">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="350" parent="241" name="seatNumber">
+    <column id="351" parent="241" name="seatNumber">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="351" parent="241" name="isValid">
+    <column id="352" parent="241" name="isValid">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="352" parent="241" name="OrderEventSeat_oesid_uindex">
+    <index id="353" parent="241" name="OrderEventSeat_oesid_uindex">
       <ColNames>oesid</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="353" parent="241" name="FKEB6E943199A2A2BF">
+    <index id="354" parent="241" name="FKEB6E943199A2A2BF">
       <ColNames>oid</ColNames>
     </index>
-    <index id="354" parent="241" name="FKEB6E9431D5560EF">
+    <index id="355" parent="241" name="FKEB6E9431D5560EF">
       <ColNames>esid</ColNames>
     </index>
-    <key id="355" parent="241" name="PRIMARY">
+    <key id="356" parent="241" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>oesid</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="356" parent="241" name="OrderEventSeat_oesid_uindex">
+    <key id="357" parent="241" name="OrderEventSeat_oesid_uindex">
       <ColNames>oesid</ColNames>
       <UnderlyingIndexName>OrderEventSeat_oesid_uindex</UnderlyingIndexName>
     </key>
-    <foreign-key id="357" parent="241" name="FKEB6E943199A2A2BF">
+    <foreign-key id="358" parent="241" name="FKEB6E943199A2A2BF">
       <ColNames>oid</ColNames>
       <RefSchemaName>Bilet</RefSchemaName>
       <RefTableName>Order</RefTableName>
       <RefColNames>oid</RefColNames>
     </foreign-key>
-    <foreign-key id="358" parent="241" name="OrderEventSeat_Order_oid_fk">
+    <foreign-key id="359" parent="241" name="OrderEventSeat_Order_oid_fk">
       <ColNames>oid</ColNames>
       <RefSchemaName>bilet</RefSchemaName>
       <RefTableName>Order</RefTableName>
       <RefColNames>oid</RefColNames>
     </foreign-key>
-    <foreign-key id="359" parent="241" name="FKEB6E9431D5560EF">
+    <foreign-key id="360" parent="241" name="FKEB6E9431D5560EF">
       <ColNames>esid</ColNames>
       <RefSchemaName>Bilet</RefSchemaName>
       <RefTableName>EventSeat</RefTableName>
       <RefColNames>esid</RefColNames>
     </foreign-key>
-    <foreign-key id="360" parent="241" name="OrderEventSeat_EventSeat_esid_fk">
+    <foreign-key id="361" parent="241" name="OrderEventSeat_EventSeat_esid_fk">
       <ColNames>esid</ColNames>
       <RefSchemaName>bilet</RefSchemaName>
       <RefTableName>EventSeat</RefTableName>
       <RefColNames>esid</RefColNames>
     </foreign-key>
-    <column id="361" parent="242" name="sid">
+    <column id="362" parent="242" name="sid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="362" parent="242" name="name">
+    <column id="363" parent="242" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="363" parent="242" name="number">
+    <column id="364" parent="242" name="number">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="364" parent="242" name="vid">
+    <column id="365" parent="242" name="vid">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="365" parent="242" name="Seat_sid_uindex">
+    <index id="366" parent="242" name="Seat_sid_uindex">
       <ColNames>sid</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="366" parent="242" name="FK274225DD370367">
+    <index id="367" parent="242" name="FK274225DD370367">
       <ColNames>vid</ColNames>
     </index>
-    <key id="367" parent="242" name="PRIMARY">
+    <key id="368" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>sid</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="368" parent="242" name="Seat_sid_uindex">
+    <key id="369" parent="242" name="Seat_sid_uindex">
       <ColNames>sid</ColNames>
       <UnderlyingIndexName>Seat_sid_uindex</UnderlyingIndexName>
     </key>
-    <foreign-key id="369" parent="242" name="Seat_Venue_vid_fk">
+    <foreign-key id="370" parent="242" name="Seat_Venue_vid_fk">
       <ColNames>vid</ColNames>
       <RefSchemaName>bilet</RefSchemaName>
       <RefTableName>Venue</RefTableName>
       <RefColNames>vid</RefColNames>
     </foreign-key>
-    <column id="370" parent="243" name="vid">
+    <column id="371" parent="243" name="vid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="371" parent="243" name="address">
+    <column id="372" parent="243" name="address">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="372" parent="243" name="isPassed">
+    <column id="373" parent="243" name="isPassed">
       <Position>3</Position>
       <DataType>tinyint(1)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="373" parent="243" name="name">
+    <column id="374" parent="243" name="name">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="374" parent="243" name="password">
+    <column id="375" parent="243" name="password">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="375" parent="243" name="Venue_vid_uindex">
+    <index id="376" parent="243" name="Venue_vid_uindex">
       <ColNames>vid</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="376" parent="243" name="PRIMARY">
+    <key id="377" parent="243" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>vid</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="377" parent="243" name="Venue_vid_uindex">
+    <key id="378" parent="243" name="Venue_vid_uindex">
       <ColNames>vid</ColNames>
       <UnderlyingIndexName>Venue_vid_uindex</UnderlyingIndexName>
     </key>

@@ -34,6 +34,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private LevelService levelService;
 
+    @Autowired
+    private EventSeatRepository eventSeatRepository;
+
     public void createOrder(OrderEntity orderEntity, List<OrderEventSeatEntity> eventSeatEntityList) {
         Date date = new Date(System.currentTimeMillis());
         orderEntity.setOrderTime(DateFormatter.getDateFormatter().stringFromDate(date));
@@ -41,9 +44,9 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.saveAndFlush(orderEntity);
 
         for (OrderEventSeatEntity orderEventSeatEntity : eventSeatEntityList) {
-            orderEventSeatEntity.setOrderByOid(orderEntity);
+            orderEventSeatEntity.setOrder(orderEntity);
             orderEventSeatEntity.setSeatNumber(findMinimumAvailableSeatNumberByEventSeat(orderEventSeatEntity.getEventSeatByEsid()));
-            orderEventSeatRepository.save(orderEventSeatEntity);
+            orderEventSeatRepository.saveAndFlush(orderEventSeatEntity);
         }
 
         if (orderEntity.getMemberCouponEntity() != null) {
@@ -58,12 +61,18 @@ public class OrderServiceImpl implements OrderService {
     public Boolean payOrder(OrderEntity orderEntity, MemberEntity memberEntity) {
         Double orderPrice = calculateTotalPriceOfOrder(orderEntity, memberEntity);
         BankAccountEntity bankAccountEntity = bankAccountRepository.findByBankAccount(memberEntity.getBankAccount());
-        if (bankAccountEntity.getBalance() >= orderPrice) {
-            bankAccountRepository.updateBalance(bankAccountEntity.getBalance() - orderPrice, bankAccountEntity.getBankAccount());
+
+        if (orderEntity.getType().equals(Byte.valueOf("1"))) {
             orderRepository.updateStatus(Byte.valueOf("1"), orderEntity.getOid());
             return true;
         } else {
-            return false;
+            if (bankAccountEntity.getBalance() >= orderPrice) {
+                bankAccountRepository.updateBalance(bankAccountEntity.getBalance() - orderPrice, bankAccountEntity.getBankAccount());
+                orderRepository.updateStatus(Byte.valueOf("1"), orderEntity.getOid());
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -76,6 +85,10 @@ public class OrderServiceImpl implements OrderService {
 
         if (orderEntity.getMemberCouponEntity() != null) {
             memberCouponRepository.updateUsage(0, orderEntity.getMemberCouponEntity().getMcid());
+        }
+
+        for (OrderEventSeatEntity eventSeatEntity : orderEventSeatRepository.findByOrder(orderEntity)) {
+            orderEventSeatRepository.updateStatus(1, eventSeatEntity.getOesid());
         }
     }
 
@@ -93,6 +106,10 @@ public class OrderServiceImpl implements OrderService {
         if (orderEntity.getMemberCouponEntity() != null) {
             memberCouponRepository.updateUsage(0, orderEntity.getMemberCouponEntity().getMcid());
         }
+
+        for (OrderEventSeatEntity eventSeatEntity : orderEventSeatRepository.findByOrder(orderEntity)) {
+            orderEventSeatRepository.updateStatus(1, eventSeatEntity.getOesid());
+        }
     }
 
     public void confirmOrder(OrderEntity orderEntity) {
@@ -109,6 +126,10 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findOne(oid);
     }
 
+    public List<OrderEntity> findOrderByEvent(EventEntity eventEntity) {
+        return orderRepository.findByEventByEid(eventEntity);
+    }
+
     private Integer findMinimumAvailableSeatNumberByEventSeat(EventSeatEntity eventSeatEntity) {
         for (int i = 0; i < eventSeatEntity.getNumber(); i++) {
             if (orderEventSeatRepository.findBySeatNumberAndIsValid(i + 1, 1) == null) {
@@ -120,7 +141,10 @@ public class OrderServiceImpl implements OrderService {
 
     private Double calculateTotalPriceOfOrder(OrderEntity orderEntity, MemberEntity memberEntity) {
         Double totalAmount = 0.0;
-        for (OrderEventSeatEntity orderEventSeatEntity : orderEntity.getOrderEventSeats()) {
+        for (OrderEventSeatEntity orderEventSeatEntity : orderEventSeatRepository.findByOrder(orderEntity)) {
+//            orderEventSeatEntity.get
+            System.out.println(orderEventSeatEntity.getOesid());
+            System.out.println(orderEventSeatEntity.getEventSeatByEsid().getEsid());
             totalAmount += orderEventSeatEntity.getEventSeatByEsid().getPrice();
         }
         if (orderEntity.getMemberCouponEntity() != null) {

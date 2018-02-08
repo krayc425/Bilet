@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "member")
@@ -161,8 +162,10 @@ public class MemberController extends BaseController {
         MemberEntity memberEntity = memberService.findByMid(mid);
         EventEntity eventEntity = eventService.findByEid(eid);
 
+        List<EventSeatEntity> eventSeatEntities = eventService.findEventSeatsByEid(eventEntity);
+
         Integer totalSeatNumber = 0;
-        for (EventSeatEntity eventSeatEntity : eventEntity.getEventSeats()) {
+        for (EventSeatEntity eventSeatEntity : eventSeatEntities) {
             totalSeatNumber += Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
         }
 
@@ -181,6 +184,7 @@ public class MemberController extends BaseController {
         orderEntity.setEventByEid(eventEntity);
         orderEntity.setMemberByMid(memberEntity);
         orderEntity.setStatus(Byte.valueOf("0"));
+        orderEntity.setType(Byte.valueOf("0"));
 
         String couponString = request.getParameter("memberCouponCid");
         if (couponString != null && !couponString.equals("")) {
@@ -192,12 +196,12 @@ public class MemberController extends BaseController {
         }
 
         ArrayList<OrderEventSeatEntity> orderEventSeatEntities = new ArrayList<OrderEventSeatEntity>();
-        for (EventSeatEntity eventSeatEntity : eventEntity.getEventSeats()) {
+        for (EventSeatEntity eventSeatEntity : eventSeatEntities) {
             Integer eventSeatCount = Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
             if (eventSeatCount > 0) {
                 for (int i = 0; i < eventSeatCount; i++) {
                     OrderEventSeatEntity orderEventSeatEntity = new OrderEventSeatEntity();
-                    orderEventSeatEntity.setIsValid(1);
+                    orderEventSeatEntity.setIsValid(0);
                     orderEventSeatEntity.setEventSeatByEsid(eventSeatEntity);
                     orderEventSeatEntities.add(orderEventSeatEntity);
                 }
@@ -224,12 +228,17 @@ public class MemberController extends BaseController {
     }
 
     @RequestMapping(value = "order/{mid}/pay/{oid}", method = RequestMethod.GET)
-    public String payOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
+    public ModelAndView payOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
         Boolean result = orderService.payOrder(orderService.findByOid(oid), memberService.findByMid(mid));
         if (result) {
-            return "redirect:/member/order/" + mid;
+            return new ModelAndView("redirect:/member/order/" + mid);
         } else {
-            return "redirect:/member/charge/" + mid;
+            ModelAndView modelAndView = new ModelAndView("member/memberCharge");
+            MemberEntity memberEntity = memberService.findByMid(mid);
+            modelAndView.addObject("member", memberEntity);
+            modelAndView.addObject("bankAccount", memberService.findBankAccountEntity(memberEntity.getBankAccount()));
+            modelAndView.addObject("error", "您的余额不足，请先充值");
+            return modelAndView;
         }
     }
 
@@ -242,8 +251,7 @@ public class MemberController extends BaseController {
 
     @RequestMapping(value = "order/{mid}/refund/{oid}", method = RequestMethod.GET)
     public String refundOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
-        orderService.refundOrder(orderService.findByOid(oid), memberService.findByMid(mid
-        ));
+        orderService.refundOrder(orderService.findByOid(oid), memberService.findByMid(mid));
         return "redirect:/member/order/" + mid;
     }
 

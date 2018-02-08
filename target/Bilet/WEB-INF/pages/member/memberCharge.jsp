@@ -32,6 +32,8 @@
     <h1>Bilet 充值</h1>
     <hr/>
 
+    <%@include file="../displayError.jsp" %>
+
     <form:form action="/member/chargePost/${member.mid}" method="get" role="form">
         <div class="form-group">
             <label>充值账号</label>

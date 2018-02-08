@@ -9,7 +9,7 @@ public class OrderEventSeatEntity {
     private int oesid;
     private int seatNumber;
     private Integer isValid;
-    private OrderEntity orderByOid;
+    private OrderEntity order;
     private EventSeatEntity eventSeatByEsid;
 
     @Id
@@ -67,12 +67,12 @@ public class OrderEventSeatEntity {
 
     @ManyToOne
     @JoinColumn(name = "oid", referencedColumnName = "oid", nullable = false)
-    public OrderEntity getOrderByOid() {
-        return orderByOid;
+    public OrderEntity getOrder() {
+        return order;
     }
 
-    public void setOrderByOid(OrderEntity orderByOid) {
-        this.orderByOid = orderByOid;
+    public void setOrder(OrderEntity order) {
+        this.order = order;
     }
 
     @ManyToOne
