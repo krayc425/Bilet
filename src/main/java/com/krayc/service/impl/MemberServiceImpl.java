@@ -1,14 +1,18 @@
 package com.krayc.service.impl;
 
 import com.krayc.model.BankAccountEntity;
+import com.krayc.model.MemberBookEntity;
 import com.krayc.model.MemberEntity;
 import com.krayc.repository.BankAccountRepository;
 import com.krayc.repository.MemberRepository;
+import com.krayc.service.BookService;
 import com.krayc.service.MemberService;
 import com.krayc.util.LoginStatus;
 import io.github.biezhi.ome.OhMyEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -18,6 +22,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private BankAccountRepository bankAccountRepository;
+
+    @Autowired
+    private BookService bookService;
 
     public void updateMember(MemberEntity user) {
         memberRepository.updateMember(user.getPassword(), user.getBankAccount(), user.getMid());
@@ -90,6 +97,14 @@ public class MemberServiceImpl implements MemberService {
         BankAccountEntity bankAccountEntity = bankAccountRepository.findByBankAccount(memberEntity.getBankAccount());
         bankAccountRepository.updateBalance(bankAccountEntity.getBalance() + amount,
                 bankAccountEntity.getBankAccount());
+
+        MemberBookEntity memberBookEntity = new MemberBookEntity();
+        memberBookEntity.setMember(memberEntity);
+        memberBookEntity.setType(Byte.valueOf("3"));
+        memberBookEntity.setAmount(amount);
+        memberBookEntity.setTime(new Timestamp(System.currentTimeMillis()));
+
+        bookService.createMemberBookEntity(memberBookEntity);
     }
 
 }

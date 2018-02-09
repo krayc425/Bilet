@@ -19,6 +19,7 @@ public class OrderEntity {
     private MemberCouponEntity memberCouponEntity;
     private Collection<OrderEventSeatEntity> orderEventSeats;
     private Byte type;
+    private Collection<MemberBookEntity> memberBooks;
 
     @Id
     @Column(name = "oid")
@@ -37,12 +38,12 @@ public class OrderEntity {
         return orderTime;
     }
 
-    public void setOrderTime(Timestamp orderTime) {
-        this.orderTime = orderTime;
-    }
-
     public void setOrderTime(String timeString) {
         this.orderTime = Timestamp.valueOf(timeString);
+    }
+
+    public void setOrderTime(Timestamp orderTime) {
+        this.orderTime = orderTime;
     }
 
     @Basic
@@ -125,6 +126,15 @@ public class OrderEntity {
 
     public void setType(Byte type) {
         this.type = type;
+    }
+
+    @OneToMany(mappedBy = "order")
+    public Collection<MemberBookEntity> getMemberBooks() {
+        return memberBooks;
+    }
+
+    public void setMemberBooks(Collection<MemberBookEntity> memberBooks) {
+        this.memberBooks = memberBooks;
     }
 
 }

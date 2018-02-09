@@ -1,6 +1,5 @@
 package com.krayc.repository;
 
-import com.krayc.model.CouponEntity;
 import com.krayc.model.MemberCouponEntity;
 import com.krayc.model.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

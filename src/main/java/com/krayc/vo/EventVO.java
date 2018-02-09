@@ -10,6 +10,7 @@ public class EventVO {
     private String description;
     private String time;
     private String eventType;
+    private Boolean canRandom;
 
     public EventVO(EventEntity eventEntity) {
         this.eid = eventEntity.getEid();
@@ -17,6 +18,8 @@ public class EventVO {
         this.description = eventEntity.getDescription();
         this.eventType = eventEntity.getEventTypeEntity().getName();
         this.time = DateFormatter.getDateFormatter().stringFromDate(eventEntity.getTime());
+
+        this.canRandom = (eventEntity.getTime().getTime() - System.currentTimeMillis()) > 14 * 24 * 60 * 60 * 1000;
     }
 
     public int getEid() {
@@ -59,4 +62,11 @@ public class EventVO {
         this.eventType = eventType;
     }
 
+    public Boolean getCanRandom() {
+        return canRandom;
+    }
+
+    public void setCanRandom(Boolean canRandom) {
+        this.canRandom = canRandom;
+    }
 }

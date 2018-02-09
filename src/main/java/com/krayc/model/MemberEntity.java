@@ -20,6 +20,7 @@ public class MemberEntity {
     private byte isEmailPassed;
     private Collection<MemberCouponEntity> memberCoupons;
     private Collection<OrderEntity> orders;
+    private Collection<MemberBookEntity> memberBooks;
 
     @Id
     @Column(name = "mid")
@@ -152,6 +153,16 @@ public class MemberEntity {
 
     public void setOrders(Collection<OrderEntity> orders) {
         this.orders = orders;
+    }
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    public Collection<MemberBookEntity> getMemberBooks() {
+        return memberBooks;
+    }
+
+    public void setMemberBooks(Collection<MemberBookEntity> memberBooks) {
+        this.memberBooks = memberBooks;
     }
 
 }

@@ -36,6 +36,9 @@ public class MemberController extends BaseController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private BookService bookService;
+
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String addMember() {
         return "member/addMember";
@@ -62,7 +65,11 @@ public class MemberController extends BaseController {
                 memberService.findBalance(memberEntity1.getBankAccount()));
         modelMap.addAttribute("member", memberInfoVO);
 
-        modelMap.addAttribute("events", eventService.findAllEvents());
+        ArrayList<EventVO> eventVOS = new ArrayList<EventVO>();
+        for (EventEntity eventEntity : eventService.findAvailableEvents()) {
+            eventVOS.add(new EventVO(eventEntity));
+        }
+        modelMap.addAttribute("events", eventVOS);
 
         return "member/memberDetail";
     }
@@ -213,6 +220,23 @@ public class MemberController extends BaseController {
         return new ModelAndView("redirect:/member/order/" + mid);
     }
 
+    @RequestMapping(value = "{mid}/order/{eid}/randomSeat", method = RequestMethod.GET)
+    public ModelAndView orderRandomSeat(@PathVariable("eid") Integer eid, @PathVariable("mid") Integer mid) {
+        ModelAndView modelAndView = new ModelAndView("member/order/memberOrderRandomSeat");
+
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        modelAndView.addObject("member", memberEntity);
+
+        EventEntity eventEntity = eventService.findByEid(eid);
+        modelAndView.addObject("event", eventEntity);
+
+        modelAndView.addObject("eventSeats", eventService.findEventSeatsByEid(eventEntity));
+
+        modelAndView.addObject("coupons", couponService.findAvailableCouponsByMember(memberEntity));
+
+        return modelAndView;
+    }
+
     @RequestMapping(value = "order/{mid}", method = RequestMethod.GET)
     public String orders(@PathVariable("mid") Integer mid, ModelMap modelMap) {
         MemberEntity memberEntity = memberService.findByMid(mid);
@@ -267,7 +291,7 @@ public class MemberController extends BaseController {
         return "member/order/memberOrderDetail";
     }
 
-    @RequestMapping(value = "charge/{mid}")
+    @RequestMapping(value = "charge/{mid}", method = RequestMethod.GET)
     public String charge(@PathVariable("mid") Integer mid, ModelMap modelMap) {
         MemberEntity memberEntity = memberService.findByMid(mid);
         modelMap.addAttribute("member", memberEntity);
@@ -275,12 +299,28 @@ public class MemberController extends BaseController {
         return "member/memberCharge";
     }
 
-    @RequestMapping(value = "chargePost/{mid}")
+    @RequestMapping(value = "chargePost/{mid}", method = RequestMethod.GET)
     public String chargePost(@PathVariable("mid") Integer mid, HttpServletRequest request) {
         MemberEntity memberEntity = memberService.findByMid(mid);
         Double amount = Double.parseDouble(request.getParameter("chargeAmount"));
         memberService.chargeAmount(memberEntity, amount);
         return "redirect:/member/show/" + mid;
+    }
+
+    @RequestMapping(value = "book/{mid}", method = RequestMethod.GET)
+    public String book(@PathVariable("mid") Integer mid, ModelMap modelMap) {
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        modelMap.addAttribute("member", memberEntity);
+
+        ArrayList<MemberBookVO> memberBookVOS = new ArrayList<MemberBookVO>();
+        for (MemberBookEntity memberBookEntity : memberEntity.getMemberBooks()) {
+            memberBookVOS.add(new MemberBookVO(memberBookEntity));
+        }
+        modelMap.addAttribute("books", memberBookVOS);
+
+        modelMap.addAttribute("total", String.format("%.2f", bookService.totalMemberBookAmount(memberEntity)));
+
+        return "member/memberBooks";
     }
 
 }

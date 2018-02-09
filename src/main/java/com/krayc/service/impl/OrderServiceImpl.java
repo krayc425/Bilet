@@ -2,6 +2,7 @@ package com.krayc.service.impl;
 
 import com.krayc.model.*;
 import com.krayc.repository.*;
+import com.krayc.service.BookService;
 import com.krayc.service.LevelService;
 import com.krayc.service.OrderService;
 import com.krayc.util.DateFormatter;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
     private LevelService levelService;
 
     @Autowired
-    private EventSeatRepository eventSeatRepository;
+    private BookService bookService;
 
     public void createOrder(OrderEntity orderEntity, List<OrderEventSeatEntity> eventSeatEntityList) {
         Date date = new Date(System.currentTimeMillis());
@@ -64,11 +66,31 @@ public class OrderServiceImpl implements OrderService {
 
         if (orderEntity.getType().equals(Byte.valueOf("1"))) {
             orderRepository.updateStatus(Byte.valueOf("1"), orderEntity.getOid());
+
+            MemberBookEntity memberBookEntity = new MemberBookEntity();
+            memberBookEntity.setMember(memberEntity);
+            memberBookEntity.setOrder(orderEntity);
+            memberBookEntity.setType(Byte.valueOf("1"));
+            memberBookEntity.setAmount(-orderPrice);
+            memberBookEntity.setTime(new Timestamp(System.currentTimeMillis()));
+
+            bookService.createMemberBookEntity(memberBookEntity);
+
             return true;
         } else {
             if (bankAccountEntity.getBalance() >= orderPrice) {
                 bankAccountRepository.updateBalance(bankAccountEntity.getBalance() - orderPrice, bankAccountEntity.getBankAccount());
                 orderRepository.updateStatus(Byte.valueOf("1"), orderEntity.getOid());
+
+                MemberBookEntity memberBookEntity = new MemberBookEntity();
+                memberBookEntity.setMember(memberEntity);
+                memberBookEntity.setOrder(orderEntity);
+                memberBookEntity.setType(Byte.valueOf("0"));
+                memberBookEntity.setAmount(-orderPrice);
+                memberBookEntity.setTime(new Timestamp(System.currentTimeMillis()));
+
+                bookService.createMemberBookEntity(memberBookEntity);
+
                 return true;
             } else {
                 return false;
@@ -78,10 +100,6 @@ public class OrderServiceImpl implements OrderService {
 
     public void cancelOrder(OrderEntity orderEntity) {
         orderRepository.updateStatus(Byte.valueOf("2"), orderEntity.getOid());
-
-        for (OrderEventSeatEntity orderEventSeatEntity : orderEntity.getOrderEventSeats()) {
-            orderEventSeatRepository.updateStatus(0, orderEventSeatEntity.getOesid());
-        }
 
         if (orderEntity.getMemberCouponEntity() != null) {
             memberCouponRepository.updateUsage(0, orderEntity.getMemberCouponEntity().getMcid());
@@ -95,13 +113,19 @@ public class OrderServiceImpl implements OrderService {
     public void refundOrder(OrderEntity orderEntity, MemberEntity memberEntity) {
         BankAccountEntity bankAccountEntity = bankAccountRepository.findByBankAccount(memberEntity.getBankAccount());
 
-        bankAccountRepository.updateBalance(bankAccountEntity.getBalance() + calculateRefundAmount(orderEntity, memberEntity),
+        Double refundPrice = calculateRefundAmount(orderEntity, memberEntity);
+        bankAccountRepository.updateBalance(bankAccountEntity.getBalance() + refundPrice,
                 bankAccountEntity.getBankAccount());
         orderRepository.updateStatus(Byte.valueOf("3"), orderEntity.getOid());
 
-        for (OrderEventSeatEntity orderEventSeatEntity : orderEntity.getOrderEventSeats()) {
-            orderEventSeatRepository.updateStatus(0, orderEventSeatEntity.getOesid());
-        }
+        MemberBookEntity memberBookEntity = new MemberBookEntity();
+        memberBookEntity.setMember(memberEntity);
+        memberBookEntity.setOrder(orderEntity);
+        memberBookEntity.setType(Byte.valueOf("2"));
+        memberBookEntity.setAmount(refundPrice);
+        memberBookEntity.setTime(new Timestamp(System.currentTimeMillis()));
+
+        bookService.createMemberBookEntity(memberBookEntity);
 
         if (orderEntity.getMemberCouponEntity() != null) {
             memberCouponRepository.updateUsage(0, orderEntity.getMemberCouponEntity().getMcid());
@@ -131,9 +155,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private Integer findMinimumAvailableSeatNumberByEventSeat(EventSeatEntity eventSeatEntity) {
-        for (int i = 0; i < eventSeatEntity.getNumber(); i++) {
-            if (orderEventSeatRepository.findBySeatNumberAndIsValid(i + 1, 1) == null) {
-                return i + 1;
+        for (int i = 1; i <= eventSeatEntity.getNumber(); i++) {
+            if (orderEventSeatRepository.findBySeatNumberAndIsValid(i, 0) == null) {
+                return i;
             }
         }
         return 1;
@@ -142,9 +166,6 @@ public class OrderServiceImpl implements OrderService {
     private Double calculateTotalPriceOfOrder(OrderEntity orderEntity, MemberEntity memberEntity) {
         Double totalAmount = 0.0;
         for (OrderEventSeatEntity orderEventSeatEntity : orderEventSeatRepository.findByOrder(orderEntity)) {
-//            orderEventSeatEntity.get
-            System.out.println(orderEventSeatEntity.getOesid());
-            System.out.println(orderEventSeatEntity.getEventSeatByEsid().getEsid());
             totalAmount += orderEventSeatEntity.getEventSeatByEsid().getPrice();
         }
         if (orderEntity.getMemberCouponEntity() != null) {

@@ -14,6 +14,7 @@ public class OrderVO {
     private EventEntity eventByEid;
     private int seatNumber;
     private String memberEmail;
+    private String type;
 
     public int getOid() {
         return oid;
@@ -83,6 +84,17 @@ public class OrderVO {
         this.eventByEid = orderEntity.getEventByEid();
         this.seatNumber = orderEntity.getOrderEventSeats().size();
         this.memberEmail = orderEntity.getMemberByMid().getEmail();
+        switch (orderEntity.getType()) {
+            case 0:
+                this.type = "选座购买";
+                break;
+            case 1:
+                this.type = "现场购买";
+                break;
+            case 2:
+                this.type = "不选座购买";
+                break;
+        }
     }
 
     public String getMemberEmail() {
@@ -91,5 +103,13 @@ public class OrderVO {
 
     public void setMemberEmail(String memberEmail) {
         this.memberEmail = memberEmail;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

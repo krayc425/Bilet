@@ -42,11 +42,13 @@
                 <th>时间</th>
                 <th>活动名称</th>
                 <th>订单状态</th>
+                <th>订单类型</th>
             </tr>
             <tr>
                 <td>${order.orderTime}</td>
                 <td>${order.eventByEid.name}</td>
                 <td>${order.status}</td>
+                <td>${order.type}</td>
             </tr>
         </table>
     </div>

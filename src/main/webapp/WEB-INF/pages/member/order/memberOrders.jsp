@@ -39,18 +39,22 @@
     <c:if test="${!empty orders}">
         <table class="table table-bordered table-striped">
             <tr>
+                <th>订单号</th>
                 <th>时间</th>
                 <th>座位数</th>
                 <th>活动名称</th>
                 <th>订单状态</th>
+                <th>订单类型</th>
                 <th>操作</th>
             </tr>
             <c:forEach items="${orders}" var="order">
                 <tr>
+                    <td>${order.oid}</td>
                     <td>${order.orderTime}</td>
                     <td>${order.seatNumber}</td>
                     <td>${order.eventByEid.name}</td>
                     <td>${order.status}</td>
+                    <td>${order.type}</td>
                     <td>
                         <c:if test="${order.status.equals('等待付款')}">
                             <a class="btn btn-primary" href="/member/order/${member.mid}/pay/${order.oid}"
@@ -63,6 +67,10 @@
                                role="button">查看详情</a>
                             <a class="btn btn-danger" href="/member/order/${member.mid}/refund/${order.oid}"
                                role="button">退票</a>
+                        </c:if>
+                        <c:if test="${order.status.equals('已检票')}">
+                            <a class="btn btn-primary" href="/member/order/${member.mid}/detail/${order.oid}"
+                               role="button">查看详情</a>
                         </c:if>
                     </td>
                 </tr>
