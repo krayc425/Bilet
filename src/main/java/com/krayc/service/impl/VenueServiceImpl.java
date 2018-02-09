@@ -50,4 +50,8 @@ public class VenueServiceImpl implements VenueService {
         }
     }
 
+    public List<VenueEntity> findAllVenues() {
+        return venueRepository.findAll();
+    }
+
 }

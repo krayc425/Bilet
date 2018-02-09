@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -108,6 +109,10 @@ public class MemberServiceImpl implements MemberService {
         memberBookEntity.setTime(new Timestamp(System.currentTimeMillis()));
 
         bookService.createMemberBookEntity(memberBookEntity);
+    }
+
+    public List<MemberEntity> findAllMembers() {
+        return memberRepository.findAll();
     }
 
 }

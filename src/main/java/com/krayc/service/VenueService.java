@@ -19,4 +19,6 @@ public interface VenueService {
 
     public LoginStatus login(VenueEntity venueEntity);
 
+    public List<VenueEntity> findAllVenues();
+
 }

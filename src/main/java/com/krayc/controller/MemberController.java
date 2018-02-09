@@ -46,15 +46,8 @@ public class MemberController extends BaseController {
     @RequestMapping(value = "show/{id}", method = RequestMethod.GET)
     public String showMember(@PathVariable("id") Integer mid, ModelMap modelMap) {
         MemberEntity memberEntity1 = memberService.findByMid(mid);
-        MemberInfoVO memberInfoVO = new MemberInfoVO(
-                memberEntity1.getMid(),
-                memberEntity1.getEmail(),
-                memberEntity1.getBankAccount(),
+        MemberInfoVO memberInfoVO = new MemberInfoVO(memberEntity1,
                 levelService.findLevelEntityWithPoint(memberEntity1.getTotalPoint()).getDescription(),
-                memberEntity1.getTotalPoint(),
-                memberEntity1.getCurrentPoint(),
-                memberEntity1.getIsTerminated() == Byte.valueOf("1") ? "已被注销" : "可以使用",
-                memberEntity1.getIsEmailPassed() == Byte.valueOf("1") ? "已经激活" : "尚未激活",
                 memberService.findBalance(memberEntity1.getBankAccount()));
         modelMap.addAttribute("member", memberInfoVO);
 

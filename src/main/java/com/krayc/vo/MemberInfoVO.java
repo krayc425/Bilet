@@ -1,5 +1,7 @@
 package com.krayc.vo;
 
+import com.krayc.model.MemberEntity;
+
 public class MemberInfoVO {
 
     private int mid;
@@ -12,15 +14,15 @@ public class MemberInfoVO {
     private String isEmailPassed;
     private String balance;
 
-    public MemberInfoVO(int mid, String email, String bankAccount, String level, int totalPoint, int currentPoint, String isTerminated, String isEmailPassed, double balance) {
-        this.mid = mid;
-        this.email = email;
-        this.bankAccount = bankAccount;
+    public MemberInfoVO(MemberEntity memberEntity1, String level, Double balance) {
+        this.mid = memberEntity1.getMid();
+        this.email = memberEntity1.getEmail();
+        this.bankAccount = memberEntity1.getBankAccount();
         this.level = level;
-        this.totalPoint = totalPoint;
-        this.currentPoint = currentPoint;
-        this.isTerminated = isTerminated;
-        this.isEmailPassed = isEmailPassed;
+        this.totalPoint = memberEntity1.getTotalPoint();
+        this.currentPoint = memberEntity1.getCurrentPoint();
+        this.isTerminated = memberEntity1.getIsTerminated() == Byte.valueOf("1") ? "已被注销" : "可以使用";
+        this.isEmailPassed = memberEntity1.getIsEmailPassed() == Byte.valueOf("1") ? "已经激活" : "尚未激活";
         this.balance = String.format("%.2f", balance);
     }
 

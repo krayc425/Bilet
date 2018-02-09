@@ -25,9 +25,12 @@
     <hr/>
     <h2>欢迎您！${admin.username}</h2>
     <hr/>
-    <a href="/admin/venues" type="button" class="btn btn-primary btn-sm">审核场地信息</a>
+    <a href="/admin/members" type="button" class="btn btn-info btn-sm">用户管理</a>
+    <a href="/admin/venues" type="button" class="btn btn-info btn-sm">场地管理</a>
+    <a href="/admin/books" type="button" class="btn btn-info btn-sm">财务管理</a>
+    <hr/>
+    <a href="/admin/venues/tobepassed" type="button" class="btn btn-primary btn-sm">审核场地信息</a>
     <a href="/admin/events" type="button" class="btn btn-primary btn-sm">结算活动费用</a>
-    <a href="/admin/books" type="button" class="btn btn-primary btn-sm">查看财务情况</a>
     <hr/>
     <a href="/admin/logout" type="button" class="btn btn-danger btn-sm">登出</a>
 </div>

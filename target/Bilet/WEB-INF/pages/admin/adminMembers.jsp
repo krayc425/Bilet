@@ -19,38 +19,51 @@
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
 <body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/admin/adminHome">返回</a>
+        </div>
+    </div>
+</nav>
+
 <div class="container">
     <h1>Bilet 用户管理</h1>
     <hr/>
-    <h3>所有用户 <a href="/admin/members/add" type="button" class="btn btn-primary btn-sm">添加</a></h3>
     <!-- 如果用户列表为空 -->
-    <c:if test="${empty userList}">
+    <c:if test="${empty memberList}">
         <div class="alert alert-warning" role="alert">
-            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>Member 为空，请<a href="/admin/members/add"
-                                                                                              type="button"
-                                                                                              class="btn btn-primary btn-sm">添加</a>
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>没有会员
         </div>
     </c:if>
     <!-- 如果用户列表非空 -->
-    <c:if test="${!empty userList}">
+    <c:if test="${!empty memberList}">
         <table class="table table-bordered table-striped">
             <tr>
-                <th>ID</th>
+                <th>会员 ID</th>
                 <th>邮箱</th>
-                <th>密码</th>
+                <th>累积积分</th>
+                <th>可兑换积分</th>
+                <th>等级</th>
+                <th>邮箱状态</th>
+                <th>账户状态</th>
                 <th>银行账号</th>
                 <th>操作</th>
             </tr>
-            <c:forEach items="${userList}" var="member">
+            <c:forEach items="${memberList}" var="member">
                 <tr>
                     <td>${member.mid}</td>
                     <td>${member.email}</td>
-                    <td>${member.password}</td>
+                    <td>${member.totalPoint}</td>
+                    <td>${member.currentPoint}</td>
+                    <td>${member.level}</td>
+                    <td>${member.isEmailPassed}</td>
+                    <td>${member.isTerminated}</td>
                     <td>${member.bankAccount}</td>
                     <td>
-                        <a href="/admin/members/show/${member.mid}" type="button" class="btn btn-sm btn-success">详情</a>
-                        <a href="/admin/members/update/${member.mid}" type="button" class="btn btn-sm btn-warning">修改</a>
-                        <a href="/admin/members/delete/${member.mid}" type="button" class="btn btn-sm btn-danger">删除</a>
+                        <a href="/admin/members/orders/${member.mid}" type="button"
+                           class="btn btn-sm btn-primary">订单查看</a>
                     </td>
                 </tr>
             </c:forEach>

@@ -4,6 +4,8 @@ import com.krayc.model.BankAccountEntity;
 import com.krayc.model.MemberEntity;
 import com.krayc.util.LoginStatus;
 
+import java.util.List;
+
 public interface MemberService {
 
     public void updateMember(MemberEntity memberEntity);
@@ -25,5 +27,7 @@ public interface MemberService {
     public BankAccountEntity findBankAccountEntity(String bankAccount);
 
     public void chargeAmount(MemberEntity memberEntity, Double amount);
+
+    public List<MemberEntity> findAllMembers();
 
 }

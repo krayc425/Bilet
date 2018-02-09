@@ -1,13 +1,8 @@
 package com.krayc.controller;
 
 import com.krayc.model.*;
-import com.krayc.service.AdminService;
-import com.krayc.service.EventService;
-import com.krayc.service.VenueService;
-import com.krayc.vo.AdminBookVO;
-import com.krayc.vo.EventVO;
-import com.krayc.vo.MessageVO;
-import com.krayc.vo.VenueBookVO;
+import com.krayc.service.*;
+import com.krayc.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,7 +27,13 @@ public class AdminController extends BaseController {
     private VenueService venueService;
 
     @Autowired
+    private MemberService memberService;
+
+    @Autowired
     private EventService eventService;
+
+    @Autowired
+    private LevelService levelService;
 
     @RequestMapping(value = "adminHome", method = RequestMethod.GET)
     public String adminHome() {
@@ -66,22 +67,22 @@ public class AdminController extends BaseController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "venues", method = RequestMethod.GET)
-    public String venues(ModelMap modelMap) {
+    @RequestMapping(value = "venues/tobepassed", method = RequestMethod.GET)
+    public String passVenues(ModelMap modelMap) {
         modelMap.addAttribute("venueList", venueService.findToBePassedVenues());
-        return "admin/adminVenue";
+        return "admin/adminVenuePass";
     }
 
-    @RequestMapping(value = "venue/good/{vid}", method = RequestMethod.GET)
+    @RequestMapping(value = "venues/good/{vid}", method = RequestMethod.GET)
     public String goodPassVenue(@PathVariable("vid") Integer vid) {
         venueService.passVenueOrNot(vid, true);
-        return "redirect:/admin/venues";
+        return "redirect:/admin/venues/tobepassed";
     }
 
-    @RequestMapping(value = "venue/bad/{vid}", method = RequestMethod.GET)
+    @RequestMapping(value = "venues/bad/{vid}", method = RequestMethod.GET)
     public String badPassVenue(@PathVariable("vid") Integer vid) {
         venueService.passVenueOrNot(vid, false);
-        return "redirect:/admin/venues";
+        return "redirect:/admin/venues/tobepassed";
     }
 
     @RequestMapping(value = "events", method = RequestMethod.GET)
@@ -91,7 +92,7 @@ public class AdminController extends BaseController {
             eventVOS.add(new EventVO(eventEntity));
         }
         modelMap.addAttribute("eventList", eventVOS);
-        return "admin/adminEvent";
+        return "admin/adminEvents";
     }
 
     @RequestMapping(value = "events/confirm/{eid}", method = RequestMethod.GET)
@@ -109,6 +110,28 @@ public class AdminController extends BaseController {
         }
         modelMap.addAttribute("books", adminBookVOS);
         return "admin/adminBooks";
+    }
+
+    @RequestMapping(value = "members", method = RequestMethod.GET)
+    public String members(ModelMap modelMap) {
+        ArrayList<MemberInfoVO> memberInfoVOS = new ArrayList<MemberInfoVO>();
+        for (MemberEntity memberEntity1 : memberService.findAllMembers()) {
+            memberInfoVOS.add(new MemberInfoVO(memberEntity1,
+                    levelService.findLevelEntityWithPoint(memberEntity1.getTotalPoint()).getDescription(),
+                    memberService.findBalance(memberEntity1.getBankAccount())));
+        }
+        modelMap.addAttribute("memberList", memberInfoVOS);
+        return "admin/adminMembers";
+    }
+
+    @RequestMapping(value = "venues", method = RequestMethod.GET)
+    public String venues(ModelMap modelMap) {
+        ArrayList<VenueInfoVO> venueInfoVOS = new ArrayList<VenueInfoVO>();
+        for(VenueEntity venueEntity : venueService.findAllVenues()) {
+            venueInfoVOS.add(new VenueInfoVO(venueEntity));
+        }
+        modelMap.addAttribute("venueList", venueInfoVOS);
+        return "admin/adminVenues";
     }
 
 }

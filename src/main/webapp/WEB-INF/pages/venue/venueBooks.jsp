@@ -50,7 +50,7 @@
                     <td>${book.amount}</td>
                     <td>${book.isConfirmed}</td>
                     <td>
-                        <a class="btn btn-primary" href="/venue/${venue.vid}/events/${book.eid}/orders"
+                        <a class="btn btn-info" href="/venue/${venue.vid}/events/${book.eid}/orders"
                            role="button">订单管理</a>
                     </td>
                 </tr>
