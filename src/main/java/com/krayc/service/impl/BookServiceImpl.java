@@ -9,6 +9,8 @@ import com.krayc.util.PayType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -59,6 +61,10 @@ public class BookServiceImpl implements BookService {
 
         Double venueAmount = venueBookRepository.findByEvent(eventEntity).getAmount();
         venueBookRepository.updateAmount(venueAmount + originalAmount * 0.8, eventEntity);
+    }
+
+    public List<AdminBookEntity> getAllAdminBooks() {
+        return adminBookRepository.findAll();
     }
 
 }

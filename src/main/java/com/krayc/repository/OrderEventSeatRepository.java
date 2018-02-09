@@ -22,4 +22,6 @@ public interface OrderEventSeatRepository extends JpaRepository<OrderEventSeatEn
 
     public List<OrderEventSeatEntity> findByOrder(OrderEntity orderEntity);
 
+    public List<OrderEventSeatEntity> findByEventSeatByEsidAndIsValidIsNot(EventSeatEntity eventSeatEntity, Integer isValid);
+
 }

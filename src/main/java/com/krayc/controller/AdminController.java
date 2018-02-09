@@ -1,12 +1,13 @@
 package com.krayc.controller;
 
-import com.krayc.model.AdminEntity;
-import com.krayc.model.EventEntity;
-import com.krayc.model.EventSeatEntity;
+import com.krayc.model.*;
 import com.krayc.service.AdminService;
 import com.krayc.service.EventService;
 import com.krayc.service.VenueService;
+import com.krayc.vo.AdminBookVO;
+import com.krayc.vo.EventVO;
 import com.krayc.vo.MessageVO;
+import com.krayc.vo.VenueBookVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping(value = "admin")
@@ -84,7 +86,11 @@ public class AdminController extends BaseController {
 
     @RequestMapping(value = "events", method = RequestMethod.GET)
     public String events(ModelMap modelMap) {
-        modelMap.addAttribute("eventList", eventService.findAllEvents());
+        ArrayList<EventVO> eventVOS = new ArrayList<EventVO>();
+        for (EventEntity eventEntity : eventService.findAllEvents()) {
+            eventVOS.add(new EventVO(eventEntity));
+        }
+        modelMap.addAttribute("eventList", eventVOS);
         return "admin/adminEvent";
     }
 
@@ -93,6 +99,16 @@ public class AdminController extends BaseController {
         EventEntity eventEntity = eventService.findByEid(eid);
         adminService.confirmEvent(eventEntity);
         return "redirect:/admin/events";
+    }
+
+    @RequestMapping(value = "books", method = RequestMethod.GET)
+    public String books(ModelMap modelMap) {
+        ArrayList<AdminBookVO> adminBookVOS = new ArrayList<AdminBookVO>();
+        for (AdminBookEntity entity : adminService.getAllAdminBooks()) {
+            adminBookVOS.add(new AdminBookVO(entity));
+        }
+        modelMap.addAttribute("books", adminBookVOS);
+        return "admin/adminBooks";
     }
 
 }

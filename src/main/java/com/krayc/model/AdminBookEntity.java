@@ -68,7 +68,7 @@ public class AdminBookEntity {
         return result;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "vid", referencedColumnName = "vid", nullable = false)
     public VenueEntity getVenue() {
         return venue;

@@ -4,6 +4,7 @@ import com.krayc.model.*;
 import com.krayc.service.*;
 import com.krayc.util.OrderStatus;
 import com.krayc.util.OrderType;
+import com.krayc.vo.EventSeatVO;
 import com.krayc.vo.MessageVO;
 import com.krayc.vo.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,13 @@ public class MemberOrderController extends BaseController {
         EventEntity eventEntity = eventService.findByEid(eid);
         modelAndView.addObject("event", eventEntity);
 
-        modelAndView.addObject("eventSeats", eventService.findEventSeatsByEid(eventEntity));
+        ArrayList<EventSeatVO> eventSeatVOS = new ArrayList<EventSeatVO>();
+        for (EventSeatEntity eventSeatEntity : eventService.findEventSeatsByEid(eventEntity)) {
+            EventSeatVO eventSeatVO = new EventSeatVO(eventSeatEntity);
+            eventSeatVO.setNumber(eventSeatVO.getNumber() - eventService.unavailableSeatNumberByEvent(eventSeatEntity));
+            eventSeatVOS.add(eventSeatVO);
+        }
+        modelAndView.addObject("eventSeats", eventSeatVOS);
 
         modelAndView.addObject("coupons", couponService.findAvailableCouponsByMember(memberEntity));
 

@@ -26,6 +26,8 @@ public interface EventService {
 
     public List<EventSeatEntity> findEventSeatOtherThanSeatsAndInEvent(Collection<SeatEntity> eventSeatEntities, EventEntity eventEntity);
 
+    public Integer unavailableSeatNumberByEvent(EventSeatEntity eventSeatEntity);
+
     public List<EventSeatEntity> findEventSeatsByEid(EventEntity eventEntity);
 
 }

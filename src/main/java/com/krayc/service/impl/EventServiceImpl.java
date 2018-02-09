@@ -1,12 +1,10 @@
 package com.krayc.service.impl;
 
-import com.krayc.model.EventEntity;
-import com.krayc.model.EventSeatEntity;
-import com.krayc.model.EventTypeEntity;
-import com.krayc.model.SeatEntity;
+import com.krayc.model.*;
 import com.krayc.repository.EventRepository;
 import com.krayc.repository.EventSeatRepository;
 import com.krayc.repository.EventTypeRepository;
+import com.krayc.repository.OrderEventSeatRepository;
 import com.krayc.service.BookService;
 import com.krayc.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,9 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventSeatRepository eventSeatRepository;
+
+    @Autowired
+    private OrderEventSeatRepository orderEventSeatRepository;
 
     @Autowired
     private BookService bookService;
@@ -56,6 +57,10 @@ public class EventServiceImpl implements EventService {
         eventRepository.saveAndFlush(eventEntity);
 
         bookService.createEventBookEntity(eventEntity);
+    }
+
+    public Integer unavailableSeatNumberByEvent(EventSeatEntity eventSeatEntity) {
+        return orderEventSeatRepository.findByEventSeatByEsidAndIsValidIsNot(eventSeatEntity, 1).size();
     }
 
     public void addEventSeat(EventSeatEntity eventSeatEntity) {

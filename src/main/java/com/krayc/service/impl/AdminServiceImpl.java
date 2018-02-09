@@ -1,5 +1,6 @@
 package com.krayc.service.impl;
 
+import com.krayc.model.AdminBookEntity;
 import com.krayc.model.AdminEntity;
 import com.krayc.model.EventEntity;
 import com.krayc.repository.AdminRepository;
@@ -8,6 +9,8 @@ import com.krayc.service.BookService;
 import com.krayc.util.LoginStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -30,8 +33,12 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
-    public void confirmEvent(EventEntity eventEntity){
+    public void confirmEvent(EventEntity eventEntity) {
         bookService.confirmEvent(eventEntity);
+    }
+
+    public List<AdminBookEntity> getAllAdminBooks() {
+        return bookService.getAllAdminBooks();
     }
 
 }

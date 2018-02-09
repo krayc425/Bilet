@@ -152,4 +152,5 @@ public class EventEntity {
     public void setAdminBook(AdminBookEntity adminBook) {
         this.adminBook = adminBook;
     }
+
 }

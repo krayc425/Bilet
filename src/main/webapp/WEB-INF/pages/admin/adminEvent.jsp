@@ -48,10 +48,18 @@
                     <td>${event.eid}</td>
                     <td>${event.name}</td>
                     <td>
-                        <c:if test="${event.adminBook.isConfirmed == 0 && event.venueBook.isConfirmed == 0}">
+                        <c:if test="${!event.hasPassed}">
+                            未到结算日期
+                        </c:if>
+                        <c:if test="${event.confirmed && event.hasPassed}">
+                            <a href="/admin/events/confirm/${event.eid}" type="button"
+                               class="btn btn-sm btn-success">已结算</a>
+                        </c:if>
+                        <c:if test="${!event.confirmed && event.hasPassed}">
                             <a href="/admin/events/confirm/${event.eid}" type="button"
                                class="btn btn-sm btn-success">结算</a>
                         </c:if>
+
                     </td>
                 </tr>
             </c:forEach>

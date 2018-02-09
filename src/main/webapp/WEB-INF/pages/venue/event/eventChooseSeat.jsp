@@ -56,7 +56,7 @@
                         </tr>
                         <c:forEach items="${eventSeats}" var="eventSeat">
                             <tr>
-                                <td>${eventSeat.seat.name}</td>
+                                <td>${eventSeat.seatName}</td>
                                 <td>${eventSeat.number}</td>
                                 <td>${eventSeat.price}</td>
                                 <td>

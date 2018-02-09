@@ -31,7 +31,7 @@
 <div class="container">
     <h1>Bilet 活动订单</h1>
     <hr/>
-    <c:if test="${true}">
+    <c:if test="${!event.hasPassed}">
         <a href="/venue/${venue.vid}/events/${event.eid}/chooseSeat" type="button"
            class="btn btn-primary btn-sm">现场购票</a>
         <hr/>

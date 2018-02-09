@@ -17,8 +17,8 @@ public class VenueEntity {
     private String password;
     private Collection<SeatEntity> seatsByVid;
     private Collection<EventEntity> eventsByVid;
-    private AdminBookEntity adminBook;
-    private VenueBookEntity venueBook;
+    private Collection<AdminBookEntity> adminBooks;
+    private Collection<VenueBookEntity> venueBooks;
 
     @Id
     @Column(name = "vid")
@@ -116,21 +116,24 @@ public class VenueEntity {
         this.eventsByVid = eventsByVid;
     }
 
-    @OneToOne(mappedBy = "venue")
-    public AdminBookEntity getAdminBook() {
-        return adminBook;
+    @OneToMany(mappedBy = "venue", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    public Collection<AdminBookEntity> getAdminBooks() {
+        return adminBooks;
     }
 
-    public void setAdminBook(AdminBookEntity adminBook) {
-        this.adminBook = adminBook;
+    public void setAdminBooks(Collection<AdminBookEntity> adminBooks) {
+        this.adminBooks = adminBooks;
     }
 
-    @OneToOne(mappedBy = "venue")
-    public VenueBookEntity getVenueBook() {
-        return venueBook;
+    @OneToMany(mappedBy = "venue", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    public Collection<VenueBookEntity> getVenueBooks() {
+        return venueBooks;
     }
 
-    public void setVenueBook(VenueBookEntity venueBook) {
-        this.venueBook = venueBook;
+    public void setVenueBooks(Collection<VenueBookEntity> venueBooks) {
+        this.venueBooks = venueBooks;
     }
+
 }

@@ -28,6 +28,7 @@
     <c:if test="${venue.isPassed.equals('审核通过')}">
         <a href="/venue/${venue.vid}/events" type="button" class="btn btn-primary btn-sm">活动管理</a>
         <a href="/venue/${venue.vid}/seats" type="button" class="btn btn-primary btn-sm">座位管理</a>
+        <a href="/venue/${venue.vid}/books" type="button" class="btn btn-primary btn-sm">财务管理</a>
     </c:if>
     <a href="/venue/update/${venue.vid}" type="button" class="btn btn-warning btn-sm">修改场馆信息</a>
     <hr/>

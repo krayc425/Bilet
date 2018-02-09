@@ -235,7 +235,7 @@ public class VenueController extends BaseController {
         VenueEntity venueEntity = venueService.findByVid(vid);
         modelMap.addAttribute("venue", venueEntity);
         EventEntity eventEntity = eventService.findByEid(eid);
-        modelMap.addAttribute("event", eventEntity);
+        modelMap.addAttribute("event", new EventVO(eventEntity));
         ArrayList<OrderVO> orderVOS = new ArrayList<OrderVO>();
         for (OrderEntity orderEntity : orderService.findOrderByEvent(eventEntity)) {
             orderVOS.add(new OrderVO(orderEntity));
@@ -257,7 +257,14 @@ public class VenueController extends BaseController {
         EventEntity eventEntity = eventService.findByEid(eid);
         modelMap.addAttribute("venue", venueEntity);
         modelMap.addAttribute("event", eventEntity);
-        modelMap.addAttribute("eventSeats", eventService.findEventSeatsByEid(eventEntity));
+
+        ArrayList<EventSeatVO> eventSeatVOS = new ArrayList<EventSeatVO>();
+        for (EventSeatEntity eventSeatEntity : eventService.findEventSeatsByEid(eventEntity)) {
+            EventSeatVO eventSeatVO = new EventSeatVO(eventSeatEntity);
+            eventSeatVO.setNumber(eventSeatVO.getNumber() - eventService.unavailableSeatNumberByEvent(eventSeatEntity));
+            eventSeatVOS.add(eventSeatVO);
+        }
+        modelMap.addAttribute("eventSeats", eventSeatVOS);
         return "/venue/event/eventChooseSeat";
     }
 
@@ -266,9 +273,6 @@ public class VenueController extends BaseController {
         EventEntity eventEntity = eventService.findByEid(eid);
 
         String email = request.getParameter("email");
-
-        System.out.println("Email: " + email);
-
         MemberEntity memberEntity;
         if (email == null || email.equals("")) {
             email = "bilet@bilet.com";
@@ -316,6 +320,20 @@ public class VenueController extends BaseController {
         orderService.payOrder(orderEntity, memberEntity);
 
         return new ModelAndView("redirect:/venue/" + vid + "/events/" + eid + "/orders");
+    }
+
+    @RequestMapping(value = "/{id}/books", method = RequestMethod.GET)
+    public String books(@PathVariable("id") Integer vid, ModelMap modelMap) {
+        VenueEntity venueEntity = venueService.findByVid(vid);
+        modelMap.addAttribute("venue", venueEntity);
+
+        ArrayList<VenueBookVO> venueBookVOS = new ArrayList<VenueBookVO>();
+        for (VenueBookEntity entity : venueEntity.getVenueBooks()) {
+            venueBookVOS.add(new VenueBookVO(entity));
+        }
+        modelMap.addAttribute("books", venueBookVOS);
+
+        return "venue/venueBooks";
     }
 
 }

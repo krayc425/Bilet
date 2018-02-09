@@ -38,7 +38,7 @@ public class VenueServiceImpl implements VenueService {
         venueRepository.flush();
     }
 
-    public LoginStatus login(VenueEntity venueEntity){
+    public LoginStatus login(VenueEntity venueEntity) {
         VenueEntity anotherEntity = findByVid(venueEntity.getVid());
         if (anotherEntity == null) {
             return LoginStatus.LOGIN_WRONG_EMAIL_PASSWORD;

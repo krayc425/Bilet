@@ -11,6 +11,8 @@ public class EventVO {
     private String time;
     private String eventType;
     private Boolean canRandom;
+    private Boolean hasPassed;
+    private Boolean isConfirmed;
 
     public EventVO(EventEntity eventEntity) {
         this.eid = eventEntity.getEid();
@@ -20,6 +22,8 @@ public class EventVO {
         this.time = DateFormatter.getDateFormatter().stringFromDate(eventEntity.getTime());
 
         this.canRandom = (eventEntity.getTime().getTime() - System.currentTimeMillis()) > 14 * 24 * 60 * 60 * 1000;
+        this.hasPassed = eventEntity.getTime().getTime() < System.currentTimeMillis();
+        this.isConfirmed = eventEntity.getAdminBook().getIsConfirmed() == Byte.valueOf("1") && eventEntity.getVenueBook().getIsConfirmed() == Byte.valueOf("1");
     }
 
     public int getEid() {
@@ -68,5 +72,21 @@ public class EventVO {
 
     public void setCanRandom(Boolean canRandom) {
         this.canRandom = canRandom;
+    }
+
+    public Boolean getHasPassed() {
+        return hasPassed;
+    }
+
+    public void setHasPassed(Boolean hasPassed) {
+        this.hasPassed = hasPassed;
+    }
+
+    public Boolean getConfirmed() {
+        return isConfirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        isConfirmed = confirmed;
     }
 }
