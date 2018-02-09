@@ -25,6 +25,10 @@
     <hr/>
     <h2>欢迎您！${venue.name}</h2>
     <hr/>
+    <c:if test="${venue.isPassed.equals('审核通过')}">
+        <a href="/venue/${venue.vid}/events" type="button" class="btn btn-primary btn-sm">活动管理</a>
+        <a href="/venue/${venue.vid}/seats" type="button" class="btn btn-primary btn-sm">座位管理</a>
+    </c:if>
     <a href="/venue/update/${venue.vid}" type="button" class="btn btn-warning btn-sm">修改场馆信息</a>
     <hr/>
     <table class="table table-bordered table-striped">
@@ -46,21 +50,11 @@
         </tr>
         <tr>
             <th>座位</th>
-            <td>
-                ${venue.seatsNumber} 个
-                <c:if test="${venue.isPassed.equals('审核通过')}">
-                    <a class="btn btn-default" href="/venue/${venue.vid}/seats" role="button">座位管理</a>
-                </c:if>
-            </td>
+            <td>${venue.seatsNumber} 个</td>
         </tr>
         <tr>
             <th>活动</th>
-            <td>
-                ${venue.eventsNumber} 个
-                <c:if test="${venue.isPassed.equals('审核通过')}">
-                    <a class="btn btn-default" href="/venue/${venue.vid}/events" role="button">活动管理</a>
-                </c:if>
-            </td>
+            <td>${venue.eventsNumber} 个</td>
         </tr>
     </table>
     <hr/>

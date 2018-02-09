@@ -16,6 +16,8 @@
         <class>com.krayc.model.OrderEventSeatEntity</class>
         <class>com.krayc.model.BankAccountEntity</class>
         <class>com.krayc.model.MemberBookEntity</class>
+        <class>com.krayc.model.AdminBookEntity</class>
+        <class>com.krayc.model.VenueBookEntity</class>
         <properties>
             <!-- 使用MySQL方言 -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>

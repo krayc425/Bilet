@@ -56,8 +56,8 @@
                     <td>${event.time}</td>
                     <td>${event.description}</td>
                     <td>
-                        <a class="btn btn-default" href="/venue/${vid}/events/${event.eid}/seats" role="button">座位管理</a>
-                        <a class="btn btn-default" href="/venue/${vid}/events/${event.eid}/orders" role="button">票务管理</a>
+                        <a class="btn btn-primary" href="/venue/${vid}/events/${event.eid}/seats" role="button">活动座位管理</a>
+                        <a class="btn btn-primary" href="/venue/${vid}/events/${event.eid}/orders" role="button">订单管理</a>
                     </td>
                 </tr>
             </c:forEach>

@@ -25,7 +25,8 @@
     <hr/>
     <h2>欢迎您！${admin.username}</h2>
     <hr/>
-    <a href="/admin/venues" type="button" class="btn btn-default btn-sm">审核场地信息</a>
+    <a href="/admin/venues" type="button" class="btn btn-primary btn-sm">审核场地信息</a>
+    <a href="/admin/events" type="button" class="btn btn-primary btn-sm">结算活动费用</a>
     <hr/>
     <a href="/admin/logout" type="button" class="btn btn-danger btn-sm">登出</a>
 </div>

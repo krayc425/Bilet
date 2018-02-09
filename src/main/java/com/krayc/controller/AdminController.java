@@ -1,7 +1,10 @@
 package com.krayc.controller;
 
 import com.krayc.model.AdminEntity;
+import com.krayc.model.EventEntity;
+import com.krayc.model.EventSeatEntity;
 import com.krayc.service.AdminService;
+import com.krayc.service.EventService;
 import com.krayc.service.VenueService;
 import com.krayc.vo.MessageVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class AdminController extends BaseController {
 
     @Autowired
     private VenueService venueService;
+
+    @Autowired
+    private EventService eventService;
 
     @RequestMapping(value = "adminHome", method = RequestMethod.GET)
     public String adminHome() {
@@ -59,7 +65,7 @@ public class AdminController extends BaseController {
     }
 
     @RequestMapping(value = "venues", method = RequestMethod.GET)
-    public String getToBePassedVenues(ModelMap modelMap) {
+    public String venues(ModelMap modelMap) {
         modelMap.addAttribute("venueList", venueService.findToBePassedVenues());
         return "admin/adminVenue";
     }
@@ -74,6 +80,19 @@ public class AdminController extends BaseController {
     public String badPassVenue(@PathVariable("vid") Integer vid) {
         venueService.passVenueOrNot(vid, false);
         return "redirect:/admin/venues";
+    }
+
+    @RequestMapping(value = "events", method = RequestMethod.GET)
+    public String events(ModelMap modelMap) {
+        modelMap.addAttribute("eventList", eventService.findAllEvents());
+        return "admin/adminEvent";
+    }
+
+    @RequestMapping(value = "events/confirm/{eid}", method = RequestMethod.GET)
+    public String confirmEvent(@PathVariable("eid") Integer eid) {
+        EventEntity eventEntity = eventService.findByEid(eid);
+        adminService.confirmEvent(eventEntity);
+        return "redirect:/admin/events";
     }
 
 }

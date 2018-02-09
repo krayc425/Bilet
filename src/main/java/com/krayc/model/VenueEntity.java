@@ -9,6 +9,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "Venue", schema = "Bilet")
 public class VenueEntity {
+
     private int vid;
     private String address;
     private byte isPassed;
@@ -16,6 +17,8 @@ public class VenueEntity {
     private String password;
     private Collection<SeatEntity> seatsByVid;
     private Collection<EventEntity> eventsByVid;
+    private AdminBookEntity adminBook;
+    private VenueBookEntity venueBook;
 
     @Id
     @Column(name = "vid")
@@ -111,5 +114,23 @@ public class VenueEntity {
 
     public void setEventsByVid(Collection<EventEntity> eventsByVid) {
         this.eventsByVid = eventsByVid;
+    }
+
+    @OneToOne(mappedBy = "venue")
+    public AdminBookEntity getAdminBook() {
+        return adminBook;
+    }
+
+    public void setAdminBook(AdminBookEntity adminBook) {
+        this.adminBook = adminBook;
+    }
+
+    @OneToOne(mappedBy = "venue")
+    public VenueBookEntity getVenueBook() {
+        return venueBook;
+    }
+
+    public void setVenueBook(VenueBookEntity venueBook) {
+        this.venueBook = venueBook;
     }
 }

@@ -6,6 +6,9 @@ import com.krayc.service.BookService;
 import com.krayc.service.LevelService;
 import com.krayc.service.OrderService;
 import com.krayc.util.DateFormatter;
+import com.krayc.util.OrderStatus;
+import com.krayc.util.OrderType;
+import com.krayc.util.PayType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,13 +67,13 @@ public class OrderServiceImpl implements OrderService {
         Double orderPrice = calculateTotalPriceOfOrder(orderEntity, memberEntity);
         BankAccountEntity bankAccountEntity = bankAccountRepository.findByBankAccount(memberEntity.getBankAccount());
 
-        if (orderEntity.getType().equals(Byte.valueOf("1"))) {
-            orderRepository.updateStatus(Byte.valueOf("1"), orderEntity.getOid());
+        if (orderEntity.getType().equals(OrderType.AT_VENUE)) {
+            orderRepository.updateStatus(OrderStatus.ORDER_PAID, orderEntity.getOid());
 
             MemberBookEntity memberBookEntity = new MemberBookEntity();
             memberBookEntity.setMember(memberEntity);
             memberBookEntity.setOrder(orderEntity);
-            memberBookEntity.setType(Byte.valueOf("1"));
+            memberBookEntity.setType(PayType.AT_VENUE_PAY);
             memberBookEntity.setAmount(-orderPrice);
             memberBookEntity.setTime(new Timestamp(System.currentTimeMillis()));
 
@@ -80,12 +83,12 @@ public class OrderServiceImpl implements OrderService {
         } else {
             if (bankAccountEntity.getBalance() >= orderPrice) {
                 bankAccountRepository.updateBalance(bankAccountEntity.getBalance() - orderPrice, bankAccountEntity.getBankAccount());
-                orderRepository.updateStatus(Byte.valueOf("1"), orderEntity.getOid());
+                orderRepository.updateStatus(OrderStatus.ORDER_PAID, orderEntity.getOid());
 
                 MemberBookEntity memberBookEntity = new MemberBookEntity();
                 memberBookEntity.setMember(memberEntity);
                 memberBookEntity.setOrder(orderEntity);
-                memberBookEntity.setType(Byte.valueOf("0"));
+                memberBookEntity.setType(PayType.ONLINE_PAY);
                 memberBookEntity.setAmount(-orderPrice);
                 memberBookEntity.setTime(new Timestamp(System.currentTimeMillis()));
 
@@ -99,7 +102,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public void cancelOrder(OrderEntity orderEntity) {
-        orderRepository.updateStatus(Byte.valueOf("2"), orderEntity.getOid());
+        orderRepository.updateStatus(OrderStatus.ORDER_CANCELLED, orderEntity.getOid());
 
         if (orderEntity.getMemberCouponEntity() != null) {
             memberCouponRepository.updateUsage(0, orderEntity.getMemberCouponEntity().getMcid());
@@ -116,12 +119,12 @@ public class OrderServiceImpl implements OrderService {
         Double refundPrice = calculateRefundAmount(orderEntity, memberEntity);
         bankAccountRepository.updateBalance(bankAccountEntity.getBalance() + refundPrice,
                 bankAccountEntity.getBankAccount());
-        orderRepository.updateStatus(Byte.valueOf("3"), orderEntity.getOid());
+        orderRepository.updateStatus(OrderStatus.ORDER_REFUNDED, orderEntity.getOid());
 
         MemberBookEntity memberBookEntity = new MemberBookEntity();
         memberBookEntity.setMember(memberEntity);
         memberBookEntity.setOrder(orderEntity);
-        memberBookEntity.setType(Byte.valueOf("2"));
+        memberBookEntity.setType(PayType.ONLINE_REFUND);
         memberBookEntity.setAmount(refundPrice);
         memberBookEntity.setTime(new Timestamp(System.currentTimeMillis()));
 
@@ -137,13 +140,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public void confirmOrder(OrderEntity orderEntity) {
-        orderRepository.updateStatus(Byte.valueOf("4"), orderEntity.getOid());
+        orderRepository.updateStatus(OrderStatus.ORDER_CONFIRMED, orderEntity.getOid());
 
         MemberEntity memberEntity = orderEntity.getMemberByMid();
         // 增加积分
-        int deltaPoint = (int) (0 + calculateTotalPriceOfOrder(orderEntity, memberEntity));
+        Double totalPrice = calculateTotalPriceOfOrder(orderEntity, memberEntity);
+        int deltaPoint = (int) (0 + totalPrice);
         memberRepository.updateCurrentPoint(memberEntity.getCurrentPoint() + deltaPoint, memberEntity.getMid());
         memberRepository.updateTotalPoint(memberEntity.getTotalPoint() + deltaPoint, memberEntity.getMid());
+
+        // 写入管理员和公司账本
+        bookService.updateEventAmount(orderEntity.getEventByEid(), totalPrice);
     }
 
     public OrderEntity findByOid(Integer oid) {
@@ -156,7 +163,7 @@ public class OrderServiceImpl implements OrderService {
 
     private Integer findMinimumAvailableSeatNumberByEventSeat(EventSeatEntity eventSeatEntity) {
         for (int i = 1; i <= eventSeatEntity.getNumber(); i++) {
-            if (orderEventSeatRepository.findBySeatNumberAndIsValid(i, 0) == null) {
+            if (orderEventSeatRepository.findBySeatNumberAndIsValidAndEventSeatByEsidIs(i, 0, eventSeatEntity) == null) {
                 return i;
             }
         }
@@ -222,8 +229,8 @@ public class OrderServiceImpl implements OrderService {
         @Override
         public void run() {
             OrderEntity orderEntity = orderRepository.findOne(oid);
-            if (orderEntity.getStatus() == Byte.valueOf("0")) {
-                orderRepository.updateStatus(Byte.valueOf("2"), oid);
+            if (orderEntity.getStatus() == OrderStatus.ORDER_CREATED) {
+                orderRepository.updateStatus(OrderStatus.ORDER_CANCELLED, oid);
             }
         }
 

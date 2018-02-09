@@ -41,7 +41,7 @@
     <c:if test="${!empty venueList}">
         <table class="table table-bordered table-striped">
             <tr>
-                <th>ID</th>
+                <th>场地 ID</th>
                 <th>名称</th>
                 <th>地址</th>
                 <th>座位数</th>

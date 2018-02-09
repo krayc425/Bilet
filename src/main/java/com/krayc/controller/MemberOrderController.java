@@ -2,6 +2,8 @@ package com.krayc.controller;
 
 import com.krayc.model.*;
 import com.krayc.service.*;
+import com.krayc.util.OrderStatus;
+import com.krayc.util.OrderType;
 import com.krayc.vo.MessageVO;
 import com.krayc.vo.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,9 +77,8 @@ public class MemberOrderController extends BaseController {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setEventByEid(eventEntity);
         orderEntity.setMemberByMid(memberEntity);
-        orderEntity.setStatus(Byte.valueOf("0"));
-        orderEntity.setType(Byte.valueOf("0"));
-
+        orderEntity.setStatus(OrderStatus.ORDER_CREATED);
+        orderEntity.setType(OrderType.CHOOSE_SEAT);
         String couponString = request.getParameter("memberCouponCid");
         if (couponString != null && !couponString.equals("")) {
             try {

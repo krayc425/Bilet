@@ -2,6 +2,8 @@ package com.krayc.controller;
 
 import com.krayc.model.*;
 import com.krayc.service.*;
+import com.krayc.util.OrderStatus;
+import com.krayc.util.OrderType;
 import com.krayc.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -294,9 +296,8 @@ public class VenueController extends BaseController {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setEventByEid(eventEntity);
         orderEntity.setMemberByMid(memberEntity);
-        orderEntity.setStatus(Byte.valueOf("0"));
-        orderEntity.setType(Byte.valueOf("1"));
-
+        orderEntity.setStatus(OrderStatus.ORDER_CREATED);
+        orderEntity.setType(OrderType.AT_VENUE);
         ArrayList<OrderEventSeatEntity> orderEventSeatEntities = new ArrayList<OrderEventSeatEntity>();
         for (EventSeatEntity eventSeatEntity : eventSeatEntities) {
             Integer eventSeatCount = Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));

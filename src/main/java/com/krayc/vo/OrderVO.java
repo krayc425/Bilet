@@ -60,19 +60,19 @@ public class OrderVO {
         Date date = new Date(orderEntity.getOrderTime().getTime());
         String status = "";
         switch (orderEntity.getStatus()) {
-            case 0:
+            case ORDER_CREATED:
                 status = "等待付款";
                 break;
-            case 1:
+            case ORDER_PAID:
                 status = "等待检票";
                 break;
-            case 2:
+            case ORDER_CANCELLED:
                 status = "已取消";
                 break;
-            case 3:
+            case ORDER_REFUNDED:
                 status = "已退款";
                 break;
-            case 4:
+            case ORDER_CONFIRMED:
                 status = "已检票";
                 break;
             default:
@@ -85,13 +85,13 @@ public class OrderVO {
         this.seatNumber = orderEntity.getOrderEventSeats().size();
         this.memberEmail = orderEntity.getMemberByMid().getEmail();
         switch (orderEntity.getType()) {
-            case 0:
+            case CHOOSE_SEAT:
                 this.type = "选座购买";
                 break;
-            case 1:
+            case AT_VENUE:
                 this.type = "现场购买";
                 break;
-            case 2:
+            case RANDOM_SEAT:
                 this.type = "不选座购买";
                 break;
         }

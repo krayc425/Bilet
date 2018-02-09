@@ -19,6 +19,8 @@ public class EventEntity {
     private EventTypeEntity eventTypeEntity;
     private Collection<EventSeatEntity> eventSeats;
     private Collection<OrderEntity> orders;
+    private VenueBookEntity venueBook;
+    private AdminBookEntity adminBook;
 
     @Id
     @Column(name = "eid")
@@ -57,12 +59,12 @@ public class EventEntity {
         return time;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
-    }
-
     public void setTime(String timeString) {
         this.time = Timestamp.valueOf(timeString);
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 
     @Override
@@ -133,4 +135,21 @@ public class EventEntity {
         this.orders = orders;
     }
 
+    @OneToOne(mappedBy = "event")
+    public VenueBookEntity getVenueBook() {
+        return venueBook;
+    }
+
+    public void setVenueBook(VenueBookEntity venueBook) {
+        this.venueBook = venueBook;
+    }
+
+    @OneToOne(mappedBy = "event")
+    public AdminBookEntity getAdminBook() {
+        return adminBook;
+    }
+
+    public void setAdminBook(AdminBookEntity adminBook) {
+        this.adminBook = adminBook;
+    }
 }

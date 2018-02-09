@@ -7,6 +7,7 @@ import com.krayc.model.SeatEntity;
 import com.krayc.repository.EventRepository;
 import com.krayc.repository.EventSeatRepository;
 import com.krayc.repository.EventTypeRepository;
+import com.krayc.service.BookService;
 import com.krayc.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventSeatRepository eventSeatRepository;
+
+    @Autowired
+    private BookService bookService;
 
     public EventTypeEntity findTypeByTid(Integer tid) {
         return eventTypeRepository.findOne(tid);
@@ -50,6 +54,8 @@ public class EventServiceImpl implements EventService {
 
     public void addEvent(EventEntity eventEntity) {
         eventRepository.saveAndFlush(eventEntity);
+
+        bookService.createEventBookEntity(eventEntity);
     }
 
     public void addEventSeat(EventSeatEntity eventSeatEntity) {

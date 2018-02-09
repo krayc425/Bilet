@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Admin", schema = "Bilet")
 public class AdminEntity {
+
     private String username;
     private String password;
     private int aid;

@@ -1,5 +1,6 @@
 package com.krayc.repository;
 
+import com.krayc.model.EventSeatEntity;
 import com.krayc.model.OrderEntity;
 import com.krayc.model.OrderEventSeatEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public interface OrderEventSeatRepository extends JpaRepository<OrderEventSeatEntity, Integer> {
 
-    public OrderEventSeatEntity findBySeatNumberAndIsValid(Integer seatNumber, Integer isValid);
+    public OrderEventSeatEntity findBySeatNumberAndIsValidAndEventSeatByEsidIs(Integer seatNumber, Integer isValid, EventSeatEntity eventSeatEntity);
 
     @Modifying
     @Transactional

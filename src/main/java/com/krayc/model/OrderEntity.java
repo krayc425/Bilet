@@ -1,5 +1,7 @@
 package com.krayc.model;
 
+import com.krayc.util.OrderStatus;
+import com.krayc.util.OrderType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -13,12 +15,12 @@ public class OrderEntity {
 
     private int oid;
     private Timestamp orderTime;
-    private byte status;
+    private OrderStatus status;
     private EventEntity eventByEid;
     private MemberEntity memberByMid;
     private MemberCouponEntity memberCouponEntity;
     private Collection<OrderEventSeatEntity> orderEventSeats;
-    private Byte type;
+    private OrderType type;
     private Collection<MemberBookEntity> memberBooks;
 
     @Id
@@ -48,11 +50,12 @@ public class OrderEntity {
 
     @Basic
     @Column(name = "status")
-    public byte getStatus() {
+    @Enumerated(EnumType.ORDINAL)
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
@@ -74,7 +77,7 @@ public class OrderEntity {
     public int hashCode() {
         int result = oid;
         result = 31 * result + (orderTime != null ? orderTime.hashCode() : 0);
-        result = 31 * result + (int) status;
+        result = 31 * result + status.hashCode();
         return result;
     }
 
@@ -120,11 +123,11 @@ public class OrderEntity {
 
     @Basic
     @Column(name = "type")
-    public Byte getType() {
+    public OrderType getType() {
         return type;
     }
 
-    public void setType(Byte type) {
+    public void setType(OrderType type) {
         this.type = type;
     }
 

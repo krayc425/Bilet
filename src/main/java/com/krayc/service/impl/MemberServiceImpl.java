@@ -8,6 +8,7 @@ import com.krayc.repository.MemberRepository;
 import com.krayc.service.BookService;
 import com.krayc.service.MemberService;
 import com.krayc.util.LoginStatus;
+import com.krayc.util.PayType;
 import io.github.biezhi.ome.OhMyEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,7 +103,7 @@ public class MemberServiceImpl implements MemberService {
 
         MemberBookEntity memberBookEntity = new MemberBookEntity();
         memberBookEntity.setMember(memberEntity);
-        memberBookEntity.setType(Byte.valueOf("3"));
+        memberBookEntity.setType(PayType.ONLINE_CHARGE);
         memberBookEntity.setAmount(amount);
         memberBookEntity.setTime(new Timestamp(System.currentTimeMillis()));
 

@@ -21,16 +21,16 @@ public class MemberBookVO {
             this.orderId = "无";
         }
         switch (memberBookEntity.getType()) {
-            case 0:
+            case ONLINE_PAY:
                 this.type = "线上购票";
                 break;
-            case 1:
+            case AT_VENUE_PAY:
                 this.type = "现场购票";
                 break;
-            case 2:
+            case ONLINE_REFUND:
                 this.type = "线上退票";
                 break;
-            case 3:
+            case ONLINE_CHARGE:
                 this.type = "线上充值";
                 break;
             default:

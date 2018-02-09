@@ -1,5 +1,7 @@
 package com.krayc.model;
 
+import com.krayc.util.PayType;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -9,7 +11,7 @@ public class MemberBookEntity {
 
     private int mbid;
     private Double amount;
-    private byte type;
+    private PayType type;
     private Timestamp time;
     private MemberEntity member;
     private OrderEntity order;
@@ -37,11 +39,12 @@ public class MemberBookEntity {
 
     @Basic
     @Column(name = "type")
-    public byte getType() {
+    @Enumerated(EnumType.ORDINAL)
+    public PayType getType() {
         return type;
     }
 
-    public void setType(byte type) {
+    public void setType(PayType type) {
         this.type = type;
     }
 
@@ -74,7 +77,7 @@ public class MemberBookEntity {
     public int hashCode() {
         int result = mbid;
         result = 31 * result + (amount != null ? amount.hashCode() : 0);
-        result = 31 * result + (int) type;
+        result = 31 * result + type.hashCode();
         result = 31 * result + (time != null ? time.hashCode() : 0);
         return result;
     }
