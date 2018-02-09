@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "member")
@@ -29,12 +28,6 @@ public class MemberController extends BaseController {
 
     @Autowired
     private MemberService memberService;
-
-    @Autowired
-    private CouponService couponService;
-
-    @Autowired
-    private OrderService orderService;
 
     @Autowired
     private BookService bookService;
@@ -147,155 +140,11 @@ public class MemberController extends BaseController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "{mid}/order/{eid}/chooseSeat", method = RequestMethod.GET)
-    public ModelAndView orderChooseSeat(@PathVariable("eid") Integer eid, @PathVariable("mid") Integer mid) {
-        ModelAndView modelAndView = new ModelAndView("member/order/memberOrderChooseSeat");
-
-        MemberEntity memberEntity = memberService.findByMid(mid);
-        modelAndView.addObject("member", memberEntity);
-
-        EventEntity eventEntity = eventService.findByEid(eid);
-        modelAndView.addObject("event", eventEntity);
-
-        modelAndView.addObject("eventSeats", eventService.findEventSeatsByEid(eventEntity));
-
-        modelAndView.addObject("coupons", couponService.findAvailableCouponsByMember(memberEntity));
-
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "{mid}/order/{eid}/chooseSeatPost", method = RequestMethod.GET)
-    public ModelAndView orderChooseSeatPost(@PathVariable("eid") Integer eid, @PathVariable("mid") Integer mid, HttpServletRequest request) {
-        MemberEntity memberEntity = memberService.findByMid(mid);
-        EventEntity eventEntity = eventService.findByEid(eid);
-
-        List<EventSeatEntity> eventSeatEntities = eventService.findEventSeatsByEid(eventEntity);
-
-        Integer totalSeatNumber = 0;
-        for (EventSeatEntity eventSeatEntity : eventSeatEntities) {
-            totalSeatNumber += Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
-        }
-
-        if (totalSeatNumber == 0) {
-            MessageVO messageVO = new MessageVO(false, "请至少请购买 1 张票");
-            return this.handleMessage(messageVO, "redirect:/member/" + mid + "/order/" + eid + "/chooseSeat");
-        }
-
-        if (totalSeatNumber > 6) {
-            MessageVO messageVO = new MessageVO(false, "总购票数量不能大于 6 张");
-            return this.handleMessage(messageVO, "redirect:/member/" + mid + "/order/" + eid + "/chooseSeat");
-        }
-
-        // 没有问题，下订单
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setEventByEid(eventEntity);
-        orderEntity.setMemberByMid(memberEntity);
-        orderEntity.setStatus(Byte.valueOf("0"));
-        orderEntity.setType(Byte.valueOf("0"));
-
-        String couponString = request.getParameter("memberCouponCid");
-        if (couponString != null && !couponString.equals("")) {
-            try {
-                orderEntity.setMemberCouponEntity(couponService.findByMcid(Integer.parseInt(couponString)));
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-        }
-
-        ArrayList<OrderEventSeatEntity> orderEventSeatEntities = new ArrayList<OrderEventSeatEntity>();
-        for (EventSeatEntity eventSeatEntity : eventSeatEntities) {
-            Integer eventSeatCount = Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
-            if (eventSeatCount > 0) {
-                for (int i = 0; i < eventSeatCount; i++) {
-                    OrderEventSeatEntity orderEventSeatEntity = new OrderEventSeatEntity();
-                    orderEventSeatEntity.setIsValid(0);
-                    orderEventSeatEntity.setEventSeatByEsid(eventSeatEntity);
-                    orderEventSeatEntities.add(orderEventSeatEntity);
-                }
-            }
-        }
-
-        orderService.createOrder(orderEntity, orderEventSeatEntities);
-
-        return new ModelAndView("redirect:/member/order/" + mid);
-    }
-
-    @RequestMapping(value = "{mid}/order/{eid}/randomSeat", method = RequestMethod.GET)
-    public ModelAndView orderRandomSeat(@PathVariable("eid") Integer eid, @PathVariable("mid") Integer mid) {
-        ModelAndView modelAndView = new ModelAndView("member/order/memberOrderRandomSeat");
-
-        MemberEntity memberEntity = memberService.findByMid(mid);
-        modelAndView.addObject("member", memberEntity);
-
-        EventEntity eventEntity = eventService.findByEid(eid);
-        modelAndView.addObject("event", eventEntity);
-
-        modelAndView.addObject("eventSeats", eventService.findEventSeatsByEid(eventEntity));
-
-        modelAndView.addObject("coupons", couponService.findAvailableCouponsByMember(memberEntity));
-
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "order/{mid}", method = RequestMethod.GET)
-    public String orders(@PathVariable("mid") Integer mid, ModelMap modelMap) {
-        MemberEntity memberEntity = memberService.findByMid(mid);
-        modelMap.addAttribute("member", memberEntity);
-
-        ArrayList<OrderVO> orderVOS = new ArrayList<OrderVO>();
-        for (OrderEntity orderEntity : memberEntity.getOrders()) {
-            orderVOS.add(new OrderVO(orderEntity));
-        }
-        modelMap.addAttribute("orders", orderVOS);
-
-        return "member/order/memberOrders";
-    }
-
-    @RequestMapping(value = "order/{mid}/pay/{oid}", method = RequestMethod.GET)
-    public ModelAndView payOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
-        Boolean result = orderService.payOrder(orderService.findByOid(oid), memberService.findByMid(mid));
-        if (result) {
-            return new ModelAndView("redirect:/member/order/" + mid);
-        } else {
-            ModelAndView modelAndView = new ModelAndView("member/memberCharge");
-            MemberEntity memberEntity = memberService.findByMid(mid);
-            modelAndView.addObject("member", memberEntity);
-            modelAndView.addObject("bankAccount", memberService.findBankAccountEntity(memberEntity.getBankAccount()));
-            modelAndView.addObject("error", "您的余额不足，请先充值");
-            return modelAndView;
-        }
-    }
-
-    @RequestMapping(value = "order/{mid}/cancel/{oid}", method = RequestMethod.GET)
-    public String cancelOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
-        OrderEntity orderEntity = orderService.findByOid(oid);
-        orderService.cancelOrder(orderEntity);
-        return "redirect:/member/order/" + mid;
-    }
-
-    @RequestMapping(value = "order/{mid}/refund/{oid}", method = RequestMethod.GET)
-    public String refundOrder(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid) {
-        orderService.refundOrder(orderService.findByOid(oid), memberService.findByMid(mid));
-        return "redirect:/member/order/" + mid;
-    }
-
-    @RequestMapping(value = "order/{mid}/detail/{oid}", method = RequestMethod.GET)
-    public String orderDetail(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid, ModelMap modelMap) {
-        modelMap.addAttribute("member", memberService.findByMid(mid));
-
-        OrderEntity orderEntity = orderService.findByOid(oid);
-        modelMap.addAttribute("order", new OrderVO(orderEntity));
-
-        modelMap.addAttribute("seats", orderEntity.getOrderEventSeats());
-
-        return "member/order/memberOrderDetail";
-    }
-
     @RequestMapping(value = "charge/{mid}", method = RequestMethod.GET)
     public String charge(@PathVariable("mid") Integer mid, ModelMap modelMap) {
         MemberEntity memberEntity = memberService.findByMid(mid);
         modelMap.addAttribute("member", memberEntity);
-        modelMap.addAttribute("bankAccount", memberService.findBankAccountEntity(memberEntity.getBankAccount()));
+        modelMap.addAttribute("bankAccount", new BankAccountVO(memberService.findBankAccountEntity(memberEntity.getBankAccount())));
         return "member/memberCharge";
     }
 

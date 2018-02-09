@@ -27,8 +27,8 @@
     <hr/>
     <a href="/member/order/${member.mid}" type="button" class="btn btn-primary btn-sm">我的订单</a>
     <a href="/member/coupon/${member.mid}" type="button" class="btn btn-primary btn-sm">我的优惠券</a>
+    <a href="/member/book/${member.mid}" type="button" class="btn btn-primary btn-sm">我的账单</a>
     <a href="/member/update/${member.mid}" type="button" class="btn btn-warning btn-sm">修改信息</a>
-    <a href="/member/book/${member.mid}" type="button" class="btn btn-primary btn-sm">消费记录</a>
     <hr/>
     <table class="table table-bordered table-striped">
         <tr>
@@ -85,10 +85,10 @@
                     <td>${event.time}</td>
                     <td>${event.description}</td>
                     <td>
-                        <a class="btn btn-primary" href="/member/${member.mid}/order/${event.eid}/chooseSeat"
+                        <a class="btn btn-primary" href="/member/order/${member.mid}/event/${event.eid}/chooseSeat"
                            role="button">选座购票</a>
                         <c:if test="${event.canRandom}">
-                            <a class="btn btn-primary" href="/member/${member.mid}/order/${event.eid}/randomSeat"
+                            <a class="btn btn-primary" href="/member/order/${member.mid}/event/${event.eid}/randomSeat"
                                role="button">立即购票</a>
                         </c:if>
                     </td>

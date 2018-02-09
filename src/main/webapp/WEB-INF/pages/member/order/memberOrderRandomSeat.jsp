@@ -15,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bilet 立即购买</title>
+    <title>Bilet 立即购票</title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
@@ -30,7 +30,7 @@
 </nav>
 
 <div class="container">
-    <h1>Bilet 立即购买</h1>
+    <h1>Bilet 立即购票</h1>
 
     <%@include file="../../displayError.jsp" %>
 
@@ -38,7 +38,7 @@
     <h2>活动名称：${event.name}</h2>
     <hr/>
     <c:if test="${!empty eventSeats}">
-        <form:form action="/member/${member.mid}/order/${event.eid}/randomSeatPost" method="get" role="form">
+        <form:form action="/member/order/${member.mid}/event/${event.eid}/randomSeatPost" method="get" role="form">
             <div class="form-group">
                 <label>选座</label>
                 <table class="table table-bordered table-striped">

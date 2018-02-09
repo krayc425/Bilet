@@ -81,7 +81,9 @@ public class MemberServiceImpl implements MemberService {
         bankAccountEntity.setBankAccount(memberEntity.getBankAccount());
         bankAccountRepository.saveAndFlush(bankAccountEntity);
 
-        OhMyEmail.config(OhMyEmail.SMTP_163(false), "krayc425@163.com", "songkuixi2");
+        System.out.println("Send Email!!!!");
+
+        OhMyEmail.config(OhMyEmail.SMTP_163(true), "krayc425@163.com", "songkuixi2");
         try {
             OhMyEmail.subject("Welcome to Bilet!")
                     .from("Bilet")
