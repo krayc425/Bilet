@@ -6,6 +6,7 @@ import com.krayc.util.OrderStatus;
 import com.krayc.util.OrderType;
 import com.krayc.vo.EventSeatVO;
 import com.krayc.vo.MessageVO;
+import com.krayc.vo.OrderEventSeatVO;
 import com.krayc.vo.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -123,11 +124,73 @@ public class MemberOrderController extends BaseController {
         EventEntity eventEntity = eventService.findByEid(eid);
         modelAndView.addObject("event", eventEntity);
 
-        modelAndView.addObject("eventSeats", eventService.findEventSeatsByEid(eventEntity));
+        ArrayList<EventSeatVO> eventSeatVOS = new ArrayList<EventSeatVO>();
+        for (EventSeatEntity eventSeatEntity : eventService.findEventSeatsByEid(eventEntity)) {
+            EventSeatVO eventSeatVO = new EventSeatVO(eventSeatEntity);
+            eventSeatVO.setNumber(eventSeatVO.getNumber() - eventService.unavailableSeatNumberByEvent(eventSeatEntity));
+            eventSeatVOS.add(eventSeatVO);
+        }
+        modelAndView.addObject("eventSeats", eventSeatVOS);
 
         modelAndView.addObject("coupons", couponService.findAvailableCouponsByMember(memberEntity));
 
         return modelAndView;
+    }
+
+    @RequestMapping(value = "{mid}/event/{eid}/randomSeatPost", method = RequestMethod.GET)
+    public ModelAndView orderRandomSeatPost(@PathVariable("eid") Integer eid, @PathVariable("mid") Integer mid, HttpServletRequest request) {
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        EventEntity eventEntity = eventService.findByEid(eid);
+
+        List<EventSeatEntity> eventSeatEntities = eventService.findEventSeatsByEid(eventEntity);
+
+        Integer totalSeatNumber = Integer.parseInt(request.getParameter("eventSeatNumber"));
+        if (totalSeatNumber == 0) {
+            MessageVO messageVO = new MessageVO(false, "请至少请购买 1 张票");
+            return this.handleMessage(messageVO, "redirect:/member/" + mid + "/order/" + eid + "/randomSeat");
+        }
+
+        if (totalSeatNumber > 20) {
+            MessageVO messageVO = new MessageVO(false, "总购票数量不能大于 20 张");
+            return this.handleMessage(messageVO, "redirect:/member/" + mid + "/order/" + eid + "/randomSeat");
+        }
+
+        // 没有问题，下订单
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setEventByEid(eventEntity);
+        orderEntity.setMemberByMid(memberEntity);
+        orderEntity.setStatus(OrderStatus.ORDER_CREATED);
+        orderEntity.setType(OrderType.RANDOM_SEAT);
+        String couponString = request.getParameter("memberCouponCid");
+        if (couponString != null && !couponString.equals("")) {
+            try {
+                orderEntity.setMemberCouponEntity(couponService.findByMcid(Integer.parseInt(couponString)));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // 找到那个 EventSeatEntity
+        EventSeatEntity eventSeatEntity = null;
+        for (EventSeatEntity entity : eventSeatEntities) {
+            if (entity.getEsid() == Integer.parseInt(request.getParameter("eventSeatId"))) {
+                eventSeatEntity = entity;
+                break;
+            }
+        }
+
+        // 加入新的位置
+        ArrayList<OrderEventSeatEntity> orderEventSeatEntities = new ArrayList<OrderEventSeatEntity>();
+        for (int i = 0; i < totalSeatNumber; i++) {
+            OrderEventSeatEntity orderEventSeatEntity = new OrderEventSeatEntity();
+            orderEventSeatEntity.setIsValid(1);
+            orderEventSeatEntity.setEventSeatByEsid(eventSeatEntity);
+            orderEventSeatEntities.add(orderEventSeatEntity);
+        }
+
+        orderService.createOrder(orderEntity, orderEventSeatEntities);
+
+        return new ModelAndView("redirect:/member/order/" + mid);
     }
 
     @RequestMapping(value = "{mid}", method = RequestMethod.GET)
@@ -136,8 +199,10 @@ public class MemberOrderController extends BaseController {
         modelMap.addAttribute("member", memberEntity);
 
         ArrayList<OrderVO> orderVOS = new ArrayList<OrderVO>();
-        for (OrderEntity orderEntity : memberEntity.getOrders()) {
-            orderVOS.add(new OrderVO(orderEntity));
+        for (OrderEntity orderEntity : orderService.findOrderByMember(memberEntity)) {
+            OrderVO orderVO = new OrderVO(orderEntity);
+            orderVO.setTotalAmount(orderService.calculateTotalPriceOfOrder(orderEntity, memberEntity));
+            orderVOS.add(orderVO);
         }
         modelMap.addAttribute("orders", orderVOS);
 
@@ -174,12 +239,19 @@ public class MemberOrderController extends BaseController {
 
     @RequestMapping(value = "{mid}/detail/{oid}", method = RequestMethod.GET)
     public String orderDetail(@PathVariable("mid") Integer mid, @PathVariable("oid") Integer oid, ModelMap modelMap) {
-        modelMap.addAttribute("member", memberService.findByMid(mid));
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        modelMap.addAttribute("member", memberEntity);
 
         OrderEntity orderEntity = orderService.findByOid(oid);
-        modelMap.addAttribute("order", new OrderVO(orderEntity));
+        OrderVO orderVO = new OrderVO(orderEntity);
+        orderVO.setTotalAmount(orderService.calculateTotalPriceOfOrder(orderEntity, memberEntity));
+        modelMap.addAttribute("order", orderVO);
 
-        modelMap.addAttribute("seats", orderEntity.getOrderEventSeats());
+        ArrayList<OrderEventSeatVO> orderEventSeatVOS = new ArrayList<OrderEventSeatVO>();
+        for (OrderEventSeatEntity orderEventSeatEntity : orderEntity.getOrderEventSeats()) {
+            orderEventSeatVOS.add(new OrderEventSeatVO(orderEventSeatEntity));
+        }
+        modelMap.addAttribute("seats", orderEventSeatVOS);
 
         return "member/order/memberOrderDetail";
     }

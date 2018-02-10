@@ -47,12 +47,12 @@
             </tr>
             <c:forEach items="${venueList}" var="venue">
                 <tr>
-                    <td>${venue.vid}</td>
-                    <td>${venue.name}</td>
-                    <td>${venue.address}</td>
-                    <td>${venue.seatsNumber}</td>
-                    <td>
-                        <a href="/admin/ venues/orders/${venue.vid}" type="button"
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${venue.vid}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${venue.name}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${venue.address}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${venue.seatsNumber}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>
+                        <a href="/admin/venues/orders/${venue.vid}" type="button"
                            class="btn btn-sm btn-primary">订单查看</a>
                     </td>
                 </tr>

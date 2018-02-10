@@ -47,11 +47,11 @@
             </tr>
             <c:forEach items="${venueList}" var="venue">
                 <tr>
-                    <td>${venue.vid}</td>
-                    <td>${venue.name}</td>
-                    <td>${venue.address}</td>
-                    <td>${venue.seatsByVid.size()}</td>
-                    <td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${venue.vid}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${venue.name}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${venue.address}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${venue.seatsByVid.size()}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>
                         <a href="/admin/venues/good/${venue.vid}" type="button" class="btn btn-sm btn-success">通过</a>
                         <a href="/admin/venues/bad/${venue.vid}" type="button" class="btn btn-sm btn-danger">拒绝</a>
                     </td>

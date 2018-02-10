@@ -145,7 +145,7 @@ public class MemberEntity {
         this.memberCoupons = memberCoupons;
     }
 
-    @OneToMany(mappedBy = "memberByMid", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "memberByMid")
     @Fetch(value = FetchMode.SUBSELECT)
     public Collection<OrderEntity> getOrders() {
         return orders;
@@ -155,7 +155,7 @@ public class MemberEntity {
         this.orders = orders;
     }
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member")
     @Fetch(value = FetchMode.SUBSELECT)
     public Collection<MemberBookEntity> getMemberBooks() {
         return memberBooks;

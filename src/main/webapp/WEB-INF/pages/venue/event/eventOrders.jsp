@@ -53,12 +53,12 @@
             </tr>
             <c:forEach items="${orders}" var="order">
                 <tr>
-                    <td>${order.orderTime}</td>
-                    <td>${order.memberEmail}</td>
-                    <td>${order.seatNumber}</td>
-                    <td>${order.eventByEid.name}</td>
-                    <td>${order.status}</td>
-                    <td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.orderTime}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.memberEmail}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.seatNumber}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.eventByEid.name}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.status}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>
                         <c:if test="${order.status.equals('等待检票')}">
                             <a class="btn btn-success"
                                href="/venue/${venue.vid}/events/${event.eid}/orders/${order.oid}/confirm"

@@ -53,15 +53,15 @@
             </tr>
             <c:forEach items="${memberList}" var="member">
                 <tr>
-                    <td>${member.mid}</td>
-                    <td>${member.email}</td>
-                    <td>${member.totalPoint}</td>
-                    <td>${member.currentPoint}</td>
-                    <td>${member.level}</td>
-                    <td>${member.isEmailPassed}</td>
-                    <td>${member.isTerminated}</td>
-                    <td>${member.bankAccount}</td>
-                    <td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${member.mid}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${member.email}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${member.totalPoint}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${member.currentPoint}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${member.level}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${member.isEmailPassed}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${member.isTerminated}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${member.bankAccount}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>
                         <a href="/admin/members/orders/${member.mid}" type="button"
                            class="btn btn-sm btn-primary">订单查看</a>
                     </td>

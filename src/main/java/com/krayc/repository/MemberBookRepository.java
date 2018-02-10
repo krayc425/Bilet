@@ -11,4 +11,6 @@ public interface MemberBookRepository extends JpaRepository<MemberBookEntity, In
 
     public List<MemberBookEntity> findByMemberIsAndTypeIsNot(MemberEntity memberEntity, PayType type);
 
+    public List<MemberBookEntity> findByMember(MemberEntity memberEntity);
+
 }

@@ -10,12 +10,10 @@ public class EventSeatVO {
     private String seatName;
 
     public EventSeatVO(EventSeatEntity eventSeatEntity) {
-
         this.number = eventSeatEntity.getNumber();
         this.price = eventSeatEntity.getPrice();
         this.seatName = eventSeatEntity.getSeat().getName();
         this.esid = eventSeatEntity.getEsid();
-
     }
 
     public int getNumber() {

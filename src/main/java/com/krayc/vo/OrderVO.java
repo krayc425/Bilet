@@ -1,6 +1,8 @@
 package com.krayc.vo;
 
+import com.krayc.model.CouponEntity;
 import com.krayc.model.EventEntity;
+import com.krayc.model.MemberCouponEntity;
 import com.krayc.model.OrderEntity;
 import com.krayc.util.DateFormatter;
 
@@ -15,6 +17,8 @@ public class OrderVO {
     private int seatNumber;
     private String memberEmail;
     private String type;
+    private double totalAmount;
+    private String coupon;
 
     public int getOid() {
         return oid;
@@ -75,6 +79,9 @@ public class OrderVO {
             case ORDER_CONFIRMED:
                 status = "已检票";
                 break;
+            case ORDER_WAITING:
+                status = "已付款，等待配票";
+                break;
             default:
                 break;
         }
@@ -92,8 +99,14 @@ public class OrderVO {
                 this.type = "现场购买";
                 break;
             case RANDOM_SEAT:
-                this.type = "不选座购买";
+                this.type = "立即购买";
                 break;
+        }
+        this.coupon = "未使用";
+        MemberCouponEntity memberCouponEntity = orderEntity.getMemberCouponEntity();
+        if (memberCouponEntity != null) {
+            CouponEntity couponEntity = memberCouponEntity.getCouponByCid();
+            this.coupon = couponEntity.getName();
         }
     }
 
@@ -112,4 +125,21 @@ public class OrderVO {
     public void setType(String type) {
         this.type = type;
     }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(String coupon) {
+        this.coupon = coupon;
+    }
+
 }

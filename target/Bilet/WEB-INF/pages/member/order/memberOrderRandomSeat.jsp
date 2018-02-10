@@ -39,29 +39,23 @@
     <hr/>
     <c:if test="${!empty eventSeats}">
         <form:form action="/member/order/${member.mid}/event/${event.eid}/randomSeatPost" method="get" role="form">
+
             <div class="form-group">
-                <label>选座</label>
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <th>名称</th>
-                        <th>可选数量</th>
-                        <th>价格</th>
-                        <th>购买数量</th>
-                    </tr>
+                <label for="eventSeatId">选择一种座位</label>
+                <select class="form-control" name="eventSeatId" id="eventSeatId">
                     <c:forEach items="${eventSeats}" var="eventSeat">
-                        <tr>
-                            <td>${eventSeat.seat.name}</td>
-                            <td>${eventSeat.number}</td>
-                            <td>${eventSeat.price}</td>
-                            <td>
-                                <label for="eventSeatNumber${eventSeat.esid}" hidden></label>
-                                <input class="form-control" type="number" min="0" max="20"
-                                       name="eventSeatNumber${eventSeat.esid}"
-                                       id="eventSeatNumber${eventSeat.esid}" value="0"/>
-                            </td>
-                        </tr>
+                        <option value="${eventSeat.esid}">
+                                ${eventSeat.seatName}，${eventSeat.price} 元，剩余 ${eventSeat.number} 个
+                        </option>
                     </c:forEach>
-                </table>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="eventSeatNumber">购买数量</label>
+                <input class="form-control" type="number" min="0" max="20"
+                       name="eventSeatNumber"
+                       id="eventSeatNumber" value="0"/>
             </div>
 
             <c:if test="${!empty coupons}">

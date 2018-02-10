@@ -1,6 +1,7 @@
 package com.krayc.repository;
 
 import com.krayc.model.EventEntity;
+import com.krayc.model.MemberEntity;
 import com.krayc.model.OrderEntity;
 import com.krayc.util.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,5 +22,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Integer> {
     public void updateStatus(@Param("qStatus") OrderStatus qStatus, @Param("qOid") int qOid);
 
     public List<OrderEntity> findByEventByEid(EventEntity eventEntity);
+
+    public List<OrderEntity> findByMemberByMid(MemberEntity memberEntity);
 
 }

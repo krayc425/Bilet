@@ -14,9 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -50,7 +48,11 @@ public class OrderServiceImpl implements OrderService {
 
         for (OrderEventSeatEntity orderEventSeatEntity : eventSeatEntityList) {
             orderEventSeatEntity.setOrder(orderEntity);
-            orderEventSeatEntity.setSeatNumber(findMinimumAvailableSeatNumberByEventSeat(orderEventSeatEntity.getEventSeatByEsid()));
+            if (orderEntity.getType() == OrderType.RANDOM_SEAT) {
+                orderEventSeatEntity.setSeatNumber(-1);
+            } else {
+                orderEventSeatEntity.setSeatNumber(findMinimumAvailableSeatNumberByEventSeat(orderEventSeatEntity.getEventSeatByEsid()));
+            }
             orderEventSeatRepository.saveAndFlush(orderEventSeatEntity);
         }
 
@@ -83,7 +85,11 @@ public class OrderServiceImpl implements OrderService {
         } else {
             if (bankAccountEntity.getBalance() >= orderPrice) {
                 bankAccountRepository.updateBalance(bankAccountEntity.getBalance() - orderPrice, bankAccountEntity.getBankAccount());
-                orderRepository.updateStatus(OrderStatus.ORDER_PAID, orderEntity.getOid());
+                if (orderEntity.getType() == OrderType.CHOOSE_SEAT) {
+                    orderRepository.updateStatus(OrderStatus.ORDER_PAID, orderEntity.getOid());
+                } else {
+                    orderRepository.updateStatus(OrderStatus.ORDER_WAITING, orderEntity.getOid());
+                }
 
                 MemberBookEntity memberBookEntity = new MemberBookEntity();
                 memberBookEntity.setMember(memberEntity);
@@ -150,7 +156,7 @@ public class OrderServiceImpl implements OrderService {
         memberRepository.updateTotalPoint(memberEntity.getTotalPoint() + deltaPoint, memberEntity.getMid());
 
         // 写入管理员和公司账本
-        bookService.updateEventAmount(orderEntity.getEventByEid(), totalPrice);
+        bookService.updateEventAmount(orderEntity, totalPrice);
     }
 
     public OrderEntity findByOid(Integer oid) {
@@ -159,6 +165,35 @@ public class OrderServiceImpl implements OrderService {
 
     public List<OrderEntity> findOrderByEvent(EventEntity eventEntity) {
         return orderRepository.findByEventByEid(eventEntity);
+    }
+
+    public List<OrderEntity> findOrderByMember(MemberEntity memberEntity) {
+        return orderRepository.findByMemberByMid(memberEntity);
+    }
+
+    public void distributeOrderEventSeat(OrderEntity orderEntity) {
+        if (orderEntity.getType() != OrderType.RANDOM_SEAT) {
+            return;
+        }
+
+        Collection<OrderEventSeatEntity> orderEventSeatEntities = orderEventSeatRepository.findByOrder(orderEntity);
+        for (OrderEventSeatEntity orderEventSeatEntity : orderEventSeatEntities) {
+            EventSeatEntity eventSeatEntity = orderEventSeatEntity.getEventSeatByEsid();
+            if (eventSeatEntity.getNumber() + 1 - findMinimumAvailableSeatNumberByEventSeat(eventSeatEntity) < orderEventSeatEntities.size()) {
+                // 配票失败，退款
+                refundOrder(orderEntity, orderEntity.getMemberByMid());
+                return;
+            }
+        }
+
+        // 配票成功，更新订单状态，更新位置信息
+        orderRepository.updateStatus(OrderStatus.ORDER_PAID, orderEntity.getOid());
+
+        for (OrderEventSeatEntity orderEventSeatEntity : orderEventSeatEntities) {
+            orderEventSeatEntity.setSeatNumber(findMinimumAvailableSeatNumberByEventSeat(orderEventSeatEntity.getEventSeatByEsid()));
+            orderEventSeatEntity.setIsValid(0);
+            orderEventSeatRepository.saveAndFlush(orderEventSeatEntity);
+        }
     }
 
     private Integer findMinimumAvailableSeatNumberByEventSeat(EventSeatEntity eventSeatEntity) {
@@ -170,7 +205,7 @@ public class OrderServiceImpl implements OrderService {
         return 1;
     }
 
-    private Double calculateTotalPriceOfOrder(OrderEntity orderEntity, MemberEntity memberEntity) {
+    public Double calculateTotalPriceOfOrder(OrderEntity orderEntity, MemberEntity memberEntity) {
         Double totalAmount = 0.0;
         for (OrderEventSeatEntity orderEventSeatEntity : orderEventSeatRepository.findByOrder(orderEntity)) {
             totalAmount += orderEventSeatEntity.getEventSeatByEsid().getPrice();
@@ -182,38 +217,43 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private Double calculateRefundAmount(OrderEntity orderEntity, MemberEntity memberEntity) {
-        long timeEvent = orderEntity.getEventByEid().getTime().getTime();
-        long timeOrder = orderEntity.getOrderTime().getTime();
-        long delta = timeEvent - timeOrder;
         double percent;
-        int days = (int) (delta / (86400 * 1000));
-        switch (days) {
-            case 0:
-            case 1:
-                percent = 0.0;
-                break;
-            case 2:
-            case 3:
-                percent = 0.25;
-                break;
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-                percent = 0.5;
-                break;
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-            case 13:
-            case 14:
-                percent = 0.75;
-                break;
-            default:
-                percent = 1.0;
-                break;
+        // 立即购买，全额退款
+        if (orderEntity.getType() == OrderType.RANDOM_SEAT) {
+            percent = 1.0;
+        } else {
+            long timeEvent = orderEntity.getEventByEid().getTime().getTime();
+            long timeOrder = orderEntity.getOrderTime().getTime();
+            long delta = timeEvent - timeOrder;
+            int days = (int) (delta / (86400 * 1000));
+            switch (days) {
+                case 0:
+                case 1:
+                    percent = 0.0;
+                    break;
+                case 2:
+                case 3:
+                    percent = 0.25;
+                    break;
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    percent = 0.5;
+                    break;
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                    percent = 0.75;
+                    break;
+                default:
+                    percent = 1.0;
+                    break;
+            }
         }
         return calculateTotalPriceOfOrder(orderEntity, memberEntity) * percent;
     }

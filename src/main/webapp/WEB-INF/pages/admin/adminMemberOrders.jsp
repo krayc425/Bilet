@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bilet 我的订单</title>
+    <title>Bilet 会员订单</title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
@@ -23,13 +23,13 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/member/show/${member.mid}">返回</a>
+            <a class="navbar-brand" href="/admin/members">返回</a>
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <h1>Bilet 我的订单</h1>
+    <h1>Bilet 会员订单</h1>
     <hr/>
     <c:if test="${empty orders}">
         <div class="alert alert-warning" role="alert">
@@ -46,7 +46,8 @@
                 <th>订单状态</th>
                 <th>订单类型</th>
                 <th>订单总额</th>
-                <th>操作</th>
+                <th>优惠券</th>
+                <th>网站分成</th>
             </tr>
             <c:forEach items="${orders}" var="order">
                 <tr>
@@ -57,22 +58,10 @@
                     <td rowspan=$row_host1 style='vertical-align: middle;'>${order.status}</td>
                     <td rowspan=$row_host1 style='vertical-align: middle;'>${order.type}</td>
                     <td rowspan=$row_host1 style='vertical-align: middle;'>${order.totalAmount}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.coupon}</td>
                     <td rowspan=$row_host1 style='vertical-align: middle;'>
-                        <c:if test="${order.status.equals('等待付款')}">
-                            <a class="btn btn-primary" href="/member/order/${member.mid}/pay/${order.oid}"
-                               role="button">付款</a>
-                            <a class="btn btn-danger" href="/member/order/${member.mid}/cancel/${order.oid}"
-                               role="button">取消</a>
-                        </c:if>
-                        <c:if test="${order.status.equals('等待检票') || order.status.equals('已付款，等待配票')}">
-                            <a class="btn btn-primary" href="/member/order/${member.mid}/detail/${order.oid}"
-                               role="button">查看详情</a>
-                            <a class="btn btn-danger" href="/member/order/${member.mid}/refund/${order.oid}"
-                               role="button">退票</a>
-                        </c:if>
                         <c:if test="${order.status.equals('已检票')}">
-                            <a class="btn btn-primary" href="/member/order/${member.mid}/detail/${order.oid}"
-                               role="button">查看详情</a>
+                            ${order.totalAmount * 0.2}
                         </c:if>
                     </td>
                 </tr>
@@ -80,6 +69,6 @@
         </table>
     </c:if>
 </div>
-<%@include file="../../jsFile.jsp" %>
+<%@include file="../jsFile.jsp" %>
 </body>
 </html>

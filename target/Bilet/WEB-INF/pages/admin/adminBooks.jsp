@@ -46,10 +46,10 @@
             </tr>
             <c:forEach items="${books}" var="book">
                 <tr>
-                    <td>${book.venue}</td>
-                    <td>${book.event}</td>
-                    <td>${book.amount}</td>
-                    <td>${book.isConfirmed}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${book.venue}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${book.event}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${book.amount}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${book.isConfirmed}</td>
                 </tr>
             </c:forEach>
         </table>

@@ -23,4 +23,10 @@ public interface OrderService {
 
     public List<OrderEntity> findOrderByEvent(EventEntity eventEntity);
 
+    public List<OrderEntity> findOrderByMember(MemberEntity memberEntity);
+
+    public Double calculateTotalPriceOfOrder(OrderEntity orderEntity, MemberEntity memberEntity);
+
+    public void distributeOrderEventSeat(OrderEntity orderEntity);
+
 }

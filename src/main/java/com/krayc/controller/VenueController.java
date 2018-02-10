@@ -39,6 +39,9 @@ public class VenueController extends BaseController {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private BookService bookService;
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addVenue() {
         return "venue/addVenue";
@@ -328,7 +331,7 @@ public class VenueController extends BaseController {
         modelMap.addAttribute("venue", venueEntity);
 
         ArrayList<VenueBookVO> venueBookVOS = new ArrayList<VenueBookVO>();
-        for (VenueBookEntity entity : venueEntity.getVenueBooks()) {
+        for (VenueBookEntity entity : bookService.findVenueBooksByVenue(venueEntity)) {
             venueBookVOS.add(new VenueBookVO(entity));
         }
         modelMap.addAttribute("books", venueBookVOS);

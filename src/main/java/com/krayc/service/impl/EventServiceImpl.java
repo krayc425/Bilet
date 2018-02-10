@@ -1,19 +1,17 @@
 package com.krayc.service.impl;
 
 import com.krayc.model.*;
-import com.krayc.repository.EventRepository;
-import com.krayc.repository.EventSeatRepository;
-import com.krayc.repository.EventTypeRepository;
-import com.krayc.repository.OrderEventSeatRepository;
+import com.krayc.repository.*;
 import com.krayc.service.BookService;
 import com.krayc.service.EventService;
+import com.krayc.service.OrderService;
+import com.krayc.util.OrderStatus;
+import com.krayc.util.OrderType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -32,6 +30,12 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderService orderService;
 
     public EventTypeEntity findTypeByTid(Integer tid) {
         return eventTypeRepository.findOne(tid);
@@ -57,6 +61,10 @@ public class EventServiceImpl implements EventService {
         eventRepository.saveAndFlush(eventEntity);
 
         bookService.createEventBookEntity(eventEntity);
+
+        Timer timer = new Timer();
+        // 两周前，配票
+        timer.schedule(new OrderDistributor(eventEntity), new Timestamp(eventEntity.getTime().getTime() - 14 * 24 * 60 * 60 * 1000));
     }
 
     public Integer unavailableSeatNumberByEvent(EventSeatEntity eventSeatEntity) {
@@ -75,4 +83,22 @@ public class EventServiceImpl implements EventService {
         return eventSeatRepository.findByEvent(eventEntity);
     }
 
+    public class OrderDistributor extends TimerTask {
+
+        EventEntity eventEntity;
+
+        OrderDistributor(EventEntity eventEntity) {
+            this.eventEntity = eventEntity;
+        }
+
+        @Override
+        public void run() {
+            for (OrderEntity orderEntity : orderRepository.findByEventByEid(eventEntity)) {
+                if (orderEntity.getType() == OrderType.RANDOM_SEAT && orderEntity.getStatus() == OrderStatus.ORDER_WAITING) {
+                    orderService.distributeOrderEventSeat(orderEntity);
+                }
+            }
+        }
+
+    }
 }

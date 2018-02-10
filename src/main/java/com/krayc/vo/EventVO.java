@@ -20,7 +20,6 @@ public class EventVO {
         this.description = eventEntity.getDescription();
         this.eventType = eventEntity.getEventTypeEntity().getName();
         this.time = DateFormatter.getDateFormatter().stringFromDate(eventEntity.getTime());
-
         this.canRandom = (eventEntity.getTime().getTime() - System.currentTimeMillis()) > 14 * 24 * 60 * 60 * 1000;
         this.hasPassed = eventEntity.getTime().getTime() < System.currentTimeMillis();
         this.isConfirmed = eventEntity.getAdminBook().getIsConfirmed() == Byte.valueOf("1") && eventEntity.getVenueBook().getIsConfirmed() == Byte.valueOf("1");

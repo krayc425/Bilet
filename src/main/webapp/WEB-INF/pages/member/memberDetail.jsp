@@ -32,39 +32,39 @@
     <hr/>
     <table class="table table-bordered table-striped">
         <tr>
-            <th>邮箱</th>
-            <td>${member.email}</td>
+            <th rowspan=$row_host1 style='vertical-align: middle;'>邮箱</th>
+            <td rowspan=$row_host1 style='vertical-align: middle;'>${member.email}</td>
         </tr>
         <tr>
-            <th>银行账户</th>
-            <td>${member.bankAccount}</td>
+            <th rowspan=$row_host1 style='vertical-align: middle;'>银行账户</th>
+            <td rowspan=$row_host1 style='vertical-align: middle;'>${member.bankAccount}</td>
         </tr>
         <tr>
-            <th>余额</th>
-            <td>
+            <th rowspan=$row_host1 style='vertical-align: middle;'>余额</th>
+            <td rowspan=$row_host1 style='vertical-align: middle;'>
                 ${member.balance}
                 <a class="btn btn-default" href="/member/charge/${member.mid}" role="button">充值</a>
             </td>
         </tr>
         <tr>
-            <th>累积积分</th>
-            <td>${member.totalPoint}</td>
+            <th rowspan=$row_host1 style='vertical-align: middle;'>累积积分</th>
+            <td rowspan=$row_host1 style='vertical-align: middle;'>${member.totalPoint}</td>
         </tr>
         <tr>
-            <th>可兑换积分</th>
-            <td>${member.currentPoint}</td>
+            <th rowspan=$row_host1 style='vertical-align: middle;'>可兑换积分</th>
+            <td rowspan=$row_host1 style='vertical-align: middle;'>${member.currentPoint}</td>
         </tr>
         <tr>
-            <th>等级</th>
-            <td>${member.level}</td>
+            <th rowspan=$row_host1 style='vertical-align: middle;'>等级</th>
+            <td rowspan=$row_host1 style='vertical-align: middle;'>${member.level}</td>
         </tr>
         <tr>
-            <th>邮箱状态</th>
-            <td>${member.isEmailPassed}</td>
+            <th rowspan=$row_host1 style='vertical-align: middle;'>邮箱状态</th>
+            <td rowspan=$row_host1 style='vertical-align: middle;'>${member.isEmailPassed}</td>
         </tr>
         <tr>
-            <th>账户状态</th>
-            <td>${member.isTerminated}</td>
+            <th rowspan=$row_host1 style='vertical-align: middle;'>账户状态</th>
+            <td rowspan=$row_host1 style='vertical-align: middle;'>${member.isTerminated}</td>
         </tr>
     </table>
     <c:if test="${!empty events}">
@@ -80,11 +80,11 @@
             </tr>
             <c:forEach items="${events}" var="event">
                 <tr>
-                    <td>${event.name}</td>
-                    <td>${event.eventType}</td>
-                    <td>${event.time}</td>
-                    <td>${event.description}</td>
-                    <td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${event.name}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${event.eventType}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${event.time}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${event.description}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>
                         <a class="btn btn-primary" href="/member/order/${member.mid}/event/${event.eid}/chooseSeat"
                            role="button">选座购票</a>
                         <c:if test="${event.canRandom}">

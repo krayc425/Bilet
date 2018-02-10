@@ -45,24 +45,26 @@
                 <th>活动名称</th>
                 <th>订单状态</th>
                 <th>订单类型</th>
+                <th>订单总额</th>
                 <th>操作</th>
             </tr>
             <c:forEach items="${orders}" var="order">
                 <tr>
-                    <td>${order.oid}</td>
-                    <td>${order.orderTime}</td>
-                    <td>${order.seatNumber}</td>
-                    <td>${order.eventByEid.name}</td>
-                    <td>${order.status}</td>
-                    <td>${order.type}</td>
-                    <td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.oid}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.orderTime}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.seatNumber}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.eventByEid.name}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.status}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.type}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${order.totalAmount}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>
                         <c:if test="${order.status.equals('等待付款')}">
                             <a class="btn btn-primary" href="/member/order/${member.mid}/pay/${order.oid}"
                                role="button">付款</a>
                             <a class="btn btn-danger" href="/member/order/${member.mid}/cancel/${order.oid}"
                                role="button">取消</a>
                         </c:if>
-                        <c:if test="${order.status.equals('等待检票')}">
+                        <c:if test="${order.status.equals('等待检票') || order.status.equals('已付款，等待配票')}">
                             <a class="btn btn-primary" href="/member/order/${member.mid}/detail/${order.oid}"
                                role="button">查看详情</a>
                             <a class="btn btn-danger" href="/member/order/${member.mid}/refund/${order.oid}"

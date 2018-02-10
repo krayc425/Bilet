@@ -43,12 +43,16 @@
                 <th>活动名称</th>
                 <th>订单状态</th>
                 <th>订单类型</th>
+                <th>订单总额</th>
+                <th>使用优惠券</th>
             </tr>
             <tr>
                 <td>${order.orderTime}</td>
                 <td>${order.eventByEid.name}</td>
                 <td>${order.status}</td>
                 <td>${order.type}</td>
+                <td>${order.totalAmount}</td>
+                <td>${order.coupon}</td>
             </tr>
         </table>
     </div>
@@ -62,8 +66,8 @@
             </tr>
             <c:forEach items="${seats}" var="orderEventSeat">
                 <tr>
-                    <td>${orderEventSeat.eventSeatByEsid.seat.name} ${orderEventSeat.seatNumber} 座</td>
-                    <td>${orderEventSeat.eventSeatByEsid.price}</td>
+                    <td>${orderEventSeat.name}</td>
+                    <td>${orderEventSeat.price}</td>
                 </tr>
             </c:forEach>
         </table>

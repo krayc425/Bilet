@@ -66,7 +66,7 @@ public class MemberCouponEntity {
     public int hashCode() {
         int result = mcid;
         result = 31 * result + (time != null ? time.hashCode() : 0);
-        result = 31 * result + (int) usage;
+        result = 31 * result + usage;
         return result;
     }
 

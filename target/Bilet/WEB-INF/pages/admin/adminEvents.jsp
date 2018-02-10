@@ -45,9 +45,9 @@
             </tr>
             <c:forEach items="${eventList}" var="event">
                 <tr>
-                    <td>${event.eid}</td>
-                    <td>${event.name}</td>
-                    <td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${event.eid}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${event.name}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>
                         <c:if test="${!event.hasPassed}">
                             未到结算日期
                         </c:if>

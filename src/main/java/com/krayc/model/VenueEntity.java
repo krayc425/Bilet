@@ -116,7 +116,7 @@ public class VenueEntity {
         this.eventsByVid = eventsByVid;
     }
 
-    @OneToMany(mappedBy = "venue", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "venue")
     @Fetch(value = FetchMode.SUBSELECT)
     public Collection<AdminBookEntity> getAdminBooks() {
         return adminBooks;
@@ -126,7 +126,7 @@ public class VenueEntity {
         this.adminBooks = adminBooks;
     }
 
-    @OneToMany(mappedBy = "venue", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "venue")
     @Fetch(value = FetchMode.SUBSELECT)
     public Collection<VenueBookEntity> getVenueBooks() {
         return venueBooks;

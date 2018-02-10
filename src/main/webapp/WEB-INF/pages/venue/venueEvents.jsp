@@ -51,11 +51,11 @@
             </tr>
             <c:forEach items="${events}" var="event">
                 <tr>
-                    <td>${event.name}</td>
-                    <td>${event.eventType}</td>
-                    <td>${event.time}</td>
-                    <td>${event.description}</td>
-                    <td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${event.name}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${event.eventType}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${event.time}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${event.description}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>
                         <a class="btn btn-info" href="/venue/${vid}/events/${event.eid}/seats" role="button">活动座位管理</a>
                         <a class="btn btn-info" href="/venue/${vid}/events/${event.eid}/orders" role="button">订单管理</a>
                     </td>

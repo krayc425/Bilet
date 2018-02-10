@@ -50,10 +50,10 @@
                     </tr>
                     <c:forEach items="${eventSeats}" var="eventSeat">
                         <tr>
-                            <td>${eventSeat.seatName}</td>
-                            <td>${eventSeat.number}</td>
-                            <td>${eventSeat.price}</td>
-                            <td>
+                            <td rowspan=$row_host1 style='vertical-align: middle;'>${eventSeat.seatName}</td>
+                            <td rowspan=$row_host1 style='vertical-align: middle;'>${eventSeat.number}</td>
+                            <td rowspan=$row_host1 style='vertical-align: middle;'>${eventSeat.price}</td>
+                            <td rowspan=$row_host1 style='vertical-align: middle;'>
                                 <label for="eventSeatNumber${eventSeat.esid}" hidden></label>
                                 <input class="form-control" type="number" min="0" max="6"
                                        name="eventSeatNumber${eventSeat.esid}"

@@ -35,6 +35,9 @@ public class AdminController extends BaseController {
     @Autowired
     private LevelService levelService;
 
+    @Autowired
+    private OrderService orderService;
+
     @RequestMapping(value = "adminHome", method = RequestMethod.GET)
     public String adminHome() {
         return "admin/adminDetail";
@@ -127,11 +130,24 @@ public class AdminController extends BaseController {
     @RequestMapping(value = "venues", method = RequestMethod.GET)
     public String venues(ModelMap modelMap) {
         ArrayList<VenueInfoVO> venueInfoVOS = new ArrayList<VenueInfoVO>();
-        for(VenueEntity venueEntity : venueService.findAllVenues()) {
+        for (VenueEntity venueEntity : venueService.findAllVenues()) {
             venueInfoVOS.add(new VenueInfoVO(venueEntity));
         }
         modelMap.addAttribute("venueList", venueInfoVOS);
         return "admin/adminVenues";
+    }
+
+    @RequestMapping(value = "members/orders/{mid}", method = RequestMethod.GET)
+    public String memberOrders(@PathVariable("mid") Integer mid, ModelMap modelMap) {
+        MemberEntity memberEntity = memberService.findByMid(mid);
+        ArrayList<OrderVO> orderVOS = new ArrayList<OrderVO>();
+        for (OrderEntity orderEntity : orderService.findOrderByMember(memberEntity)) {
+            OrderVO orderVO = new OrderVO(orderEntity);
+            orderVO.setTotalAmount(orderService.calculateTotalPriceOfOrder(orderEntity, memberEntity));
+            orderVOS.add(orderVO);
+        }
+        modelMap.addAttribute("orders", orderVOS);
+        return "admin/adminMemberOrders";
     }
 
 }

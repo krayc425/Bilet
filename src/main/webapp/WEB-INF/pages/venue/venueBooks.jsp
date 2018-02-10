@@ -46,10 +46,10 @@
             </tr>
             <c:forEach items="${books}" var="book">
                 <tr>
-                    <td>${book.event}</td>
-                    <td>${book.amount}</td>
-                    <td>${book.isConfirmed}</td>
-                    <td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${book.event}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${book.amount}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${book.isConfirmed}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>
                         <a class="btn btn-info" href="/venue/${venue.vid}/events/${book.eid}/orders"
                            role="button">订单管理</a>
                     </td>

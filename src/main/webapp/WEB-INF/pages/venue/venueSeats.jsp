@@ -48,9 +48,9 @@
             </tr>
             <c:forEach items="${seats}" var="seat">
                 <tr>
-                    <td>${seat.name}</td>
-                    <td>${seat.number}</td>
-                    <td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${seat.name}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${seat.number}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>
                         <a href="/venue/${vid}/seats/update/${seat.sid}" type="button"
                            class="btn btn-sm btn-warning">修改</a>
                         <a href="/venue/${vid}/seats/delete/${seat.sid}" type="button"

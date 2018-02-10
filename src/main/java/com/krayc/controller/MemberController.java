@@ -155,7 +155,7 @@ public class MemberController extends BaseController {
         modelMap.addAttribute("member", memberEntity);
 
         ArrayList<MemberBookVO> memberBookVOS = new ArrayList<MemberBookVO>();
-        for (MemberBookEntity memberBookEntity : memberEntity.getMemberBooks()) {
+        for (MemberBookEntity memberBookEntity : bookService.findMemberBooksByMember(memberEntity)) {
             memberBookVOS.add(new MemberBookVO(memberBookEntity));
         }
         modelMap.addAttribute("books", memberBookVOS);

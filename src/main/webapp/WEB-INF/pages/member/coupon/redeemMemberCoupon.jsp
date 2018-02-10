@@ -43,9 +43,9 @@
             </tr>
             <c:forEach items="${allCoupons}" var="coupon">
                 <tr>
-                    <td>${coupon.name}</td>
-                    <td>${coupon.point}</td>
-                    <td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${coupon.name}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>${coupon.point}</td>
+                    <td rowspan=$row_host1 style='vertical-align: middle;'>
                         <c:if test="${member.currentPoint >= coupon.point}">
                             <a class="btn btn-primary" href="/member/coupon/${member.mid}/redeem/${coupon.cid}"
                                role="button">兑换</a>

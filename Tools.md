@@ -31,3 +31,25 @@
 </script>
 ```
 
+# CSS
+
+## 表格居中
+
+水平居中
+
+```
+<th style='text-align: center;'>host</th>
+```
+
+垂直居中
+
+```
+<td rowspan=$row_host1 style='vertical-align: middle;'>host1</td>
+```
+
+既水平又垂直居中
+
+```
+<td rowspan=$rowspan style='vertical-align: middle;text-align: center;'>hello</td>
+```
+

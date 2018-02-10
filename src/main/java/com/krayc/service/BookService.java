@@ -1,9 +1,6 @@
 package com.krayc.service;
 
-import com.krayc.model.AdminBookEntity;
-import com.krayc.model.EventEntity;
-import com.krayc.model.MemberBookEntity;
-import com.krayc.model.MemberEntity;
+import com.krayc.model.*;
 
 import java.util.List;
 
@@ -17,8 +14,12 @@ public interface BookService {
 
     public void confirmEvent(EventEntity eventEntity);
 
-    public void updateEventAmount(EventEntity eventEntity, Double originalAmount);
+    public void updateEventAmount(OrderEntity orderEntity, Double originalAmount);
 
     public List<AdminBookEntity> getAllAdminBooks();
+
+    public List<VenueBookEntity> findVenueBooksByVenue(VenueEntity venueEntity);
+
+    public List<MemberBookEntity> findMemberBooksByMember(MemberEntity memberEntity);
 
 }
