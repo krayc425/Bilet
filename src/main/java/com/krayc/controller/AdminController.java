@@ -3,6 +3,8 @@ package com.krayc.controller;
 import com.krayc.model.*;
 import com.krayc.service.*;
 import com.krayc.vo.*;
+import com.sun.tools.corba.se.idl.constExpr.Or;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "admin")
@@ -148,6 +152,33 @@ public class AdminController extends BaseController {
         }
         modelMap.addAttribute("orders", orderVOS);
         return "admin/adminMemberOrders";
+    }
+
+    @RequestMapping(value = "venues/events/{vid}", method = RequestMethod.GET)
+    public String venueEvents(@PathVariable("vid") Integer vid, ModelMap modelMap) {
+        VenueEntity venueEntity = venueService.findByVid(vid);
+        List<EventVO> eventVOs = new ArrayList<EventVO>();
+        for (EventEntity eventEntity : eventService.findByVenueEntity(venueEntity)) {
+            eventVOs.add(new EventVO(eventEntity));
+        }
+        modelMap.addAttribute("events", eventVOs);
+        modelMap.addAttribute("venue", venueEntity);
+        return "admin/adminVenueEvents";
+    }
+
+    @RequestMapping(value = "venues/events/{vid}/orders/{eid}", method = RequestMethod.GET)
+    public String venueOrders(@PathVariable("vid") Integer vid, @PathVariable("eid") Integer eid, ModelMap modelMap) {
+        VenueEntity venueEntity = venueService.findByVid(vid);
+        EventEntity eventEntity = eventService.findByEid(eid);
+        List<OrderVO> orderVOS = new ArrayList<OrderVO>();
+        for (OrderEntity orderEntity : orderService.findOrderByEvent(eventEntity)) {
+            OrderVO orderVO = new OrderVO(orderEntity);
+            orderVO.setTotalAmount(orderService.calculateTotalPriceOfOrder(orderEntity, orderEntity.getMemberByMid()));
+            orderVOS.add(orderVO);
+        }
+        modelMap.addAttribute("orders", orderVOS);
+        modelMap.addAttribute("venue", venueEntity);
+        return "admin/adminVenueOrders";
     }
 
 }

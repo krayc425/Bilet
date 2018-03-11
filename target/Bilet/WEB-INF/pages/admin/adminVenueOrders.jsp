@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bilet 会员订单</title>
+    <title>Bilet 活动订单</title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
@@ -23,13 +23,13 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/admin/members">返回</a>
+            <a class="navbar-brand" href="/admin/venues/events/${venue.vid}">返回</a>
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <h1>Bilet 会员订单</h1>
+    <h1>Bilet 活动订单</h1>
     <hr/>
     <c:if test="${empty orders}">
         <div class="alert alert-warning" role="alert">

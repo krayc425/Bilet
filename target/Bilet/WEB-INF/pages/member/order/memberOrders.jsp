@@ -40,7 +40,7 @@
         <table class="table table-bordered table-striped">
             <tr>
                 <th>订单号</th>
-                <th>时间</th>
+                <th>下单时间</th>
                 <th>座位数</th>
                 <th>活动名称</th>
                 <th>订单状态</th>

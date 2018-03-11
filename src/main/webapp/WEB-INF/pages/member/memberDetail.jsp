@@ -25,9 +25,9 @@
     <hr/>
     <h2>欢迎您！${member.email}</h2>
     <hr/>
-    <a href="/member/order/${member.mid}" type="button" class="btn btn-primary btn-sm">我的订单</a>
-    <a href="/member/coupon/${member.mid}" type="button" class="btn btn-primary btn-sm">我的优惠券</a>
-    <a href="/member/book/${member.mid}" type="button" class="btn btn-primary btn-sm">我的账单</a>
+    <a href="/member/order/${member.mid}" type="button" class="btn btn-info btn-sm">我的订单</a>
+    <a href="/member/coupon/${member.mid}" type="button" class="btn btn-info btn-sm">我的优惠券</a>
+    <a href="/member/book/${member.mid}" type="button" class="btn btn-info btn-sm">我的账单</a>
     <a href="/member/update/${member.mid}" type="button" class="btn btn-warning btn-sm">修改信息</a>
     <hr/>
     <table class="table table-bordered table-striped">

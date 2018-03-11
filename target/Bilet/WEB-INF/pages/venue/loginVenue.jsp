@@ -37,7 +37,7 @@
     <form:form action="/venue/loginPost" method="post" role="form">
         <div class="form-group">
             <label for="vid">7 位识别码</label>
-            <input type="text" maxlength="7" class="form-control" id="vid" name="vid" placeholder="请输入识别码" required/>
+            <input type="text" minlength="7" maxlength="7" class="form-control" id="vid" name="vid" placeholder="请输入识别码" required/>
             <script type="text/javascript">
                 var text = document.getElementById("vid");
                 text.onkeyup = function () {

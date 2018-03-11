@@ -1,9 +1,6 @@
 package com.krayc.service;
 
-import com.krayc.model.EventEntity;
-import com.krayc.model.EventSeatEntity;
-import com.krayc.model.EventTypeEntity;
-import com.krayc.model.SeatEntity;
+import com.krayc.model.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -29,5 +26,7 @@ public interface EventService {
     public Integer unavailableSeatNumberByEvent(EventSeatEntity eventSeatEntity);
 
     public List<EventSeatEntity> findEventSeatsByEid(EventEntity eventEntity);
+
+    public List<EventEntity> findByVenueEntity(VenueEntity venueEntity);
 
 }

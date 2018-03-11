@@ -17,7 +17,7 @@ public class OrderVO {
     private int seatNumber;
     private String memberEmail;
     private String type;
-    private double totalAmount;
+    private String totalAmount;
     private String coupon;
 
     public int getOid() {
@@ -126,12 +126,16 @@ public class OrderVO {
         this.type = type;
     }
 
-    public double getTotalAmount() {
+    public String getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(double totalAmount) {
+    public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = String.format("%.2f", totalAmount);
     }
 
     public String getCoupon() {

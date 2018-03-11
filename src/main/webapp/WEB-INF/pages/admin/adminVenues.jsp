@@ -52,8 +52,8 @@
                     <td rowspan=$row_host1 style='vertical-align: middle;'>${venue.address}</td>
                     <td rowspan=$row_host1 style='vertical-align: middle;'>${venue.seatsNumber}</td>
                     <td rowspan=$row_host1 style='vertical-align: middle;'>
-                        <a href="/admin/venues/orders/${venue.vid}" type="button"
-                           class="btn btn-sm btn-primary">订单查看</a>
+                        <a href="/admin/venues/events/${venue.vid}" type="button"
+                           class="btn btn-sm btn-primary">活动查看</a>
                     </td>
                 </tr>
             </c:forEach>

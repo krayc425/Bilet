@@ -52,8 +52,7 @@
                             未到结算日期
                         </c:if>
                         <c:if test="${event.confirmed && event.hasPassed}">
-                            <a href="/admin/events/confirm/${event.eid}" type="button"
-                               class="btn btn-sm btn-success">已结算</a>
+                            已结算
                         </c:if>
                         <c:if test="${!event.confirmed && event.hasPassed}">
                             <a href="/admin/events/confirm/${event.eid}" type="button"

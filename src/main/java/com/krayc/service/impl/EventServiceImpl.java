@@ -83,6 +83,10 @@ public class EventServiceImpl implements EventService {
         return eventSeatRepository.findByEvent(eventEntity);
     }
 
+    public List<EventEntity> findByVenueEntity(VenueEntity venueEntity) {
+        return eventRepository.findByVenueId(venueEntity);
+    }
+
     public class OrderDistributor extends TimerTask {
 
         EventEntity eventEntity;
