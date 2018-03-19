@@ -18,6 +18,8 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
 
     public MemberEntity findByEmail(String email);
 
+    public MemberEntity findByMid(Integer mid);
+
     @Modifying
     @Transactional
     @Query("update MemberEntity us set us.isEmailPassed=:isActivated where us.mid=:mId")

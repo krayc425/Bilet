@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
 
         // 15 分钟取消订单
         Timer timer = new Timer();
-        timer.schedule(new OrderChecker(orderEntity.getOid()), 15 * 60 * 1000);
+        timer.schedule(new OrderChecker(orderEntity.getOid()), 3 * 60 * 1000);
     }
 
     public Boolean payOrder(OrderEntity orderEntity, MemberEntity memberEntity) {

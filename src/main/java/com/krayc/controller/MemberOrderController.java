@@ -73,12 +73,12 @@ public class MemberOrderController extends BaseController {
 
         if (totalSeatNumber == 0) {
             MessageVO messageVO = new MessageVO(false, "请至少请购买 1 张票");
-            return this.handleMessage(messageVO, "redirect:/member/" + mid + "/order/" + eid + "/chooseSeat");
+            return this.handleMessage(messageVO, "redirect:/member/order/" + mid + "/event/" + eid + "/chooseSeat");
         }
 
         if (totalSeatNumber > 6) {
             MessageVO messageVO = new MessageVO(false, "总购票数量不能大于 6 张");
-            return this.handleMessage(messageVO, "redirect:/member/" + mid + "/order/" + eid + "/chooseSeat");
+            return this.handleMessage(messageVO, "redirect:/member/order/" + mid + "/event/" + eid + "/chooseSeat");
         }
 
         // 没有问题，下订单
@@ -147,12 +147,12 @@ public class MemberOrderController extends BaseController {
         Integer totalSeatNumber = Integer.parseInt(request.getParameter("eventSeatNumber"));
         if (totalSeatNumber == 0) {
             MessageVO messageVO = new MessageVO(false, "请至少请购买 1 张票");
-            return this.handleMessage(messageVO, "redirect:/member/" + mid + "/order/" + eid + "/randomSeat");
+            return this.handleMessage(messageVO, "redirect:/member/order/" + mid + "/event/" + eid + "/randomSeat");
         }
 
         if (totalSeatNumber > 20) {
             MessageVO messageVO = new MessageVO(false, "总购票数量不能大于 20 张");
-            return this.handleMessage(messageVO, "redirect:/member/" + mid + "/order/" + eid + "/randomSeat");
+            return this.handleMessage(messageVO, "redirect:/member/order/" + mid + "/event/" + eid + "/randomSeat");
         }
 
         // 没有问题，下订单

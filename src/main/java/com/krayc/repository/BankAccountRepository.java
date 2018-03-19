@@ -16,4 +16,9 @@ public interface BankAccountRepository extends JpaRepository<BankAccountEntity, 
 
     public BankAccountEntity findByBankAccount(String bankAccount);
 
+    @Modifying
+    @Transactional
+    @Query("update BankAccountEntity bae set bae.bankAccount=:qBankAccount where bae.bid=:oBid")
+    public void updateAccount(@Param("qBankAccount") String qBankAccount, @Param("oBid") Integer oBid);
+
 }

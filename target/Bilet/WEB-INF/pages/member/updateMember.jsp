@@ -42,12 +42,13 @@
             <input type="text" class="form-control" id="bankAccount" name="bankAccount"
                    placeholder="请输入银行账户" value="${member.bankAccount}"/>
         </div>
+        <input type="hidden" id="mid" name="mid" value="${member.mid}"/>
         <div class="form-group">
             <button type="submit" class="btn btn-sm btn-success">提交</button>
         </div>
     </form:form>
     <hr/>
-    <a href="/member/terminate/${user.mid}" type="button" class="btn btn-danger btn-sm">取消资格</a>
+    <a href="/member/terminate/${member.mid}" type="button" class="btn btn-danger btn-sm">取消资格</a>
 </div>
 <%@include file="../jsFile.jsp" %>
 </body>

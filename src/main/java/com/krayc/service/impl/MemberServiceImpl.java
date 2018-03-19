@@ -29,7 +29,12 @@ public class MemberServiceImpl implements MemberService {
     private BookService bookService;
 
     public void updateMember(MemberEntity user) {
+        BankAccountEntity oldBankAccount = bankAccountRepository.findByBankAccount(memberRepository.findByMid(user.getMid()).getBankAccount());
+
         memberRepository.updateMember(user.getPassword(), user.getBankAccount(), user.getMid());
+
+        bankAccountRepository.updateAccount(user.getBankAccount(), oldBankAccount.getBid());
+
         memberRepository.flush();
     }
 

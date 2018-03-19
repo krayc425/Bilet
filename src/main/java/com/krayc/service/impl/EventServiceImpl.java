@@ -76,6 +76,9 @@ public class EventServiceImpl implements EventService {
     }
 
     public List<EventSeatEntity> findEventSeatOtherThanSeatsAndInEvent(Collection<SeatEntity> eventSeatEntities, EventEntity eventEntity) {
+        if (eventSeatEntities.size() == 0) {
+            return new ArrayList<EventSeatEntity>();
+        }
         return eventSeatRepository.findEventSeatEntitiesBySeatInAndEventIs(eventSeatEntities, eventEntity);
     }
 
