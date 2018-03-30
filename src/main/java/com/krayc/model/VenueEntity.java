@@ -21,6 +21,7 @@ public class VenueEntity {
     private Collection<VenueBookEntity> venueBooks;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vid")
     public int getVid() {
         return vid;

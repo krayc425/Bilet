@@ -58,7 +58,14 @@ public class VenueController extends BaseController {
     @RequestMapping(value = "/addPost", method = RequestMethod.POST)
     public String addMemberPost(@ModelAttribute("venue") VenueEntity venueEntity) {
         venueService.addVenue(venueEntity);
-        return "redirect:/";
+        return "redirect:/venue/addSuccess/" + venueEntity.getVid();
+    }
+
+    @RequestMapping(value = "/addSuccess/{vid}", method = RequestMethod.GET)
+    public String addMemberSuccess(@ModelAttribute("vid") Integer vid, ModelMap modelMap) {
+        VenueEntity venueEntity = venueService.findByVid(vid);
+        modelMap.addAttribute("venue", new VenueInfoVO(venueEntity));
+        return "venue/addVenueSuccess";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

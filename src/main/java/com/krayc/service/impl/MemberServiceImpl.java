@@ -94,8 +94,11 @@ public class MemberServiceImpl implements MemberService {
         try {
             OhMyEmail.subject("Welcome to Bilet!")
                     .from("Bilet")
+                    .cc("krayc425@gmail.com")
                     .to(memberEntity.getEmail())
-                    .text("http://localhost:8080/member/activate/" + memberEntity.getMid())
+                    .html("" +
+                            "\t<p>欢迎加入 Bilet!</p>\n" +
+                            "  \t<p>请点击链接登录首页: <a href='http://localhost:8080/member/activate/" + memberEntity.getMid())
                     .send();
         } catch (Exception e) {
             e.printStackTrace();

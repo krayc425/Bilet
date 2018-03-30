@@ -71,47 +71,65 @@ public class MemberOrderController extends BaseController {
             totalSeatNumber += Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
         }
 
-        if (totalSeatNumber == 0) {
-            MessageVO messageVO = new MessageVO(false, "请至少请购买 1 张票");
-            return this.handleMessage(messageVO, "redirect:/member/order/" + mid + "/event/" + eid + "/chooseSeat");
-        }
+        if (totalSeatNumber > 0 && totalSeatNumber < 6) {
 
-        if (totalSeatNumber > 6) {
-            MessageVO messageVO = new MessageVO(false, "总购票数量不能大于 6 张");
-            return this.handleMessage(messageVO, "redirect:/member/order/" + mid + "/event/" + eid + "/chooseSeat");
-        }
-
-        // 没有问题，下订单
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setEventByEid(eventEntity);
-        orderEntity.setMemberByMid(memberEntity);
-        orderEntity.setStatus(OrderStatus.ORDER_CREATED);
-        orderEntity.setType(OrderType.CHOOSE_SEAT);
-        String couponString = request.getParameter("memberCouponCid");
-        if (couponString != null && !couponString.equals("")) {
-            try {
-                orderEntity.setMemberCouponEntity(couponService.findByMcid(Integer.parseInt(couponString)));
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-        }
-
-        ArrayList<OrderEventSeatEntity> orderEventSeatEntities = new ArrayList<OrderEventSeatEntity>();
-        for (EventSeatEntity eventSeatEntity : eventSeatEntities) {
-            Integer eventSeatCount = Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
-            if (eventSeatCount > 0) {
-                for (int i = 0; i < eventSeatCount; i++) {
-                    OrderEventSeatEntity orderEventSeatEntity = new OrderEventSeatEntity();
-                    orderEventSeatEntity.setIsValid(0);
-                    orderEventSeatEntity.setEventSeatByEsid(eventSeatEntity);
-                    orderEventSeatEntities.add(orderEventSeatEntity);
+            // 没有问题，下订单
+            OrderEntity orderEntity = new OrderEntity();
+            orderEntity.setEventByEid(eventEntity);
+            orderEntity.setMemberByMid(memberEntity);
+            orderEntity.setStatus(OrderStatus.ORDER_CREATED);
+            orderEntity.setType(OrderType.CHOOSE_SEAT);
+            String couponString = request.getParameter("memberCouponCid");
+            if (couponString != null && !couponString.equals("")) {
+                try {
+                    orderEntity.setMemberCouponEntity(couponService.findByMcid(Integer.parseInt(couponString)));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
             }
+
+            ArrayList<OrderEventSeatEntity> orderEventSeatEntities = new ArrayList<OrderEventSeatEntity>();
+            for (EventSeatEntity eventSeatEntity : eventSeatEntities) {
+                Integer eventSeatCount = Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
+                if (eventSeatCount > 0) {
+                    for (int i = 0; i < eventSeatCount; i++) {
+                        OrderEventSeatEntity orderEventSeatEntity = new OrderEventSeatEntity();
+                        orderEventSeatEntity.setIsValid(0);
+                        orderEventSeatEntity.setEventSeatByEsid(eventSeatEntity);
+                        orderEventSeatEntities.add(orderEventSeatEntity);
+                    }
+                }
+            }
+
+            orderService.createOrder(orderEntity, orderEventSeatEntities);
+
+            return new ModelAndView("redirect:/member/order/" + mid);
+        } else {
+            String error;
+            if (totalSeatNumber == 0) {
+                error = "请至少请购买 1 张票";
+            } else {
+                error = "总购票数量不能大于 6 张";
+            }
+            ModelAndView modelAndView = new ModelAndView("member/order/memberOrderChooseSeat");
+
+            modelAndView.addObject("member", memberEntity);
+
+            modelAndView.addObject("event", eventEntity);
+
+            ArrayList<EventSeatVO> eventSeatVOS = new ArrayList<EventSeatVO>();
+            for (EventSeatEntity eventSeatEntity : eventService.findEventSeatsByEid(eventEntity)) {
+                EventSeatVO eventSeatVO = new EventSeatVO(eventSeatEntity);
+                eventSeatVO.setNumber(eventSeatVO.getNumber() - eventService.unavailableSeatNumberByEvent(eventSeatEntity));
+                eventSeatVOS.add(eventSeatVO);
+            }
+            modelAndView.addObject("eventSeats", eventSeatVOS);
+
+            modelAndView.addObject("coupons", couponService.findAvailableCouponsByMember(memberEntity));
+
+            modelAndView.addObject("error", error);
+            return modelAndView;
         }
-
-        orderService.createOrder(orderEntity, orderEventSeatEntities);
-
-        return new ModelAndView("redirect:/member/order/" + mid);
     }
 
     @RequestMapping(value = "{mid}/event/{eid}/randomSeat", method = RequestMethod.GET)
