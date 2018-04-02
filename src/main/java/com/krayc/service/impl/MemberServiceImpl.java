@@ -90,15 +90,18 @@ public class MemberServiceImpl implements MemberService {
 
         System.out.println("Send Email!!!!");
 
-        OhMyEmail.config(OhMyEmail.SMTP_163(true), "krayc425@163.com", "songkuixi2");
+        OhMyEmail.config(OhMyEmail.SMTP_QQ(true), "krayc@foxmail.com", "lkpvwjjcrlhjbajj");
+
+//        OhMyEmail.config(OhMyEmail.SMTP_163(true), "krayc425@163.com", "songkuixi2");
         try {
             OhMyEmail.subject("Welcome to Bilet!")
                     .from("Bilet")
-                    .cc("krayc425@gmail.com")
+                    .cc("krayc@foxmail.com")
                     .to(memberEntity.getEmail())
                     .html("" +
-                            "\t<p>欢迎加入 Bilet!</p>\n" +
-                            "  \t<p>请点击链接登录首页: <a href='http://localhost:8080/member/activate/" + memberEntity.getMid())
+                            "<h1>欢迎加入 Bilet!</h1>" +
+                            "<p>请点击链接确认注册: http://localhost:8080/member/activate/" + memberEntity.getMid() + "\n" +
+                            "<p>感谢您对 Bilet 的支持！</p>")
                     .send();
         } catch (Exception e) {
             e.printStackTrace();

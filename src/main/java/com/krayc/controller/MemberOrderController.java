@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "member/order")
@@ -71,7 +74,7 @@ public class MemberOrderController extends BaseController {
             totalSeatNumber += Integer.parseInt(request.getParameter("eventSeatNumber" + eventSeatEntity.getEsid()));
         }
 
-        if (totalSeatNumber > 0 && totalSeatNumber < 6) {
+        if (totalSeatNumber > 0 && totalSeatNumber <= 6) {
 
             // 没有问题，下订单
             OrderEntity orderEntity = new OrderEntity();

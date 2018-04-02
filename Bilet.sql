@@ -11,7 +11,7 @@
  Target Server Version : 50717
  File Encoding         : utf-8
 
- Date: 02/09/2018 23:35:31 PM
+ Date: 04/02/2018 14:17:26 PM
 */
 
 SET NAMES utf8;
@@ -45,7 +45,7 @@ CREATE TABLE `AdminBook` (
   KEY `FK78B792B83ED4BF81` (`eid`),
   CONSTRAINT `FK78B792B83ED4BF81` FOREIGN KEY (`eid`) REFERENCES `Event` (`eid`),
   CONSTRAINT `FK78B792B8DD370367` FOREIGN KEY (`vid`) REFERENCES `Venue` (`vid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `BankAccount`
@@ -57,7 +57,7 @@ CREATE TABLE `BankAccount` (
   `bid` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`bid`),
   UNIQUE KEY `BankAccount_bid_uindex` (`bid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `Coupon`
@@ -89,7 +89,7 @@ CREATE TABLE `Event` (
   KEY `FK403827A93B28F55` (`type`),
   CONSTRAINT `FK403827A93B28F55` FOREIGN KEY (`type`) REFERENCES `EventType` (`etid`),
   CONSTRAINT `FK403827ADD370367` FOREIGN KEY (`vid`) REFERENCES `Venue` (`vid`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `EventSeat`
@@ -107,7 +107,7 @@ CREATE TABLE `EventSeat` (
   KEY `FK7950F79FD5729E72` (`sid`),
   CONSTRAINT `FK7950F79F3ED4BF81` FOREIGN KEY (`eid`) REFERENCES `Event` (`eid`),
   CONSTRAINT `FK7950F79FD5729E72` FOREIGN KEY (`sid`) REFERENCES `Seat` (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `EventType`
@@ -150,7 +150,7 @@ CREATE TABLE `Member` (
   UNIQUE KEY `Member_mid_uindex` (`mid`),
   UNIQUE KEY `Member_email_uindex` (`email`),
   KEY `Member_BankAccount_bankAccount_fk` (`bankAccount`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `MemberBook`
@@ -169,7 +169,7 @@ CREATE TABLE `MemberBook` (
   KEY `FK26D938C399A2A2BF` (`oid`),
   CONSTRAINT `FK26D938C3950959C1` FOREIGN KEY (`mid`) REFERENCES `Member` (`mid`),
   CONSTRAINT `FK26D938C399A2A2BF` FOREIGN KEY (`oid`) REFERENCES `Order` (`oid`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `MemberCoupon`
@@ -187,7 +187,7 @@ CREATE TABLE `MemberCoupon` (
   KEY `FKD725C780124428C3` (`cid`),
   CONSTRAINT `FKD725C780124428C3` FOREIGN KEY (`cid`) REFERENCES `Coupon` (`cid`),
   CONSTRAINT `FKD725C780950959C1` FOREIGN KEY (`mid`) REFERENCES `Member` (`mid`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `Order`
@@ -210,7 +210,7 @@ CREATE TABLE `Order` (
   CONSTRAINT `FK48E972E269CC7F0` FOREIGN KEY (`mcid`) REFERENCES `MemberCoupon` (`mcid`),
   CONSTRAINT `FK48E972E3ED4BF81` FOREIGN KEY (`eid`) REFERENCES `Event` (`eid`),
   CONSTRAINT `FK48E972E950959C1` FOREIGN KEY (`mid`) REFERENCES `Member` (`mid`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `OrderEventSeat`
@@ -228,7 +228,7 @@ CREATE TABLE `OrderEventSeat` (
   KEY `FKEB6E943199A2A2BF` (`oid`),
   CONSTRAINT `FKEB6E943199A2A2BF` FOREIGN KEY (`oid`) REFERENCES `Order` (`oid`),
   CONSTRAINT `FKEB6E9431D5560EF` FOREIGN KEY (`esid`) REFERENCES `EventSeat` (`esid`)
-) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=568 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `Seat`
@@ -243,7 +243,7 @@ CREATE TABLE `Seat` (
   UNIQUE KEY `Seat_sid_uindex` (`sid`),
   KEY `FK274225DD370367` (`vid`),
   CONSTRAINT `Seat_Venue_vid_fk` FOREIGN KEY (`vid`) REFERENCES `Venue` (`vid`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `Venue`
@@ -257,7 +257,7 @@ CREATE TABLE `Venue` (
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`vid`),
   UNIQUE KEY `Venue_vid_uindex` (`vid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `VenueBook`
@@ -275,6 +275,6 @@ CREATE TABLE `VenueBook` (
   KEY `FK531769D83ED4BF81` (`eid`),
   CONSTRAINT `FK531769D83ED4BF81` FOREIGN KEY (`eid`) REFERENCES `Event` (`eid`),
   CONSTRAINT `FK531769D8DD370367` FOREIGN KEY (`vid`) REFERENCES `Venue` (`vid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
 SET FOREIGN_KEY_CHECKS = 1;
